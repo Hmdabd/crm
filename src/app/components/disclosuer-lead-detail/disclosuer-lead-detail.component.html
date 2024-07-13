@@ -1,0 +1,282 @@
+<main class="dashboard-wrapper inner-page">
+    <section class="detail-page">
+        <div class="container">
+            <ngb-accordion #acc="ngbAccordion" activeIds="LeadDetails">
+                <ngb-panel id="LeadDetails">
+                    <ng-template ngbPanelHeader let-opened="opened">
+                        <a class="accordion-head cursor-pointer" (click)="toggle('LeadDetails')">
+                            <span class="accordion-head-title">Lead Details
+                            </span>
+                            <div>
+                                <span class="accordion-head-icon">
+                                    <img src="assets/images/drop-down.svg" alt="" />
+                                </span>
+                            </div>
+                        </a>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="accordion-body">
+                           
+                            <div class="detail-table-outer">
+                                <div class="lead-detail-inner">
+                                    <div class="detail-listing">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr class="th-gray">
+                                                    <td>First Name</td>
+                                                    <td>Last Name</td>
+                                                    <td>Email</td>
+                                                    <td>Phone</td>
+                                                    <!-- <td>Country</td> -->
+                                                    <td>City</td>
+                                                    <td>State</td>
+                                                    <td>Zip</td>
+                                                    <td>Add Exclusive Time</td>
+                                                    <!-- <td>Cell Phone</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>{{lead?.first_name? lead?.first_name:
+                                                            '-' }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.last_name? lead?.last_name:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.email? lead?.email:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.phone_number 
+                                                            }}</span>
+                                                    </td>
+                                                    <!-- <td>
+                                            <span>{{lead?.country_id? lead?.country_id:
+                                                '-'}}</span>
+                                        </td> -->
+                                                    <td>
+                                                        <span>{{lead?.lead_city? lead?.lead_city:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.state_name? lead?.state_name:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_zip? lead?.lead_zip:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <!-- <td>
+                                            <span>-</span>
+                                        </td> -->
+                                        <td>
+                                            <span>{{lead?.time_period? lead?.time_period:
+                                                '-'}}</span>
+                                        </td>
+                                                </tr>
+                                                <tr class="th-gray">
+                
+                                                    <!-- <td>Federal Tax ID</td> -->
+                                                    <td>Federal Tax ID</td>
+                                                    <td>Date Funded</td>
+                                                    <td>Funding Amount</td>
+                                                    <td>Factor Rate</td>
+                                                    <td>Term </td>
+                                                    <td>Annual Revenue</td>
+                                                    <td>Business Type</td>
+                                                    <!-- <td>Fax</td>
+                                        <td>Modified</td> -->
+                                                    <!-- <td>Add Exclusive Time</td> -->
+                                                    <td>Cell Phone</td>
+                
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>{{ lead?.lead_federal_tax_id ?? '-'
+                                                            }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="lead?.funded_date">{{getDate(lead?.funded_date)}}</span>
+                                                        <span *ngIf="lead?.funded_date == ''">-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_funding_amount |
+                                                            currency}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="lead?.factor_rate">{{lead?.factor_rate}}</span>
+                                                        <span *ngIf="lead?.factor_rate == ''">-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="lead?.term">{{lead?.term}}</span>
+                                                        <span *ngIf="lead?.term == ''">-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ lead?.lead_anual_revenue |
+                                                            currency }}
+                                                        </span>
+                                                        <!-- <span>{{lead?.lead_zip? lead?.lead_zip: '-'? lead?.lead_zip: '-'}}</span> -->
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_business_type?
+                                                            lead?.lead_business_type:
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <!-- <td>
+                                            <span>{{lead?.lead_fax? lead?.lead_fax :
+                                                '-'}}</span>
+                                        </td>
+                                        <td>
+                                            -->
+                                                    <!-- <span>{{getDate(lead?.updated_at)}}</span>  -->
+                                                    <!-- <span>{{lead?.updated_at | date: dateFormat
+                                               }}</span> -->
+                                                    <!-- </td> -->
+                                                    <!-- <td>
+                                        <span>-</span>
+                                    </td> -->
+                                                    <td>
+                                                        <span>-</span>
+                                                    </td>
+                
+                                                </tr>
+                                                <tr class="th-gray">
+                                                    <!-- <td>Lead Source</td> -->
+                                                    <!-- <td>Company Name</td> -->
+                                                    <!-- <td>Modified</td> -->
+                                                    <!-- <td>Disposition</td> -->
+                                                    <!-- <td>Lead Status</td> -->
+                                                    <td>Created</td>
+                                                    <td>Assigned To</td>
+                                                    <td>Exclusive For</td>
+                                                    <!-- <td>Federal Tax ID</td> -->
+                                                    <!-- canDeclineLead && && lead.can_create_contract !isLeadDeclined -->
+                                                    <td>Fax</td>
+                                                    <td>Modified</td>
+                                                    <td>Legal Business Name</td>
+                                                    <td>DBA</td>
+                                                    <td>Business Physical Address</td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- <td>
+                                            <span>{{lead?.lead_source? lead?.lead_source:
+                                                '-'}}</span>
+                                        </td> -->
+                                                    <!-- <td>
+                                            <span>{{lead?.company_name? lead?.company_name:
+                                                '-'}}</span>
+                                        </td> -->
+                
+                
+                                                    <!-- <td>
+                                            <span>{{lead?.lead_disposition == "0" ? 'No Sale' :
+                                                lead?.lead_disposition == "1" ? 'Sale':
+                                                '-'}}</span>
+                                        </td> -->
+                                                    <!-- <td>
+                                            <span>{{lead?.lead_status}}</span>
+                                        </td> -->
+                                                    <td>
+                                                        <span>{{getDate(lead?.created_at)}}</span>
+                                                    </td>
+                
+                                                    <td>
+                                                        <span>
+                                                            {{ lead.lead_assigned_to ?? '-' }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_fax}}</span>
+                                                    </td>
+                                                    <td>
+                
+                                                        <span>{{getDate(lead?.updated_at)}}</span>
+                                                        <!-- <span>{{lead?.updated_at | date: dateFormat
+                                               }}</span> -->
+                                                    </td>
+                
+                                                    <td>
+                                                        <span>{{lead?.legal_business_name?
+                                                            lead?.legal_business_name :
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_doing_business_as?
+                                                            lead?.lead_doing_business_as :
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_address? lead?.lead_address
+                                                            :
+                                                            '-'}}</span>
+                                                    </td>
+                                                    <!-- <td>
+                                            <span>{{lead.lead_federal_tax_id}}</span>
+                                        </td> -->
+                                                    <!-- ;&& !isLeadDeclined -->
+                                                </tr>
+                                                <tr class="th-gray">
+                                                    <td>Business Started Date</td>
+                                                    <td>Entity Type</td>
+                                                    <td>Website</td>
+                                                    <!-- <td
+                                            *ngIf="canDeclineLead && lead.can_decline && fundedCompanyTrue; else emptyTD">
+                                            Action</td>
+                                        <ng-template #emptyTD>
+                                            <td></td>
+                                        </ng-template> -->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>
+                                                            {{lead?.lead_business_started ?
+                                                            getBussinessDate(lead?.lead_business_started)
+                                                            :'-'}}
+                
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{lead?.lead_entity_type
+                                                            ?lead?.lead_entity_type :'-'}}</span>
+                                                    </td>
+                                                    <td>
+                
+                                                        <span>
+                                                            {{lead?.lead_website? lead?.lead_website
+                                                            :'-'}}
+                
+                                                        </span>
+                                                    </td>
+                                                    <div>
+                                                    <a  class="theme-btn cursor-pointer" [ngStyle]="{'background':color}" (click)="openModel(sign)">Signature</a>
+                
+                                                    </div>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+
+
+            </ngb-accordion>
+
+            <div class="submit-btn">
+                <a class="theme-btn" (click)="finalSubmit()" [ngStyle]="{'background':color}">Submit</a>
+            </div>
+        </div>
+    </section>
+</main>
+<ng-template #sign>
+    <app-disclosuer-signature-pad  [(customerSign)]="customerSign" (close)="closeModal()" [leadId]="leadID"></app-disclosuer-signature-pad >
+</ng-template>

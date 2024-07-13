@@ -1,0 +1,157 @@
+<main class="dashboard-wrapper">
+    <div class="container">
+        <div class="craete-lead-wrapper">
+            <div class="page-header">
+
+                <ul class="breadcrumb">
+                    <li class="left-icon">
+                        <span>
+                            <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                    fill="#565D80"></path>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="cursor-pointer" routerLink="/{{userBaseRoute}}/agent">Partner List</span>/
+                    </li>
+                    <li>
+                        <span class="active-page"> Add Partner <span class="active-page">
+                            </span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="create-laed-content">
+                <div class="full-view">
+                    <div class="accordion-item">
+                        <a class="accordion-head" data-bs-toggle="collapse">
+                            <span class="accordion-head-title">Partner Details </span>
+                        </a>
+                        <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                            <div class="accordion-body">
+                                <div class="row" [formGroup]="addAgentForm">
+                                      <!-- honeypot prevents chrome user autofill bs-->
+                                      <div style="height:0; overflow:hidden;display: none;">
+                                        <input style="opacity:0;" type="email" value="" class="" />
+                                        <input style="opacity:0;" type="password" value=""  class="d-" />
+                                    </div>
+                                    <!-- end  honeypot-->
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label>First Name*</label>
+                                            <input formControlName="first_name" type="text" placeholder="First name"
+                                                class="form-control" />
+                                            <div class="invalid-input"
+                                                *ngIf="f.first_name.errors && f.first_name.touched">
+                                                <div *ngIf="f.first_name.errors.required">
+                                                    First name is required
+                                                </div>
+                                                <div *ngIf="f.first_name.errors.pattern">
+                                                    Invalid name
+                                                </div>
+                                                <div *ngIf="f.first_name.errors.maxlength">
+                                                    Maximum 100 characters allowed
+                                                </div>
+                                                <div *ngIf="f.first_name.errors.minlength">
+                                                    First name must be minimum 3 characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Last Name*</label>
+                                            <input formControlName="last_name" type="text" placeholder="Last name"
+                                                class="form-control" />
+                                            <div class="invalid-input"
+                                                *ngIf="f.last_name.errors && f.last_name.touched">
+                                                <div *ngIf="f.last_name.errors.required">
+                                                    Last name is required
+                                                </div>
+                                                <div *ngIf="f.last_name.errors.pattern">
+                                                    Invalid name
+                                                </div>
+                                                <div *ngIf="f.last_name.errors.maxlength">
+                                                    Maximum 100 characters allowed
+                                                </div>
+                                                <div *ngIf="f.last_name.errors.minlength">
+                                                    Last name must be minimum 3 characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="height:0; overflow:hidden;display: none;">
+                                        <input style="opacity:0;" type="email" value="" class="" />
+                                        <input style="opacity:0;" type="password" value="" class="d-" />
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Email*</label>
+                                            <input formControlName="email" type="email" id="dfd" placeholder="Email"
+                                                name="dfd" class="form-control" autocomplete="dffd" (focusout)="getEmailData()"/>
+                                            <div class="invalid-input" *ngIf="f.email.errors && f.email.touched">
+                                                <div *ngIf="f.email.errors.required" >
+                                                    Email is required
+                                                </div>
+                                                <div *ngIf="f.email.errors.pattern">
+                                                    Invalid email
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input [mask]="mask.phone" formControlName="phone_number" type="text"
+                                            placeholder="(000) 000-0000" class="form-control" />
+                                            <div class="invalid-input"
+                                                *ngIf="f.phone_number.errors && f.phone_number.touched">
+                                                <div *ngIf="f.phone_number.errors.pattern">
+                                                    Invalid phone number
+                                                </div>
+                                                <div *ngIf="f.phone_number.errors.mask">
+                                                    Invalid phone number
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label>Status*</label>
+                                            <select formControlName="status" class="form-control" name="" id="country">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                            <div class="invalid-input" *ngIf="f.status.errors && f.status.touched">
+                                                <div *ngIf="f.status.errors.required">
+                                                    Status is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-end">
+                                        <a (click)="addAgentSubmit()" [ngStyle]="background"
+                                            class="theme-btn cursor-pointer">
+                                            <span class="">Submit</span>
+                                            <span class="btn-icon btn-right-icon">
+                                                <svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+                                                        fill="white" />
+                                                </svg>
+
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

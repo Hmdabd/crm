@@ -1,0 +1,454 @@
+<main class="dashboard-wrapper email-template-builder">
+    <div class="container">
+        <div class="craete-lead-wrapper">
+            <div class="page-header">
+                <ul class="breadcrumb">
+                    <li class="left-icon cursor-pointer" routerLink="../../lead-detail/{{ leadID }}">
+                        <span>
+                            <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                    fill="#565D80"></path>
+                            </svg>
+                        </span>
+                    </li>
+                    <li class="cursor-pointer" routerLink="../../leads">
+                        <span>All Leads</span>/
+                    </li>
+                    <li class="cursor-pointer" routerLink="../../lead-detail/{{ leadID }}">
+                        <span class="active-page">
+                            Lead Details
+                            <span class="active-page" *ngIf="lead.lead_id">( {{ lead.lead_id }}, {{ lead?.company_name
+                                }}, DBA -
+                                {{ lead?.lead_doing_business_as }} )</span></span>/
+                    </li>
+                    <li>
+                        <span class="active-page">Funding Record List</span>
+                    </li>
+                </ul>
+                <div class="text-end" *ngIf="payrollToFunding">
+                    <button *ngIf="!updatesList.length && lead.lead_status != 'Declined'"
+                        routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}" [ngStyle]="background"
+                        class="theme-btn text-end">Create Funding Record</button>
+                        <button *ngIf="updatesList.length" routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                        [queryParams]="{mode: 'edit',detail:true}" [ngStyle]="background" class="theme-btn text-end">Edit Funding
+                        Record</button>
+                </div>
+                <div class="text-end" *ngIf="!payrollToFunding">
+                  <button *ngIf="!updatesList.length && lead.lead_status != 'Declined'"
+                      routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}" [ngStyle]="background"
+                      class="theme-btn text-end">Create Funding Record</button>
+                      <button *ngIf="updatesList.length" routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                      [queryParams]="{mode: 'edit'}" [ngStyle]="background" class="theme-btn text-end">Edit Funding
+                      Record</button>
+              </div>
+            </div>
+            <div *ngIf="!payrollToFunding">
+            <app-all-detail-lead [leadId]="leadID" (leadDetails)="getLeadBasicDetails($event)"></app-all-detail-lead>
+            </div>
+              <!-- fund-deatil -->
+          <div class="fund-detail-section" *ngIf="payrollToFunding">
+            <div class="accordion-item">
+              <a class="accordion-head" data-bs-toggle="collapse">
+                <span class="accordion-head-title">Fund Details</span>
+              </a>
+              <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                <div class="accordion-body">
+
+                  <div class="details-inner">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-12 col-lg-5">
+                          <div class="fund-detail-lists">
+                            <ul class="funding-list">
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Exact Legal Company Name</span>
+                                  <span class="des-text">{{prefundingData?.company_name}}
+                                  </span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Funded Date</span>
+                                  <span class="des-text">{{prefundingData?.funding_date}}
+                                  </span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Funding Amount($) </span>
+                                  <span class="des-text">{{prefundingData?.funding_amount | currency}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Type Of Fund</span>
+                                  <span class="des-text">{{prefundingData?.type_of_fund_name}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Factor Rate</span>
+                                  <span class="des-text">{{prefundingData?.factor_rate}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Buy Rate(%)</span>
+                                  <span class="des-text">{{prefundingData?.buy_rate}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Payback Amount($)</span>
+                                  <span class="des-text">{{prefundingData?.payback_amount | currency}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Lender</span>
+                                  <span class="des-text">{{prefundingData?.lender_name }}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Upfront Broker Commission ($)</span>
+                                  <span class="des-text">{{prefundingData?.upfront_broker_commission |
+                                    currency}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Upfront Fee($)</span>
+                                  <span class="des-text">{{prefundingData?.upfront_fee | currency}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                 <b> <span class="name-text">Total Earnings($)</span></b>
+                                 <b> <span class="des-text">{{prefundingData?.total_earnings | currency}}</span></b>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Advance Type</span>
+                                  <span class="des-text">{{prefundingData?.advance_type_name}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">{{labelRemit}} Payment($)</span>
+                                  <span class="des-text">{{prefundingData?.weekly_remit | currency}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Unit Type</span>
+                                  <span class="des-text">{{prefundingData?.unit_type_name}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Term In {{labelTerm}}</span>
+                                  <span class="des-text">{{prefundingData?.term_in_weeks}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Total Points</span>
+                                  <span class="des-text">{{getDecimal(this.prefundingData?.total_points)}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">Retail Points</span>
+                                  <span class="des-text">{{getDecimal(this.prefundingData?.retail_points)}}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">ISO</span>
+                                  <span class="des-text">{{prefundingData?.lead_source_name}}</span>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6" *ngIf="companyType == 'broker'">
+                          <div class="fund-detail-lists">
+                            <ul class="funding-list" *ngFor="let agent of prefundingData.agents; let i = index">
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <!-- {{i+1}}{{i+1}}{{i+1}}{{i+1}}{{i+1}} -->
+                                  <span class="name-text">
+                                    <!-- {{agent.agent_type}} -->
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                  </span>
+                                  <span class="des-text">{{agent.agent_name}}
+                                  </span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                    <!-- {{agent.agent_type}}   -->
+                                    Lender Commission($)</span>
+                                  <span class="des-text">{{  getamount(agent.lender_commission,
+                                    agent.upfront_broker_commission,agent.agent_type) | currency }}
+                                  </span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                    <!-- {{agent.agent_type}}  -->
+                                    {{agent.agent_type == 'Assigned User' ? 'Upfront' :  ''}} Lender Commission  Value(%) </span>
+                                  <span class="des-text" *ngIf="prefundingData?.agent_commision === 'percentage' ;else fixedValue">{{agent.lender_commission}}
+                                  </span>
+                                  <ng-template #fixedValue>
+                                    <span class="des-text">{{showCommionPerctng(agent.lender_commission,agent.agent_type)}}
+                                    </span>
+    
+                                  </ng-template>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                    <!-- {{agent.agent_type}}  -->
+                                     Upfront Fee($)</span>
+                                  <!-- <span class="des-text">{{ getamount(agent.upfront_commission,
+                                    agent.upfront_broker_commission) | currency }}</span>   -->
+                                     <span class="des-text">{{ getFrontCommission(agent.upfront_commission ) | currency }}</span>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <span class="name-text">
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                    <!-- {{agent.agent_type}}  -->
+                                     Upfront Fee Value(%) </span>
+                                     <!-- {{agent.agent_type == 'Assigned User' ? 'Fee' :  ''}} Commission  -->
+                                  <span class="des-text" *ngIf="prefundingData?.agent_commision === 'percentage' ;else fixedUpfontValue">{{agent.upfront_commission}}</span>
+                                  <ng-template #fixedUpfontValue>
+                                    <span class="des-text">
+                                      {{ getUpfrontPercentag(agent.upfront_commission)}}</span>
+    
+                                  </ng-template>
+                                </div>
+                              </li>
+                              <li class="">
+                                <div class="d-flex list_inner">
+                                  <b><span class="name-text">Total For 
+                                    {{agent.agent_type != 'Assigned Team Leader' && agent.agent_type != 'Assigned ISO' && agent.agent_type != 'Assigned User' && agent.agent_type != 'Partner' ?'User' : agent.agent_type }}
+                                    <!-- {{agent.agent_type}} -->
+                                  </span></b>
+                                  <b><span class="des-text">{{getTotalLenderAu( getamount(agent.lender_commission,
+                                    agent.upfront_broker_commission,agent.agent_type),getFrontCommission(agent.upfront_commission))  | currency }}</span></b>
+                                 <!-- <b><span class="des-text">{{getTotalLenderAu( getamount(agent.lender_commission,
+                                  agent.upfront_broker_commission),getamount(agent.upfront_commission,
+                                  agent.upfront_broker_commission))  | currency }}</span></b> -->
+                                </div>
+                              </li>
+                            </ul>
+                            <div class="d-flex list_inner">
+                              <b><span class="name-text">House Net Profit</span></b>
+                             <b><span class="des-text">{{getNetProfit() | currency }}</span></b>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </form>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--  -->
+            <div class="create-lead-content">
+                <div class="full-view">
+                    <div class="craete-lead-wrapper">
+                        <div class="list-search-content">
+                            <div class="update-table">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr [ngStyle]="background">
+                                            <th>Business Name</th>
+                                            <th>{{companyType == 'broker'?'Lender':'ISO'}}</th>
+                                            <th>Funding Date</th>
+                                            <th>Funding Amount($)</th>
+                                            <th>Payback Amount($)</th>
+                                            <!-- Partners added here in commissions -->
+                                            <th *ngIf="companyType == 'broker'">Lender Commission</th>
+                                            <th *ngIf="companyType == 'broker'">Fee</th>
+                                            <th *ngIf="companyType == 'broker'">Total</th>
+                                            <th>Confirmed</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let fund of updatesList | paginate: { itemsPerPage: limit, currentPage: updatepage, totalItems: total,  id: 'updatepage' } ; let i = index">
+                                            <td>
+                                                <span>{{fund.business_name}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{fund.lender_name}}</span>
+                                            </td>
+                                            <td>{{GetDate(fund.funding_date)}}</td>
+                                            <td>{{ fund.funding_amount | currency }}</td>
+                                            <td>{{ fund.payback_amount | currency}}</td>
+                                            <!-- <td *ngIf="companyType == 'broker'">
+                                                <span *ngFor="let agent of fund.agents">{{ agent.agent_name }}: <span>{{
+                                                        getamount(agent.lender_commission,
+                                                        agent.upfront_broker_commission) }} {{agent.upfront_commission?
+                                                        '(' + agent.upfront_commission + ')' + '%' : '' }}
+                                                    </span><br></span>
+                                            </td> -->
+                                            <!-- companyType == 'broker' -->
+                                            <td *ngIf="companyType == 'broker'">
+                                                <span *ngFor="let agent of fund.agents"><b>{{ agent.agent_name }}:</b> 
+                                                  <!-- <span>{{
+                                                        getamount(agent.lender_commission,
+                                                        agent.upfront_broker_commission) | currency }} {{agent.lender_commission?
+                                                        '(' + agent.lender_commission + ')' + '%' : '' }}
+                                                  </span> -->
+                                                  <span>{{
+                                                    getamount(agent.lender_commission,
+                                                    agent.upfront_broker_commission,agent.agent_type) | currency }} {{agent.lender_commission?
+                                                    '(' + getLenderPercenatge(agent.lender_commission) + ')' + '%' : '' }}
+                                              </span>
+                                                    <br></span>
+                                            </td>
+                                            <!-- <td *ngIf="companyType == 'broker'">
+                                                <span *ngFor="let agent of fund.agents"><b>{{ agent.agent_name }}:</b> <span>{{
+                                                        getamount(agent.upfront_commission,
+                                                        agent.upfront_fee,agent.agent_type) | currency }} {{agent.upfront_commission?
+                                                        '(' + agent.upfront_commission + ')' + '%' : '' }}
+                                                    </span><br></span>
+                                            </td> -->
+                                            <td *ngIf="companyType == 'broker'">
+                                              <span *ngFor="let agent of fund.agents"><b>{{ agent.agent_name }}:</b> <span>{{
+                                                      getTotalUpfrontFee(agent.upfront_commission,
+                                                      agent.upfront_fee,agent.agent_type) | currency }} {{agent.upfront_commission?
+                                                      '(' + getUpfrontPercenatge(agent.upfront_commission) + ')' + '%' : '' }}
+                                                  </span><br></span>
+                                          </td>
+                                            <!-- <td *ngIf="companyType == 'broker'">
+                                                <span *ngFor="let agent of fund.agents"><b>{{ agent.agent_name }}:</b> <span>{{
+                                                        getTotalamountCommission(getamount(agent.lender_commission,
+                                                        agent.upfront_broker_commission,agent.agent_type) ,getamount(agent.upfront_commission,
+                                                        agent.upfront_fee,agent.agent_type)) | currency }}
+                                                    </span><br></span>
+                                                    <span><b>House Net Profit :</b> {{getNetProfit() | currency }}</span>
+                                                  </td> -->
+                                                  <!-- {{ getTotalpercentageCommission(agent.lender_commission,agent.upfront_commission)
+                                                  }} -->
+                                                  <td *ngIf="companyType == 'broker'">
+                                                    <span *ngFor="let agent of fund.agents"><b>{{ agent.agent_name }}:</b> <span>{{
+                                                      totalCommissionPartners(getTotalUpfrontFee(agent.upfront_commission,
+                                                      agent.upfront_fee,agent.agent_type),getamount(agent.lender_commission,
+                                                      agent.upfront_broker_commission,agent.agent_type)) | currency }}
+                                                        </span><br></span>
+                                                        <span><b>House Net Profit :</b> {{getNetProfit() | currency }}</span>
+                                                      </td>
+                                            <td>{{ fund.confirmed }}</td>
+                                            <td>{{getDate(fund.created_at)}}</td>
+                                            <td>
+                                                <div class="dropdown" ngbDropdown container="body" >
+                                                    <a (click)="$event.stopPropagation()" class="custom-dropdowm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" ngbDropdownToggle>
+                                                        <svg width="14" height="4" viewBox="0 0 14 4" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M13.4874 0.512567C12.804 -0.170848 11.696 -0.170848 11.0126 0.512567C10.3291 1.19598 10.3291 2.30402 11.0126 2.98744C11.696 3.67085 12.804 3.67085 13.4874 2.98744C14.1709 2.30405 14.1709 1.19601 13.4874 0.512567Z"
+                                                                [ngStyle]="style" fill="#FA5440"></path>
+                                                            <path
+                                                                d="M8.23744 0.512567C7.55402 -0.170848 6.44598 -0.170848 5.76257 0.512567C5.07915 1.19598 5.07915 2.30402 5.76257 2.98744C6.44598 3.67085 7.55402 3.67085 8.23744 2.98744C8.92085 2.30405 8.92085 1.19601 8.23744 0.512567Z"
+                                                                [ngStyle]="style" fill="#FA5440"></path>
+                                                            <path
+                                                                d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z"
+                                                                [ngStyle]="style" fill="#FA5440"></path>
+                                                        </svg>
+                                                    </a>
+                                                    <ul class="dropdown-menu custom-dropdown-menu" ngbDropdownMenu>
+                                                        <!-- <li > 
+                                                            <a ngbDropdownItem class="dropdown-item table-dropdown-item view cursor-pointer" (click)="exportLeadasExcel()"><img
+                                                                    src="assets/images/view.svg" alt="/icon">Export leads</a>
+                                                        </li> -->
+                                                        <li >
+                                                            <a ngbDropdownItem class="dropdown-item table-dropdown-item view"
+                                                            routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                                                            [queryParams]="{mode: 'view'}" ><img src="assets/images/view.svg"
+                                                                    alt="/icon" />View
+                                                                detail</a>
+                                                        </li>
+                                                        <li>
+                                                            <a *ngIf="payrollToFunding" ngbDropdownItem class="dropdown-item table-dropdown-item edit"
+                                                            routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                                                            [queryParams]="{mode: 'edit',detail:true}"  ><img src="assets/images/edit.svg"
+                                                                    alt="/icon" />Edit</a>
+                                                            <a *ngIf="!payrollToFunding" ngbDropdownItem class="dropdown-item table-dropdown-item edit"
+                                                            routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                                                            [queryParams]="{mode: 'edit'}"  ><img src="assets/images/edit.svg"
+                                                                    alt="/icon" />Edit</a>
+                                                        </li>
+                                                        <!-- *ngIf="canDeleteLead" -->
+                                                        <li>
+                                                            <a  (confirm)="deletePrefund(fund.id)" [swal]="{
+                                          title: 'Are you sure to delete?',
+                                          text: 'You will not be able to revert this!',
+                                          icon: 'warning',
+                                          showCancelButton: true,
+                                          confirmButtonColor: color,
+                                          confirmButtonText: 'Yes, delete it!'
+                                        }" ngbDropdownItem class="dropdown-item table-dropdown-item delete" href="#"><img
+                                                                    src="assets/images/delete.svg" alt="/icon" />Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <!-- <td>
+                                               
+                                                <a routerLink="/{{userBaseRoute}}/pre-fund/{{leadID}}"
+                                                    [queryParams]="{mode: 'view'}" class="view cursor-pointer"><img
+                                                        src="assets/images/view.svg" alt="/icon"></a>
+                                             
+                                                <a (confirm)="deletePrefund(fund.id)"
+                                                    [swal]="{ title: 'Are you sure to delete?',text: 'You will not be able to revert this!',icon: 'warning',confirmButtonColor: color, showCancelButton: true,confirmButtonText: 'Yes, delete it!' }"
+                                                    class="delete cursor-pointer"><img src="assets/images/delete.svg"
+                                                        alt="/icon"></a>
+                                            </td> -->
+                                        </tr>
+                                        <tr *ngIf="!updatesList.length">
+                                            <td *ngIf="companyType != 'broker'" colspan="8" class="text-center">
+                                                <p style="padding: 30px 0;">No records found</p>
+                                            </td>
+                                            <td *ngIf="companyType == 'broker'" colspan="11" class="text-center">
+                                                <p style="padding: 30px 0;">No records found</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="footer-pagination">
+                                    <pagination-controls id="updatepage" (pageChange)="onPageChange($event)">
+                                    </pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

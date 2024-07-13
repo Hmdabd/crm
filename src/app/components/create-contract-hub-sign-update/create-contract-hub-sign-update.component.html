@@ -1,0 +1,409 @@
+<main class="dashboard-wrapper">
+    <div class="container">
+        <div class="craete-lead-wrapper">
+            <div class="page-header">
+                <h3 (click)="goBack()" class="page-title cursor-pointer">
+                    <span>
+                        <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                fill="#565D80" />
+                        </svg> </span>Hub Sign
+                </h3>
+            </div>
+            <div class="create-laed-content" [ngStyle]="{ display: tabView ? 'block' : 'none' }" *ngIf="tabView">
+                <div class="tab-view">
+                    <ul class="step-listing">
+                        <li [ngClass]="{ active: tabActive.number > 1 }"><a
+                                [ngStyle]="{'background-color':color,'border-color':color,'color':'white'}">1</a>
+                            <div class="list-after"
+                                [ngStyle]="{'background':tabActive.number >1?color:'white','border-color':color}">
+                            </div>
+                        </li>
+                        <li [ngClass]="{ active: tabActive.number > 2 }"><a
+                                [ngStyle]="{'background-color':color,'border-color':color,'color':'white'}">2</a>
+                            <div class="list-after"
+                                [ngStyle]="{'display': 'none','background':tabActive.number >2?color:'white','border-color':color}">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-wrapper">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="tabActive.id" class="nav nav-tabs" role="tablist">
+                        <li (click)="validateTabChange(1, 'LeadDetails')" class="nav-item" [ngbNavItem]="'LeadDetails'"
+                            [disabled]="true">
+                            <a class="nav-link" ngbNavLink data-bs-toggle="tab"
+                                [ngStyle]="{'background':tabActive.id =='LeadDetails'?color:''}">Step 1</a>
+                                <ng-template ngbNavContent>
+                                    <div class="tab-inner">
+                                        <div class="viewDownload">
+                                            <p><b>{{documentName}}</b></p>
+                                        </div>
+                                        <div class="viewDownload">
+                                            <button class="theme-btn view-btn cursor-pointer"
+                                                (click)="openFile(documentPath)">
+                                                <img src="assets/images/view.svg" alt="/icon">
+                                                View
+                                            </button>
+    
+                                            <button (click)="downloadFile()" class="theme-btn cursor-pointer"
+                                                [ngStyle]="background"><svg width="13" height="11" viewBox="0 0 13 11"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M9.37968 9.68519C9.37968 9.56648 9.33631 9.46375 9.24956 9.377C9.16281 9.29025 9.06008 9.24687 8.94136 9.24687C8.82265 9.24687 8.71992 9.29025 8.63317 9.377C8.54642 9.46375 8.50304 9.56648 8.50304 9.68519C8.50304 9.8039 8.54642 9.90664 8.63317 9.99339C8.71992 10.0801 8.82265 10.1235 8.94136 10.1235C9.06008 10.1235 9.16281 10.0801 9.24956 9.99339C9.33631 9.90664 9.37968 9.8039 9.37968 9.68519ZM11.133 9.68519C11.133 9.56648 11.0896 9.46375 11.0028 9.377C10.9161 9.29025 10.8134 9.24687 10.6946 9.24687C10.5759 9.24687 10.4732 9.29025 10.3865 9.377C10.2997 9.46375 10.2563 9.56648 10.2563 9.68519C10.2563 9.8039 10.2997 9.90664 10.3865 9.99339C10.4732 10.0801 10.5759 10.1235 10.6946 10.1235C10.8134 10.1235 10.9161 10.0801 11.0028 9.99339C11.0896 9.90664 11.133 9.8039 11.133 9.68519ZM12.0096 8.15107V10.3427C12.0096 10.5253 11.9457 10.6805 11.8178 10.8084C11.69 10.9362 11.5348 11.0002 11.3521 11.0002H1.27076C1.08813 11.0002 0.93289 10.9362 0.805046 10.8084C0.677203 10.6805 0.613281 10.5253 0.613281 10.3427V8.15107C0.613281 7.96844 0.677203 7.8132 0.805046 7.68536C0.93289 7.55751 1.08813 7.49359 1.27076 7.49359H4.45543L5.38001 8.42502C5.64483 8.68071 5.95531 8.80855 6.31144 8.80855C6.66758 8.80855 6.97806 8.68071 7.24287 8.42502L8.1743 7.49359H11.3521C11.5348 7.49359 11.69 7.55751 11.8178 7.68536C11.9457 7.8132 12.0096 7.96844 12.0096 8.15107ZM9.78376 4.25413C9.86138 4.44133 9.82942 4.60114 9.68788 4.73354L6.61964 7.80179C6.53745 7.88854 6.43472 7.93191 6.31144 7.93191C6.18817 7.93191 6.08543 7.88854 6.00325 7.80179L2.93501 4.73354C2.79347 4.60114 2.76151 4.44133 2.83913 4.25413C2.91674 4.07606 3.05144 3.98703 3.2432 3.98703H4.99648V0.918789C4.99648 0.800077 5.03986 0.697346 5.12661 0.610595C5.21336 0.523844 5.31609 0.480469 5.4348 0.480469H7.18808C7.3068 0.480469 7.40953 0.523844 7.49628 0.610595C7.58303 0.697346 7.6264 0.800077 7.6264 0.918789V3.98703H9.37968C9.57145 3.98703 9.70614 4.07606 9.78376 4.25413Z"
+                                                        fill="#565D80" />
+                                                </svg> Download</button>
+                                        </div>
+                                        <div class="col-12  owner-signature">
+                                            <div class="form-group">
+                                                <label></label>
+                                                <a class="theme-btn cursor-pointer mx-2"
+                                                    [ngClass]="{'green-btn': customerSign}" (click)="openModel(sign)"
+                                                    [ngStyle]="{'background-color':!customerSign?color:''}">
+                                                    Signature</a>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end">
+<!--  -->
+<div class="col-12 text-end nxt-bt">
+    <a (click)="onOfficerInfoSubmit()" [ngStyle]="background"
+        class="theme-btn cursor-pointer">
+        <span class="">Next</span>
+        <span class="btn-icon btn-right-icon">
+            <svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+                    fill="white" />
+            </svg>
+        </span>
+    </a>
+</div>
+
+                                        <!--  -->
+                                       
+                                    </div>
+                                </ng-template>
+                        </li>
+                        <li class="nav-item" (click)="step2Tab()" [ngbNavItem]="'OfficerInfo'" [disabled]="true">
+                            <a class="nav-link" ngbNavLink data-bs-toggle="tab"
+                                [ngStyle]="{'background':tabActive.id =='OfficerInfo'?color:''}">Step 2</a>
+                                <ng-template ngbNavContent>
+                                    <ng-container [formGroup]="leadSouceForm">
+                                        <div class="tab-inner">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label>Name Of Bank</label>
+                                                        <input formControlName="name_of_bank" type="text"
+                                                            placeholder="Enter name of bank" class="form-control" />
+                                                        <div class="invalid-input"
+                                                            *ngIf="f.name_of_bank.errors && f.name_of_bank.touched">
+                                                            <div *ngIf="f.name_of_bank.errors.required">
+                                                                Name of bank is required
+                                                            </div>
+                                                            <div *ngIf="f.name_of_bank.errors.pattern">
+                                                                Invalid name of bank
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label>Bank portal Website</label>
+                                                        <input formControlName="bank_portal_website" type="text"
+                                                            placeholder="Enter Bank portal Website" class="form-control" />
+                                                        <div class="invalid-input"
+                                                            *ngIf="f.bank_portal_website.errors && f.bank_portal_website.touched">
+                                                            <div *ngIf="f.bank_portal_website.errors.required">
+                                                                Bank portal website is required
+                                                            </div>
+                                                            <div *ngIf="f.bank_portal_website.errors.pattern">
+                                                                Invalid bank portal website
+                                                            </div>
+    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input formControlName="username" type="text"
+                                                            placeholder="Enter username" class="form-control" />
+                                                        <div class="invalid-input"
+                                                            *ngIf="f.username.errors && f.username.touched">
+                                                            <div *ngIf="f.username.errors.required">
+                                                                Username is required
+                                                            </div>
+                                                            <div *ngIf="f.username.errors.pattern">
+                                                                Invalid username
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div style="height:0; overflow:hidden;display: none;">
+                                                    <input style="opacity:0;" type="password" value="" class="d-" />
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label for="password">Password</label>
+                                                        <input formControlName="password" type="password"
+                                                            class="form-control" id="password"
+                                                            [type]="passwordType ? 'password': 'text'"
+                                                            placeholder="Enter Password" />
+                                                        <span (click)="passwordType = !passwordType" *ngIf="!passwordType"
+                                                            class="bi bi-eye-slash cursor-pointer" id="togglePassword">
+                                                            <img src="assets/images/eye-visible.svg" alt="Eye Off Icon">
+                                                        </span>
+                                                        <span (click)="passwordType = !passwordType" *ngIf="passwordType"
+                                                            class="bi bi-eye-slash eye-visible cursor-pointer"
+                                                            id="togglePassword">
+                                                            <img src="assets/images/eye-off.svg" alt="Eye On Icon">
+                                                        </span>
+                                                        <div class="invalid-input"
+                                                            *ngIf="f.password.errors && f.password.touched">
+                                                            <div *ngIf="f.password.errors.required">
+                                                                Password is required
+                                                            </div>
+                                                            <div *ngIf="f.password.errors.pattern">
+                                                                Please enter a password without spaces
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="notes-text">
+                                                        <div class="form-group">
+                                                            <label for=""> Any Other Information necessary to access your
+                                                                account</label>
+                                                            <textarea formControlName="any_other_information" name=""
+                                                                class="form-control"></textarea>
+                                                            <div class="invalid-input"
+                                                                *ngIf="f.any_other_information.errors && f.any_other_information.touched">
+                                                                <div *ngIf="f.any_other_information.errors.pattern">
+                                                                    Invalid any other information
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" formArrayName="add_security_question_answers" *ngFor="
+                                                let agn of securityQuestionAwswersArray.controls;
+                                                let i = index
+                                                ">
+                                                    <ng-container formGroupName="{{ i }}">
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <span class="accordion-head-title">Security Questions/Answer
+                                                                    #{{i + 1}}</span>
+                                                                <textarea formControlName="security_question_answer"
+                                                                    type="text" class="form-control"
+                                                                    placeholder="Security Questions/Answer #{{i + 1}}"></textarea>
+                                                                <div class="invalid-input" *ngIf="
+                                                    agn.get('security_question_answer')?.errors &&
+                                                    agn.get('security_question_answer')?.touched
+                                                    ">
+                                                                    <div *ngIf="
+                                                      agn.get('security_question_answer')?.errors?.pattern
+                                                    ">
+                                                                        Invalid security Questions/Answer #{{i + 1}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+    
+                                                    </ng-container>
+                                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                        <div class="add-agent-btn-i">
+                                                            <a *ngIf="i === 0" (click)="addSecurity(true)"
+                                                                class="theme-btn cursor-pointer add-padding"
+                                                                [ngStyle]="background">
+                                                                <span class="btn-icon btn-right-icon">
+                                                                    <svg width="11" height="11" viewBox="0 0 11 11"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M10.003 5.50037C10.003 5.87 9.68425 6.17017 9.29041 6.17017H0.712565C0.318718 6.17017 0 5.87018 0 5.50037C0 5.13073 0.318722 4.83057 0.712565 4.83057H9.29041C9.68426 4.83074 10.003 5.13073 10.003 5.50037Z"
+                                                                            fill="white" />
+                                                                        <path
+                                                                            d="M5.01079 0.498535C5.38307 0.498535 5.68059 0.818668 5.68059 1.2125L5.66309 9.78899C5.66167 10.1841 5.36046 10.5016 4.99207 10.5016C4.62243 10.5001 4.32227 10.1814 4.32227 9.78759L4.341 1.20974C4.34118 0.816072 4.63975 0.497176 5.0108 0.498579L5.01079 0.498535Z"
+                                                                            fill="white" />
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="">Add</span>
+                                                            </a>
+                                                            <a *ngIf="i > 0" (click)="removeSecurity(i)"
+                                                                class="theme-btn white-btn cursor-pointer"
+                                                                [ngStyle]="background">
+                                                                <svg _ngcontent-pxj-c178="" width="15" height="4"
+                                                                    viewBox="0 0 17 4" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path _ngcontent-pxj-c178=""
+                                                                        d="M0.96 3.632V0.624H16.992V3.632H0.96Z"
+                                                                        fill="#fcf2ff"></path>
+                                                                </svg>
+                                                                Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="row" formArrayName="add_business" *ngFor="
+                                                let agn of additionalBussinessArray.controls;
+                                                let i = index
+                                                ">
+                                                    <ng-container formGroupName="{{ i }}">
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <span class="accordion-head-title">Business Name</span>
+                                                                <input formControlName="business_name" type="text"
+                                                                    class="form-control" placeholder="Business Name">
+                                                                <div class="invalid-input" *ngIf="
+                                                    agn.get('business_name')?.errors &&
+                                                    agn.get('business_name')?.touched
+                                                    ">
+                                                                    <div *ngIf="
+                                                      agn.get('business_name')?.errors?.pattern
+                                                    ">
+                                                                        Invalid Business Name
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <span class="accordion-head-title">Contact Name</span>
+                                                                <input formControlName="contact_name" type="text"
+                                                                    class="form-control" placeholder="Contact Name">
+                                                                <div class="invalid-input" *ngIf="
+                                                      agn.get('contact_name')?.errors &&
+                                                      agn.get('contact_name')?.touched
+                                                      ">
+                                                                    <div *ngIf="
+                                                        agn.get('contact_name')?.errors?.pattern
+                                                      ">
+                                                                        Invalid Contact Name
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                            <label></label>
+                                                            <span class="accordion-head-title">Phone Number</span>
+                                                            <input [mask]="mask.phone" formControlName="phone_number"
+                                                                type="text" placeholder="(000) 000-0000"
+                                                                class="form-control" />
+                                                            <div class="invalid-input" *ngIf="
+                                                                agn.get('phone_number')?.errors &&
+                                                                agn.get('phone_number')?.touched
+                                                                ">
+                                                                <div *ngIf="
+                                                                  agn.get('phone_number')?.errors?.pattern
+                                                                ">
+                                                                    Invalid phone number
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <span class="accordion-head-title">Does client owe you
+                                                                    money</span>
+                                                                <select class="form-control" formControlName="owe_money">
+                                                                    <option value="">-Select Does client owe you money-
+                                                                    </option>
+                                                                    <option value="Yes">Yes</option>
+                                                                    <option value="No">No</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3"
+                                                            *ngIf="agn.get('owe_money')?.value == 'Yes'">
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <span class="accordion-head-title">Amount</span>
+                                                                <input formControlName="amount" type="text"
+                                                                    placeholder="Enter amount" class="form-control" />
+                                                                <div class="invalid-input" *ngIf="
+                                                                agn.get('amount')?.errors &&
+                                                                agn.get('amount')?.touched
+                                                                ">
+                                                                    <div *ngIf="
+                                                                  agn.get('amount')?.errors?.pattern
+                                                                ">
+                                                                        Invalid amount
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </ng-container>
+                                                    <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="add-agent-btn-i">
+                                                      <a *ngIf="i === 0" (click)="addBussiness(true)"
+                                                        class="theme-btn cursor-pointer add-padding" [ngStyle]="background">
+                                                        <span class="btn-icon btn-right-icon">
+                                                          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                              d="M10.003 5.50037C10.003 5.87 9.68425 6.17017 9.29041 6.17017H0.712565C0.318718 6.17017 0 5.87018 0 5.50037C0 5.13073 0.318722 4.83057 0.712565 4.83057H9.29041C9.68426 4.83074 10.003 5.13073 10.003 5.50037Z"
+                                                              fill="white" />
+                                                            <path
+                                                              d="M5.01079 0.498535C5.38307 0.498535 5.68059 0.818668 5.68059 1.2125L5.66309 9.78899C5.66167 10.1841 5.36046 10.5016 4.99207 10.5016C4.62243 10.5001 4.32227 10.1814 4.32227 9.78759L4.341 1.20974C4.34118 0.816072 4.63975 0.497176 5.0108 0.498579L5.01079 0.498535Z"
+                                                              fill="white" />
+                                                          </svg>
+                                                        </span>
+                                                        <span class="">Add</span>
+                                                      </a>
+                                                      <a *ngIf="i > 0" (click)="removeBussiness(i)" class="theme-btn white-btn cursor-pointer"
+                                                        [ngStyle]="background">
+                                                        <svg _ngcontent-pxj-c178="" width="15" height="4" viewBox="0 0 17 4" fill="none"
+                                                          xmlns="http://www.w3.org/2000/svg">
+                                                          <path _ngcontent-pxj-c178="" d="M0.96 3.632V0.624H16.992V3.632H0.96Z"
+                                                            fill="#fcf2ff"></path>
+                                                        </svg>
+                                                        Remove</a>
+                                                    </div>
+                                                  </div> -->
+                                                </div>
+    
+                                                <div class="lead-submit-btn">
+                                                    <a (click)="onUpdateLeadSourceSubmit()" class="theme-btn cursor-pointer"
+                                                        [ngStyle]="background">
+                                                        <span class="">Submit</span>
+                                                        <span class="btn-icon btn-right-icon">
+                                                            <svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+                                                                    fill="white"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-template>
+                           
+                        </li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div id="lead" class="tab-pane active">
+                            <div [ngbNavOutlet]="nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<ng-template #sign>
+    <app-hub-signature-pad [(customerSign)]="customerSign" (close)="closeModal()"></app-hub-signature-pad>
+</ng-template>

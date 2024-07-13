@@ -1,0 +1,368 @@
+// td.lead-id {
+//     display: flex;
+//     line-height: 60px;
+// }
+
+td.lead-id span {
+    margin-left: 5px;
+}
+.result-lisitng {
+    width: inherit !important;
+}
+.top-header-navigation .nav-item {
+    line-height: normal !important;
+}
+.total-lead-pagination {
+    display: flex;  
+    align-items: center;
+}
+.total-lead-pagination span {
+    color: rgba(56, 61, 86, 0.7);
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.status-text.green {
+    color:#638D2F !important;
+    // background-color: rgba(58, 151, 76, .1);
+    background-color:#DDFFB2 !important ;
+}
+
+.lead-table td svg {
+    margin-right: 5px;
+}
+
+.status-text.black{
+    color:#056e38 !important ;
+    background-color:#c8f8c7 !important; 
+}
+.status-text .blue{
+color:#547BDB !important;
+background-color:#DEE8FF !important;
+}
+// .status-text .decline{
+//     color: #63A0AE !important;
+//     background-color: #DDFBFF !important;
+// }
+
+//dashborad
+.dashboard-wrapper {
+    min-height: unset;
+    padding: 20px 0px 0px;
+}
+.dashboard-wrapper{
+    background-color: #E8E8F1;
+    padding: 20px 0;
+    min-height: calc(100vh - 125px);
+}
+.statics-list {
+    margin-bottom: 0px;
+}
+.canvas-graph .chart-container {
+    width: 460px;
+    margin: 0 auto;
+}
+.craete-lead-wrapper {
+    padding-bottom: 4px;
+}
+.canvas-graph {
+    background: #fff;
+    padding: 30px;
+    height: 100%;
+}
+.applied-search-item {
+    display: inline-block;
+}
+.graph-container {
+    height: 400px;
+    // width: 100%;
+}
+@media screen and (max-width:767px) {
+
+    .accordion-body, .accordion-head {
+    
+        padding: 20px 45px;
+    
+    }
+    
+    }
+
+@media screen and (max-width: 991px) {
+.container {
+    max-width: 90%;
+    padding: 0;
+    margin: 0 auto;
+}
+}
+@media screen and (max-width: 575px) {
+.statics-item {
+    min-width: 100%;
+}
+.searchbar-box {
+    padding: 30px 18px 15px;
+}
+.big-label {
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+}
+
+.statics-score.mustard {
+    color: gray !important;
+    
+}
+.statics-icon.mustard {
+    background: #d6d0cb !important;
+    border-color: #9a9a9a !important;
+}
+.statics-score.black {
+    color: #056e38 !important;
+    
+}
+.statics-icon.black {
+    background: #c8f8c7 !important;
+    border-color: #056e38 !important;
+}
+.statics-score.green {
+    color: #ea6a0c !important;
+    
+}
+.statics-icon.green {
+    background: #e7b1899c !important;
+    border-color: #ea6a0c !important;
+}
+.statics-score.approved{
+     color: #638D2F !important;
+}
+.statics-icon.approved {
+    background: #EDFFD6 !important;
+    border-color: #DDFFB2 !important;
+
+}
+
+//date range color dynamic
+.custom-day.range, .custom-day:hover {
+    background-color: var(--custom,'#FA5440') !important;
+}
+
+// sorting icon
+.downward-img {
+    transform: rotate(-90deg);
+    margin-left: 10px;
+    width: 100%;
+    max-width: 10px;
+  }
+  .upward-img {
+    transform: rotate(90deg);
+    margin-left: 10px;
+    width: 100%;
+    max-width: 10px;
+  }
+  .active-tab{
+    color: #0089ff;
+  }
+  .table td {
+    padding: 18px 8px !important;
+    font-size: 13px !important;
+    min-width: 90px;
+}
+td.email-feild {
+    display: inline-table !important;
+}
+.table td:first-child {
+    min-width: auto;
+}
+.table-responsive.lead-table tr th span {
+    display: flex;
+}
+.downward-img {
+    max-width: 7px;
+    width: 7px;
+    min-width: 7px;
+}
+.status-text {
+    min-width: 100px;
+}
+.table-responsive {
+    padding: 10px 10px 10px;
+}
+.table-responsive.lead-table td.lead-id {
+    max-width: 70px;
+    min-width: 70px;
+}
+.table td:last-child {
+    min-width: 40px;
+}
+
+  @media screen and (max-width:1620px) {
+    .order-list-inner .table td, .order-list-inner .table th {
+        padding: 10px 4px;
+        font-size: 12px;
+    }
+    }
+    .dropdown-item.active, .dropdown-item:active {
+        color: #fff;
+        text-decoration: none;
+        background-color: #e9ecef;
+    }
+    //
+
+    .order-list-inner td .wait-time-circle{
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin: 0 auto;
+        text-align: center;
+
+    }
+
+    .order-list-inner td .wait-time-green {
+        background: #0bb70b;
+       
+    }
+    .order-list-inner td .wait-time-yellow {
+        background: #e9d204;
+       
+    }
+    .order-list-inner td .wait-time-red {
+        background: #e10505;
+       
+    }
+
+    .order-list-inner td a.hold-btn {
+        background: #e10505;
+        color: #fff;
+        padding: 4px 9px;
+        border-radius: 22px;
+        font-size: 10px;
+        line-height: normal;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 0 0 0 5px;
+    }
+    .order-list-inner tr td:nth-child(4) {
+        min-width: 180px;
+    }
+    th.progress-width {
+        text-align: center;
+    }
+
+    .progress-status-list {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .progress-status-list  span{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 10px;
+        background-color: #7f7f7f;
+        color: #fff;
+        margin: 0 1px;
+        border-radius: 2px;
+        font-size: 12px;
+        white-space: nowrap;
+        min-width: auto;
+        text-align: center;
+        border-radius: 30px;
+    }
+    .table-fno {
+        min-width: 120px;
+    }
+    .progress-status-list .selected-status{
+        color: #f5f1ed;
+        // background-color: #ffe5cf;
+        background-color: #B1525A;
+    }
+
+    td.email-feild {
+        display: flex;
+        align-items: center;
+    }
+
+    //to add blink functionality
+//     td.company-name {
+//     display: flex;
+// }
+td.company-name span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    width: 100px;
+}
+//
+// 7th sep 2023 implement blink except last one
+
+// tr.blink td:not(.multiOptions){
+//     background: #7ddbd242 !important;
+//     animation: blink 1s linear infinite;
+// }
+// @keyframes blink{
+// 0%{opacity: 0;}
+// 50%{opacity: .5;}
+// 100%{opacity: 1;}
+// }
+.hide{
+    display: none;
+}
+td.email-feild{
+    width: 100%;
+}
+// 12th Sep 2023 Upadted Blink
+
+// @-webkit-keyframes invalid {
+//   }
+//   @-moz-keyframes invalid {
+//   }
+//   @-o-keyframes invalid {
+//   }
+
+@keyframes blink1 {
+     from { 
+        background-color: var(--dynamic,#ff7d88);
+        
+    }
+
+    to { background-color: inherit; }
+  }
+  @keyframes blink {
+    0%   {
+        background-color: var(--dynamic,#ff7d88);
+    }
+    45%  {
+        background-color: inherit;
+    }
+    65%  {
+        background-color: inherit;
+    }
+    100% {
+        background-color: var(--dynamic,#ff7d88);
+    }}
+//   td:not(.multiOptions) remove blink property from last child by given multioption class
+  tr.blink  {
+    -webkit-animation: blink 5s linear infinite; /* Safari 4+ */
+    -moz-animation:    blink 5s linear infinite; /* Fx 5+ */
+    -o-animation:      blink 5s linear infinite; /* Opera 12+ */
+    animation:         blink 5s linear infinite; /* IE 10+ */
+}
+
+.searchAlone {
+    margin-top: 26px;
+}
+.lead-table .table td.company-namee {
+    padding: 0 !important;
+}
+.lead-table td.company-namee a {
+    padding: 26px 10px;
+    display: inline-block;
+    display: block;
+    color: #383d56;
+}
+.advsearch{
+    margin-left: 40px;
+}

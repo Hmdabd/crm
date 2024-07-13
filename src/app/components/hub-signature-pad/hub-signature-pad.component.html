@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <div>
+        <h4 class="modal-title" id="modal-basic-title mb-2">Signature</h4>
+        <div class="mt-2 d-flex gap-2 align-items-center">
+            <button type="button"  class="button-bottom" [ngClass]="{'active':!isDraw}" (click)="isDraw = false">Type</button>
+            <button type="button" class="button-bottom"  [ngClass]="{'active':isDraw}" (click)="isDraw = true">Draw</button>
+        </div>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+    
+</div>
+<div class="modal-body">
+    <div class="signature" *ngIf="isDraw;else typee">
+        <signature-pad #pad [options]="signaturePadOptions" (drawEnd)="drawComplete()"></signature-pad>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button"  [ngStyle]="{'background-color':color}" class="theme-btn" (click)="closeModal()">Submit</button>
+    <button type="button"  [ngStyle]="{'background-color':color}"  class="theme-btn" (click)="resetSignPad();textSign = ''">Reset</button>
+</div>
+<ng-template #typee>
+
+    <!-- <div class="col-md-6">
+        <div class="row">
+            <div class="col-12"> -->
+                <div class="module-area">
+                
+                    <angular-editor  
+                     [config]="confige"  [(ngModel)]="textSign" #myckeditor>
+                        <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+                            <ae-toolbar-set >
+                                <!-- <ae-button iconClass="fa fa-user" title="Personalized"
+                                    (buttonClick)="openPeronisedForm(myckeditor)">
+                                </ae-button> -->
+                            </ae-toolbar-set>
+                        </ng-template>
+                    </angular-editor>
+                    
+                   
+                </div>
+            <!-- </div>
+        </div>
+    </div> -->
+</ng-template>
+<canvas #canvas hidden id=canvas width=600 height=200></canvas>

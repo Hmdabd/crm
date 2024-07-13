@@ -1,0 +1,1583 @@
+<main class="dashboard-wrapper fund-details-page">
+    <div class="container">
+        <div class="craete-lead-wrapper">
+            <div class="page-header">
+                <ul class="breadcrumb">
+                    <li class="left-icon cursor-pointer" routerLink="../../lead-detail/{{ leadID }}">
+                        <span>
+                            <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                    fill="#565D80"></path>
+                            </svg>
+                        </span>
+                    </li>
+                    <li class="cursor-pointer" routerLink="../../leads">
+                        <span>All Leads</span>/
+                    </li>
+                    <li class="cursor-pointer" routerLink="../../lead-detail/{{ leadID }}">
+                        <span class="active-page"> Lead Details <span class="active-page" *ngIf="lead.lead_id">( {{
+                                lead.lead_id }}, {{lead?.company_name}}, DBA - {{lead?.lead_doing_business_as}}
+                                )</span></span>/
+                    </li>
+                    <li>
+                        <!-- <span class="active-page">Fund Details</span> -->
+                        <span class="active-page">Deal Participants</span>
+                    </li>
+                </ul>
+            </div>
+            <app-all-detail-lead [leadId]="leadID" (leadDetails)="getLeadBasicDetails($event)"></app-all-detail-lead>
+            <div class="fund-detail-section">
+
+                <div class="accordion-item">
+                    <div class="super-set">
+                        <div class="bttn-section">
+                            <ul class="lead-view-btn">
+                                <li>
+                                    <a [ngClass]="{ active: tabView }" (click)="sendSpec()" class="cursor-pointer"
+                                        [ngStyle]="{background:tabView?color:'#e8e8ef', color:tabView?'white':'black'}">
+                                        <!-- <span>
+                              <svg *ngIf="!tabView" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15"
+                                fill="none">
+                                <path
+                                  d="M1.68449 3.28125C1.25134 3.28125 0.794118 3.09375 0.481283 2.78906C0.168449 2.48438 0 2.0625 0 1.64062C0 1.21875 0.192513 0.796875 0.481283 0.46875C0.794118 0.164062 1.22727 0 1.68449 0C2.11765 0 2.5508 0.1875 2.86364 0.46875C3.17647 0.773438 3.36898 1.19531 3.36898 1.64062C3.36898 2.0625 3.17647 2.48438 2.86364 2.78906C2.5508 3.09375 2.11765 3.28125 1.68449 3.28125ZM9.12032 2.78906C9.43316 2.48438 9.62567 2.0625 9.62567 1.64062C9.62567 1.21875 9.43316 0.796875 9.12032 0.46875C8.80749 0.164062 8.37433 0 7.94118 0C7.50802 0 7.0508 0.1875 6.73797 0.46875C6.42513 0.773438 6.25668 1.19531 6.25668 1.64062C6.25668 2.0625 6.4492 2.48438 6.73797 2.78906C7.0508 3.09375 7.48396 3.28125 7.94118 3.28125C8.37433 3.28125 8.80749 3.09375 9.12032 2.78906ZM15.377 2.78906C15.6898 2.48438 15.8824 2.0625 15.8824 1.64062C15.8824 1.21875 15.6898 0.796875 15.377 0.46875C15.0642 0.164062 14.631 0 14.1979 0C13.7647 0 13.3075 0.1875 12.9947 0.46875C12.6818 0.773438 12.5134 1.19531 12.5134 1.64062C12.5134 2.0625 12.7059 2.48438 12.9947 2.78906C13.3075 3.09375 13.7406 3.28125 14.1979 3.28125C14.631 3.28125 15.0642 3.09375 15.377 2.78906ZM2.86364 8.64844C3.17647 8.34375 3.36898 7.92188 3.36898 7.5C3.36898 7.07812 3.17647 6.65625 2.86364 6.32812C2.5508 6.02344 2.11765 5.85938 1.68449 5.85938C1.25134 5.85938 0.794118 6.04688 0.481283 6.32812C0.168449 6.63281 0 7.05469 0 7.5C0 7.92188 0.192513 8.34375 0.481283 8.64844C0.794118 8.95312 1.22727 9.14062 1.68449 9.14062C2.11765 9.14062 2.5508 8.95312 2.86364 8.64844ZM9.12032 8.64844C9.43316 8.34375 9.62567 7.92188 9.62567 7.5C9.62567 7.07812 9.43316 6.65625 9.12032 6.32812C8.80749 6.02344 8.37433 5.85938 7.94118 5.85938C7.50802 5.85938 7.0508 6.04688 6.73797 6.32812C6.42513 6.63281 6.25668 7.05469 6.25668 7.5C6.25668 7.92188 6.4492 8.34375 6.73797 8.64844C7.0508 8.95312 7.48396 9.14062 7.94118 9.14062C8.37433 9.14062 8.80749 8.95312 9.12032 8.64844ZM15.377 8.64844C15.6898 8.34375 15.8824 7.92188 15.8824 7.5C15.8824 7.07812 15.6898 6.65625 15.377 6.32812C15.0642 6.02344 14.631 5.85938 14.1979 5.85938C13.7647 5.85938 13.3075 6.04688 12.9947 6.32812C12.6818 6.63281 12.5134 7.05469 12.5134 7.5C12.5134 7.92188 12.7059 8.34375 12.9947 8.64844C13.3075 8.95312 13.7406 9.14062 14.1979 9.14062C14.631 9.14062 15.0642 8.95312 15.377 8.64844ZM2.86364 14.5078C3.17647 14.2031 3.36898 13.7812 3.36898 13.3594C3.36898 12.9375 3.17647 12.5156 2.86364 12.1875C2.5508 11.8828 2.11765 11.7188 1.68449 11.7188C1.25134 11.7188 0.794118 11.9062 0.481283 12.1875C0.168449 12.4922 0 12.9141 0 13.3594C0 13.7812 0.192513 14.2031 0.481283 14.5078C0.794118 14.8125 1.22727 15 1.68449 15C2.11765 15 2.5508 14.8125 2.86364 14.5078ZM9.12032 14.5078C9.43316 14.2031 9.62567 13.7812 9.62567 13.3594C9.62567 12.9375 9.43316 12.5156 9.12032 12.1875C8.80749 11.8828 8.37433 11.7188 7.94118 11.7188C7.50802 11.7188 7.0508 11.9062 6.73797 12.1875C6.42513 12.4922 6.25668 12.9141 6.25668 13.3594C6.25668 13.7812 6.4492 14.2031 6.73797 14.5078C7.0508 14.8125 7.48396 15 7.94118 15C8.37433 15 8.80749 14.8125 9.12032 14.5078ZM15.377 14.5078C15.6898 14.2031 15.8824 13.7812 15.8824 13.3594C15.8824 12.9375 15.6898 12.5156 15.377 12.1875C15.0642 11.8828 14.631 11.7188 14.1979 11.7188C13.7647 11.7188 13.3075 11.9062 12.9947 12.1875C12.6818 12.4922 12.5134 12.9141 12.5134 13.3594C12.5134 13.7812 12.7059 14.2031 12.9947 14.5078C13.3075 14.8125 13.7406 15 14.1979 15C14.631 15 15.0642 14.8125 15.377 14.5078Z"
+                                  [ngStyle]="style" fill="#FA5440" />
+                              </svg>
+                              <svg *ngIf="tabView" width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M1.68449 3.28125C1.25134 3.28125 0.794118 3.09375 0.481283 2.78906C0.168449 2.48438 0 2.0625 0 1.64062C0 1.21875 0.192513 0.796875 0.481283 0.46875C0.794118 0.164062 1.22727 0 1.68449 0C2.11765 0 2.5508 0.1875 2.86364 0.46875C3.17647 0.773438 3.36898 1.19531 3.36898 1.64062C3.36898 2.0625 3.17647 2.48438 2.86364 2.78906C2.5508 3.09375 2.11765 3.28125 1.68449 3.28125ZM9.12032 2.78906C9.43316 2.48438 9.62567 2.0625 9.62567 1.64062C9.62567 1.21875 9.43316 0.796875 9.12032 0.46875C8.80749 0.164062 8.37433 0 7.94118 0C7.50802 0 7.0508 0.1875 6.73797 0.46875C6.42513 0.773438 6.25668 1.19531 6.25668 1.64062C6.25668 2.0625 6.4492 2.48438 6.73797 2.78906C7.0508 3.09375 7.48396 3.28125 7.94118 3.28125C8.37433 3.28125 8.80749 3.09375 9.12032 2.78906ZM15.377 2.78906C15.6898 2.48438 15.8824 2.0625 15.8824 1.64062C15.8824 1.21875 15.6898 0.796875 15.377 0.46875C15.0642 0.164062 14.631 0 14.1979 0C13.7647 0 13.3075 0.1875 12.9947 0.46875C12.6818 0.773438 12.5134 1.19531 12.5134 1.64062C12.5134 2.0625 12.7059 2.48438 12.9947 2.78906C13.3075 3.09375 13.7406 3.28125 14.1979 3.28125C14.631 3.28125 15.0642 3.09375 15.377 2.78906ZM2.86364 8.64844C3.17647 8.34375 3.36898 7.92188 3.36898 7.5C3.36898 7.07812 3.17647 6.65625 2.86364 6.32812C2.5508 6.02344 2.11765 5.85938 1.68449 5.85938C1.25134 5.85938 0.794118 6.04688 0.481283 6.32812C0.168449 6.63281 0 7.05469 0 7.5C0 7.92188 0.192513 8.34375 0.481283 8.64844C0.794118 8.95312 1.22727 9.14062 1.68449 9.14062C2.11765 9.14062 2.5508 8.95312 2.86364 8.64844ZM9.12032 8.64844C9.43316 8.34375 9.62567 7.92188 9.62567 7.5C9.62567 7.07812 9.43316 6.65625 9.12032 6.32812C8.80749 6.02344 8.37433 5.85938 7.94118 5.85938C7.50802 5.85938 7.0508 6.04688 6.73797 6.32812C6.42513 6.63281 6.25668 7.05469 6.25668 7.5C6.25668 7.92188 6.4492 8.34375 6.73797 8.64844C7.0508 8.95312 7.48396 9.14062 7.94118 9.14062C8.37433 9.14062 8.80749 8.95312 9.12032 8.64844ZM15.377 8.64844C15.6898 8.34375 15.8824 7.92188 15.8824 7.5C15.8824 7.07812 15.6898 6.65625 15.377 6.32812C15.0642 6.02344 14.631 5.85938 14.1979 5.85938C13.7647 5.85938 13.3075 6.04688 12.9947 6.32812C12.6818 6.63281 12.5134 7.05469 12.5134 7.5C12.5134 7.92188 12.7059 8.34375 12.9947 8.64844C13.3075 8.95312 13.7406 9.14062 14.1979 9.14062C14.631 9.14062 15.0642 8.95312 15.377 8.64844ZM2.86364 14.5078C3.17647 14.2031 3.36898 13.7812 3.36898 13.3594C3.36898 12.9375 3.17647 12.5156 2.86364 12.1875C2.5508 11.8828 2.11765 11.7188 1.68449 11.7188C1.25134 11.7188 0.794118 11.9062 0.481283 12.1875C0.168449 12.4922 0 12.9141 0 13.3594C0 13.7812 0.192513 14.2031 0.481283 14.5078C0.794118 14.8125 1.22727 15 1.68449 15C2.11765 15 2.5508 14.8125 2.86364 14.5078ZM9.12032 14.5078C9.43316 14.2031 9.62567 13.7812 9.62567 13.3594C9.62567 12.9375 9.43316 12.5156 9.12032 12.1875C8.80749 11.8828 8.37433 11.7188 7.94118 11.7188C7.50802 11.7188 7.0508 11.9062 6.73797 12.1875C6.42513 12.4922 6.25668 12.9141 6.25668 13.3594C6.25668 13.7812 6.4492 14.2031 6.73797 14.5078C7.0508 14.8125 7.48396 15 7.94118 15C8.37433 15 8.80749 14.8125 9.12032 14.5078ZM15.377 14.5078C15.6898 14.2031 15.8824 13.7812 15.8824 13.3594C15.8824 12.9375 15.6898 12.5156 15.377 12.1875C15.0642 11.8828 14.631 11.7188 14.1979 11.7188C13.7647 11.7188 13.3075 11.9062 12.9947 12.1875C12.6818 12.4922 12.5134 12.9141 12.5134 13.3594C12.5134 13.7812 12.7059 14.2031 12.9947 14.5078C13.3075 14.8125 13.7406 15 14.1979 15C14.631 15 15.0642 14.8125 15.377 14.5078Z"
+                                  fill="white" />
+                              </svg>
+                            </span> -->
+                                        Send Spec To Participants
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bttn-section2">
+                            <ul class="lead-view-btn">
+                                <li>
+                                    <!-- (click)="openfullView()checkEmailTemplateExists" -->
+                                    <a [ngClass]="{ active: !tabView }" class="cursor-pointer"
+                                        (click)="checkEmailTemplateExistsParticipant('Participant')"
+                                        [ngStyle]="{background:!tabView?color:'#e8e8ef',color:tabView?'black':'white'}">
+                                        <span>
+                                            <!-- <svg *ngIf="!tabView" xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15"
+                                fill="none">
+                                <path
+                                  d="M4.67945 1.34615C4.67945 0.807692 5.11566 0.384615 5.67085 0.384615H16.6557C17.2108 0.384615 17.6471 0.807692 17.6471 1.34615C17.6471 1.88462 17.2108 2.30769 16.6557 2.30769H5.67085C5.11566 2.30769 4.67945 1.88462 4.67945 1.34615ZM16.6557 6.53846H5.67085C5.11566 6.53846 4.67945 6.96154 4.67945 7.5C4.67945 8.03846 5.11566 8.46154 5.67085 8.46154H16.6557C17.2108 8.46154 17.6471 8.03846 17.6471 7.5C17.6471 6.96154 17.2108 6.53846 16.6557 6.53846ZM16.6557 12.6923H5.67085C5.11566 12.6923 4.67945 13.1154 4.67945 13.6538C4.67945 14.1923 5.11566 14.6154 5.67085 14.6154H16.6557C17.2108 14.6154 17.6471 14.1923 17.6471 13.6538C17.6471 13.1154 17.2108 12.6923 16.6557 12.6923ZM1.38797 6.23077C0.614673 6.23077 0 6.84615 0 7.59615C0 8.34615 0.614673 8.96154 1.38797 8.96154C2.16127 8.96154 2.77594 8.34615 2.77594 7.59615C2.77594 6.84615 2.14144 6.23077 1.38797 6.23077ZM1.38797 0C0.614673 0 0 0.615385 0 1.36538C0 2.11538 0.614673 2.73077 1.38797 2.73077C2.16127 2.73077 2.77594 2.11538 2.77594 1.36538C2.77594 0.615385 2.14144 0 1.38797 0ZM1.38797 12.2692C0.614673 12.2692 0 12.8846 0 13.6346C0 14.3846 0.614673 15 1.38797 15C2.16127 15 2.77594 14.3846 2.77594 13.6346C2.77594 12.8846 2.14144 12.2692 1.38797 12.2692V12.2692Z"
+                                  fill="white" />
+                              </svg>
+                              <svg *ngIf="tabView" width="18" height="15" viewBox="0 0 18 15" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M4.67945 1.34615C4.67945 0.807692 5.11566 0.384615 5.67085 0.384615H16.6557C17.2108 0.384615 17.6471 0.807692 17.6471 1.34615C17.6471 1.88462 17.2108 2.30769 16.6557 2.30769H5.67085C5.11566 2.30769 4.67945 1.88462 4.67945 1.34615ZM16.6557 6.53846H5.67085C5.11566 6.53846 4.67945 6.96154 4.67945 7.5C4.67945 8.03846 5.11566 8.46154 5.67085 8.46154H16.6557C17.2108 8.46154 17.6471 8.03846 17.6471 7.5C17.6471 6.96154 17.2108 6.53846 16.6557 6.53846ZM16.6557 12.6923H5.67085C5.11566 12.6923 4.67945 13.1154 4.67945 13.6538C4.67945 14.1923 5.11566 14.6154 5.67085 14.6154H16.6557C17.2108 14.6154 17.6471 14.1923 17.6471 13.6538C17.6471 13.1154 17.2108 12.6923 16.6557 12.6923ZM1.38797 6.23077C0.614673 6.23077 0 6.84615 0 7.59615C0 8.34615 0.614673 8.96154 1.38797 8.96154C2.16127 8.96154 2.77594 8.34615 2.77594 7.59615C2.77594 6.84615 2.14144 6.23077 1.38797 6.23077ZM1.38797 0C0.614673 0 0 0.615385 0 1.36538C0 2.11538 0.614673 2.73077 1.38797 2.73077C2.16127 2.73077 2.77594 2.11538 2.77594 1.36538C2.77594 0.615385 2.14144 0 1.38797 0ZM1.38797 12.2692C0.614673 12.2692 0 12.8846 0 13.6346C0 14.3846 0.614673 15 1.38797 15C2.16127 15 2.77594 14.3846 2.77594 13.6346C2.77594 12.8846 2.14144 12.2692 1.38797 12.2692Z"
+                                  [ngStyle]="style" fill="#FA5440" />
+                              </svg> -->
+                                        </span>
+                                        Participant
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <a class="accordion-head" data-bs-toggle="collapse">
+                        <span class="accordion-head-title">Send Spec To Participants</span>
+                    </a> -->
+                    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+
+
+                            <div class="details-inner">
+                                <div class="Send-spec-section">
+
+                                    <form [ngStyle]="{ display: tabView ? 'block' : 'none' }" *ngIf="tabView">
+
+                                        <div class="row">
+                                            <!-- <div class="col-md-12 col-lg-5">
+                                            <div class="fund-detail-lists">
+                                                <ul class="funding-list">
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Business Name</span>
+                                                            <span class="des-text">{{ fundDetails?.business_name
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Funding Date</span>
+                                                            <span class="des-text">{{ getDate(fundDetails?.funding_date)
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Funding Amount($) </span>
+                                                            <span class="des-text">{{ fundDetails?.funding_amount |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Factor Rate(%)</span>
+                                                            <span class="des-text">{{ fundDetails?.factor_rate }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Payback Amount($) </span>
+                                                            <span class="des-text">{{ fundDetails?.payback_amount |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Lender Name</span>
+                                                            <span class="des-text">{{ fundDetails?.lender_name }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Broker Commission On </span>
+                                                            <span class="des-text">{{
+                                                                fundDetails?.upfront_broker_commission_on
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Broker Commission($)</span>
+                                                            <span class="des-text">{{
+                                                                fundDetails?.upfront_broker_commission | currency
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Total Points </span>
+                                                            <span class="des-text">{{ fundDetails?.total_points
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Retail Points </span>
+                                                            <span class="des-text">{{ fundDetails?.retail_points
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Fee($)</span>
+                                                            <span class="des-text">{{ fundDetails?.upfront_fee |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Total Earings($) </span>
+                                                            <span class="des-text">{{ fundDetails?.total_earnings |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Advance Type </span>
+                                                            <span class="des-text">{{ fundDetails?.advance_type
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Unit Type </span>
+                                                            <span class="des-text">{{ fundDetails?.unit_type }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Terms In Days </span>
+                                                            <span class="des-text">{{ fundDetails?.term_in_weeks
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Weekly Ach</span>
+                                                            <span class="des-text">{{ getDecimal(fundDetails?.weekly_remit)
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
+                                            <!-- new spec sheet -->
+
+                                            <div class="col-md-12 col-lg-12 fund-details-select">
+                                                <div class="fund-detail-right" [formGroup]="sendSpecForm">
+                                                    <div class="participant-selector1">
+                                                        <div class="flex row mutual-broder-color document-listing">
+                                                            <div class=" s-participant col-6 arrow-remove"
+                                                                style="margin-bottom: 40px;">
+                                                                <label>Participant*</label>
+                                                                <ng-select [items]="syndicateList"
+                                                                    [closeOnSelect]="false" [disabled]="true"
+                                                                    [multiple]="true" bindLabel="name" [isOpen]="true"
+                                                                    [dropdownPosition]="'bottom'"
+                                                                    [closeOnSelect]="false" [virtualScroll]="true"
+                                                                    bindValue="id" formControlName="participant"
+                                                                    placeholder="Select Participant"
+                                                                    [loading]="loading">
+                                                                    <ng-template ng-option-tmp let-item="item"
+                                                                        let-item$="item$" let-index="index">
+                                                                        <div class="test"
+                                                                            [ngClass]="{'backGround':item.select_status && companyType != 'broker'}">
+                                                                            <input id="item-{{ index }}" type="checkbox"
+                                                                                [checked]="item$.selected"
+                                                                                [value]="item.id" />
+                                                                            {{ item.name }}
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                                <div class="fund-detail-invalid-input"
+                                                                    *ngIf="l.participant.errors && l.participant.touched">
+                                                                    <div *ngIf="l.participant.errors.required">
+                                                                        Participant is required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <div class="form-group s-participant participants-list" style="margin-bottom: 40px;">
+                                                        <label>Participant*</label>
+                                                        <div class="row">
+                                                            <div class="text-center" *ngIf="!participantSpecList.length">
+                                                                <p>No Recors Found</p>
+                                                            </div>
+                                                        <div *ngFor="let participant of participantSpecList,let i = index" class="col-12 col-md-3">
+                                                            <div class="form-check ">
+                                                                <input #inputBox (change)="onChange(participant.id, $event.target,i)"
+                                                                    (click)="$event.stopPropagation()" type="checkbox"
+                                                                    class="form-check-input cursor-pointer" [(checked)]="participant.selected"
+                                                                    [ngStyle]="{'background-color':participant.toggle?color:'','border-color':participant.toggle?color:''}" />
+                                                                    <p style="margin-left: 4px;">{{participant.name}}</p>
+                                                                </div>
+                                                        
+                                                        </div>
+                                                        </div>
+                                                        <div *ngIf="hasMoreUsers" class="btn theme-btn" (click)="loadMoreParticipant()" style="width: auto;" [ngStyle]="background">Load More</div>
+                                                        
+                                                    </div> -->
+
+                                                            <div class=" col-6 fund-details-select arrow-remove"
+                                                                style="margin-bottom: 40px;">
+                                                                <label>Document{{this.companyType == 'broker'? '*' :
+                                                                    ''}}</label>
+                                                                <ng-select [items]="documentsList"
+                                                                    (scrollToEnd)="getMoreDocuments()"
+                                                                    [closeOnSelect]="false" [disabled]="true"
+                                                                    [multiple]="true" bindLabel="document_name"
+                                                                    [isOpen]="true" [dropdownPosition]="'bottom'"
+                                                                    [closeOnSelect]="false" [virtualScroll]="true"
+                                                                    bindValue="document_id" formControlName="document"
+                                                                    placeholder="Select Document" [loading]="loading">
+                                                                    <ng-template ng-option-tmp let-item="item"
+                                                                        let-item$="item$" let-index="index">
+                                                                        <input id="item-{{ index }}" type="checkbox"
+                                                                            [checked]="item$.selected"
+                                                                            [value]="item.document_id" />
+                                                                        {{ item.document_name }}
+                                                                        ({{getDate(item.uploaded_on)}})
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                                <div class="fund-detail-invalid-input"
+                                                                    *ngIf="l.document.errors && l.document.touched">
+                                                                    <div *ngIf="l.document.errors.required">
+                                                                        Document is required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="form-group participants-list" style="margin-bottom: 40px;">
+                                                        <label>Document*</label>
+                                                        <div class="row">
+                                                            <div class="text-center" *ngIf="!documentsList.length">
+                                                                <p>No Recors Found</p>
+                                                            </div>
+                                                        <div *ngFor="let document of documentsList,let i = index" class="col-12 col-md-4">
+                                                            <div class="form-check">
+                                                                <input #inputBox (change)="onDocumentChange(document.document_id, $event.target,i)"
+                                                                    (click)="$event.stopPropagation()" type="checkbox"
+                                                                    class="form-check-input cursor-pointer" [(checked)]="document.selected"
+                                                                    [ngStyle]="{'background-color':document.toggle?color:'','border-color':document.toggle?color:''}" />
+                                                                    <p style="width: max-content; margin-left: 4px;">{{document.document_name}}</p>
+                                                                </div>
+                                                        
+                                                        </div>
+                                                       
+                                                        </div>
+                                                        <div *ngIf="hasMoreDocs" class="btn theme-btn" (click)="loadMoreDocument()" style="width: auto;" [ngStyle]="background">Load More</div>
+                                                    </div> -->
+
+                                                            <div class="col-6">
+                                                                <div class="custom-notes">
+                                                                    <div class="list-title">
+                                                                        <span class="accordion-head-title">Custom Notes
+                                                                            (Optional):</span>
+                                                                    </div>
+                                                                    <div class="doc-outer">
+                                                                        <div class="optional-textarea">
+                                                                            <textarea formControlName="custom_note"
+                                                                                name="" id="" placeholder="Participant Note"
+                                                                                class="form-control"></textarea>
+                                                                        </div>
+                                                                        <div class="invalid-input"
+                                                                            *ngIf="l.custom_note.errors && l.custom_note.touched">
+                                                                            <div *ngIf="l.custom_note.errors.pattern">
+                                                                                Invalid Custom note
+                                                                            </div>
+                                                                            <div *ngIf="l.custom_note.errors.maxlength">
+                                                                                Maximum 1000 characters allowed
+                                                                            </div>
+                                                                            <div *ngIf="l.custom_note.errors.minlength">
+                                                                                Custom note must be minimum 3 characters
+                                                                                long
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-12 col-lg-6">
+                                                <h3 class="heading-spec">Spec Sheet</h3>
+                                                <div class="fund-detail-lists">
+                                                    <ul class="funding-list">
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Syndicate Contract Id #</span>
+                                                                <span class="des-text">{{ fundDetails?.lead_id
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">DBA</span>
+                                                                <span class="des-text">{{ fundDetails?.business_as
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Legal Name</span>
+                                                                <span class="des-text">{{ fundDetails?.business_name
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Date Received</span>
+                                                                <span class="des-text">{{
+                                                                    getDate(fundDetails?.date_received)}}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">{{userDetails?.company_type == 'broker'? 'Lead Source' : 'ISO'}}</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.source_name}}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">PARTICIPANT</span>
+                                                                <span class="des-text">{{ fundDetails?.participant
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Merchant New / Renewal</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.merchant_new_renewal
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Factor Rate</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.sell_rate
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Commission Amount To Broker
+                                                                </span>
+                                                                <span class="des-text">{{ fundDetails?.commission_amount
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Commission To Broker </span>
+                                                                <span class="des-text">{{ fundDetails?.commission_points
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+
+
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Net Factor Rate</span>
+                                                                <span class="des-text">{{ fundDetails?.factor_rate
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Funding Amount </span>
+                                                                <span class="des-text">{{ fundDetails?.funding_amount |
+                                                                    currency }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Syndication % </span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.syndication_percentage
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Deal Size To Participant </span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.syndication_amount }}</span>
+                                                            </div>
+                                                        </li>
+
+
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Total Repayment </span>
+                                                                <span class="des-text">{{ fundDetails?.rtr | currency
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Repayment To Participant</span>
+                                                                <span class="des-text">{{fundDetails?.repayment
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+
+
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Est. Term Length({{termLables}})</span>
+                                                                <span class="des-text">{{fundDetails?.term_in_weeks
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Term Length</span>
+                                                                <span class="des-text">{{ fundDetails?.term_in_weeks
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Payment Frequency</span>
+                                                                <span class="des-text">{{ fundDetails?.advance_type
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Payment Amount</span>
+                                                                <span class="des-text">{{fundDetails?.daily_payment |
+                                                                    currency
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Daily Payment Of
+                                                                    Participant</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.daily_payment_participant
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text"># Of Owner</span>
+                                                                <span class="des-text">{{ fundDetails?.total_owner
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Credit Score (Owner)</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.credit_score_owner_1
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Credit Score (Partner)</span>
+                                                                <span
+                                                                    class="des-text">{{fundDetails?.credit_score_owner_2
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Years In Business</span>
+                                                                <span class="des-text">{{ fundDetails?.year_in_business
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Position</span>
+                                                                <span class="des-text">{{ fundDetails?.position
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Average Monthly Revenue</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.average_monthly_revenue
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Gross Monthly %</span>
+                                                                <span class="des-text">{{
+                                                                    getDecimal(fundDetails?.withhold)
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Average Daily Balance</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.average_daily_balance
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">State</span>
+                                                                <span class="des-text">{{ fundDetails?.state
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Industry Type</span>
+                                                                <span class="des-text">{{ fundDetails?.business_type
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="participant-section">
+                                    <form [ngStyle]="{ display: tabView ? 'none' : 'block' }">
+
+                                        <div class="row">
+                                            <!-- <div class="col-md-12 col-lg-5">
+                                            <div class="fund-detail-lists">
+                                                <ul class="funding-list">
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Business Name</span>
+                                                            <span class="des-text">{{ fundDetails?.business_name
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Funding Date</span>
+                                                            <span class="des-text">{{ getDate(fundDetails?.funding_date)
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Funding Amount($) </span>
+                                                            <span class="des-text">{{ fundDetails?.funding_amount |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Factor Rate(%)</span>
+                                                            <span class="des-text">{{ fundDetails?.factor_rate }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Payback Amount($) </span>
+                                                            <span class="des-text">{{ fundDetails?.payback_amount |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Lender Name</span>
+                                                            <span class="des-text">{{ fundDetails?.lender_name }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Broker Commission On </span>
+                                                            <span class="des-text">{{
+                                                                fundDetails?.upfront_broker_commission_on
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Broker Commission($)</span>
+                                                            <span class="des-text">{{
+                                                                fundDetails?.upfront_broker_commission | currency
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Total Points </span>
+                                                            <span class="des-text">{{ fundDetails?.total_points
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Retail Points </span>
+                                                            <span class="des-text">{{ fundDetails?.retail_points
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Upfront Fee($)</span>
+                                                            <span class="des-text">{{ fundDetails?.upfront_fee |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Total Earings($) </span>
+                                                            <span class="des-text">{{ fundDetails?.total_earnings |
+                                                                currency }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Advance Type </span>
+                                                            <span class="des-text">{{ fundDetails?.advance_type
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Unit Type </span>
+                                                            <span class="des-text">{{ fundDetails?.unit_type }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Terms In Days </span>
+                                                            <span class="des-text">{{ fundDetails?.term_in_weeks
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="">
+                                                        <div class="d-flex list_inner">
+                                                            <span class="name-text">Weekly Ach</span>
+                                                            <span class="des-text">{{ getDecimal(fundDetails?.weekly_remit)
+                                                                }}</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
+                                            <!-- new spec sheet -->
+                                            <div class="col-md-12 col-lg-3">
+                                                <h3 class="heading-spec">Spec Sheet</h3>
+                                                <div class="fund-detail-lists">
+                                                    <ul class="funding-list">
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Syndicate Contract Id #</span>
+                                                                <span class="des-text">{{ fundDetails?.lead_id
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="" *ngIf="companyType != 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">MID #</span>
+                                                                <span class="des-text">{{ fundDetails?.lead_id
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="" *ngIf="companyType == 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">DBA</span>
+                                                                <span class="des-text">{{ fundDetails?.business_as
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="" *ngIf="companyType == 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Legal Name</span>
+                                                                <span class="des-text">{{ fundDetails?.business_name
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Date Received</span>
+                                                                <span
+                                                                    class="des-text">{{getFundingDateReceived(fundDetails?.date_received)
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">{{userDetails?.company_type ==
+                                                                    'broker'? 'Lead Source' : 'ISO'}}</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.source_name}}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">PARTICIPANT</span>
+                                                                <span class="des-text">{{ fundDetails?.participant
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Merchant New / Renewal</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.merchant_new_renewal
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Gross Factor Rate</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.sell_rate
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Commission Amount To Broker
+                                                                </span>
+                                                                <span class="des-text">{{ fundDetails?.commission_amount
+                                                                    | currency
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Commission To Broker </span>
+                                                                <span class="des-text">{{ fundDetails?.commission_points
+                                                                    == ''? '-' : updateToDecimal(fundDetails?.commission_points) + '%'
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Net Factor Rate</span>
+                                                                <span class="des-text">{{ fundDetails?.factor_rate
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Total Deal Size </span>
+                                                                <span class="des-text">{{ fundDetails?.funding_amount |
+                                                                    currency }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Syndication % </span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.syndication_percentage
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Deal Size To Participant </span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.syndication_amount }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Total Repayment </span>
+                                                                <span class="des-text">{{ fundDetails?.rtr | currency
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Repayment To Participant</span>
+                                                                <span class="des-text">{{fundDetails?.repayment
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="" *ngIf="companyType == 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Est. Term Length(Month)</span>
+                                                                <span class="des-text">{{fundDetails?.term_in_weeks
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <!-- funding company -->
+                                                        <li class="" *ngIf="companyType != 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Est. Term Length(Month)</span>
+                                                                <span class="des-text">{{fundDetails?.est_term_length
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="" *ngIf="companyType != 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Term Length</span>
+                                                                <span class="des-text">{{ fundDetails?.term_length
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <!--  -->
+                                                        <li class="" *ngIf="companyType == 'broker'">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Term Length</span>
+                                                                <span class="des-text">{{ fundDetails?.term_in_weeks
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Payment Frequency</span>
+                                                                <span class="des-text">{{ fundDetails?.advance_type
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Payment Amount</span>
+                                                                <span class="des-text">{{ fundDetails?.daily_payment |
+                                                                    currency
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Daily Payment Of
+                                                                    Participant</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.daily_payment_participant
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text"># Of Owner</span>
+                                                                <span class="des-text">{{ fundDetails?.total_owner
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Credit Score (Owner)</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.credit_score_owner_1
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Credit Score (Partner)</span>
+                                                                <span
+                                                                    class="des-text">{{fundDetails?.credit_score_owner_2
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Years In Business</span>
+                                                                <span class="des-text">{{ fundDetails?.year_in_business
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Position</span>
+                                                                <span class="des-text">{{ fundDetails?.position
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Average Monthly Revenue</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.average_monthly_revenue
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Gross Monthly %</span>
+                                                                <span class="des-text">{{
+                                                                    getDecimal(fundDetails?.withhold)
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Average Daily Balance</span>
+                                                                <span class="des-text">{{
+                                                                    fundDetails?.average_daily_balance
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">State</span>
+                                                                <span class="des-text">{{ fundDetails?.state
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="">
+                                                            <div class="d-flex list_inner">
+                                                                <span class="name-text">Industry Type</span>
+                                                                <span class="des-text">{{ fundDetails?.business_type
+                                                                    }}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-9">
+                                                <div class="fund-detail-right">
+                                                    <div class="participant-selector">
+                                                        <div class="form-group">
+                                                            <label>Participant*</label>
+                                                            <select [(ngModel)]="selectedParticipantID"
+                                                                class="form-control" name="selectedParticipantID" id="">
+                                                                <option value="">--Select Participant--</option>
+                                                                <ng-container *ngFor="let type of syndicateList">
+                                                                    <option [value]="type.id"
+                                                                        [disabled]="type.selected">
+                                                                        {{type.name}}
+                                                                    </option>
+                                                                </ng-container>
+                                                            </select>
+                                                            <!-- <select formControlName="syndicator_id" multiple name="" id="" class="form-control multi-selecte-synd">
+                                                <option [value]="type.id" *ngFor="let type of syndicateList">
+                                                    {{ type.name }}
+                                                </option>
+                                            </select>
+                                             -->
+                                                            <!-- <div class="invalid-input"
+                                                *ngIf="f.participant_name.errors && f.participant_name.touched">
+                                                <div *ngIf="f.participant_name.errors.required">
+                                                    Participant is required
+                                                </div>
+
+                                            </div> -->
+                                                        </div>
+                                                        <div class="add-bank">
+                                                            <a (click)="onAddButtonClick()" [ngStyle]="background"
+                                                                class="add-btn cursor-pointer"><svg width="11"
+                                                                    height="11" viewBox="0 0 11 11" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.003 5.49988C10.003 5.86951 9.68425 6.16968 9.29041 6.16968H0.712565C0.318718 6.16968 0 5.8697 0 5.49988C0 5.13025 0.318722 4.83008 0.712565 4.83008H9.29041C9.68426 4.83025 10.003 5.13024 10.003 5.49988Z"
+                                                                        fill="white"></path>
+                                                                    <path
+                                                                        d="M5.00884 0.498535C5.38112 0.498535 5.67864 0.818668 5.67864 1.2125L5.66114 9.78899C5.65972 10.1841 5.3585 10.5016 4.99011 10.5016C4.62048 10.5001 4.32031 10.1814 4.32031 9.78759L4.33905 1.20974C4.33923 0.816072 4.6378 0.497176 5.00885 0.498579L5.00884 0.498535Z"
+                                                                        fill="white"></path>
+                                                                </svg>
+                                                                Add
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="remaining-funds-detail">
+                                                        <div class="remaining-input">
+                                                            <div class="form-group">
+                                                                <!-- 50.000.00 - 0.00 -->
+                                                                <label>Remaining Funding
+                                                                    Amount({{(getDecimal(fundDetails?.funding_amount) | currency)
+                                                                    }} - {{(participantTotalAmount.toFixed(2)) | currency}})*</label>
+                                                                <input type="text" [value]="'$'+remainingFund" 
+                                                                    placeholder="Enter remaining funding amount"
+                                                                    class="form-control" readonly>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="fund-table" [formGroup]="fundDetailForm">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Participant Name</th>
+                                                                        <th scope="col">Participant Amount($)</th>
+                                                                        <th scope="col">Management Fee(%)</th>
+                                                                        <th scope="col">Syndication Fee(%)</th>
+                                                                        <th scope="col" *ngIf="companyType == 'broker'">
+                                                                            Underwriting Fee(%)</th>
+                                                                        <th scope="col">Broker Commission(%)</th>
+                                                                        <th scope="col" *ngIf="companyType == 'broker'">
+                                                                            Upsell Commission(%)</th>
+                                                                        <th scope="col">Purchase Price($)</th>
+                                                                        <th scope="col">Actions</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        *ngFor="let participant of partcipantList; let i = index">
+                                                                        <td>
+                                                                            {{participant.syndicator_name}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{participant.participant_amount |
+                                                                            currency}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{participant.management_fee }}%
+                                                                        </td>
+                                                                        <td>
+                                                                            {{participant.syndication_fee}}%
+                                                                        </td>
+                                                                        <td *ngIf="companyType == 'broker'">
+                                                                            {{participant.underwriting_fee}}%
+                                                                        </td>
+                                                                        <td>
+                                                                            {{updateToDecimal(participant.broker_commission)}}%
+                                                                        </td>
+                                                                        <td *ngIf="companyType == 'broker'">
+                                                                            {{participant.upsell_commission}}%
+                                                                        </td>
+                                                                        <td>
+                                                                            {{getDecimal(participant.purchase_price) |
+                                                                            currency}}
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="s-parent">
+
+                                                                                <div class="view"
+                                                                                    style="margin-right:4px;"
+                                                                                    *ngIf="participant.send_to_participant == 0 && participant.document != ''">
+                                                                                    <a [href]="participant.document"
+                                                                                        target="_blank"
+                                                                                        class="action cursor-pointer">
+                                                                                        <img src="assets/images/view.svg"
+                                                                                            alt="/icon"></a>
+                                                                                </div>
+                                                                                <!-- participant.send_to_participant == 0 && participant.signed_document -->
+                                                                                <div class="sign"
+                                                                                    *ngIf="participant.send_to_participant == 0 && participant.signed_document != ''">
+                                                                                    <a [href]="participant.signed_document"
+                                                                                        target="_blank"
+                                                                                        class="action cursor-pointer">
+                                                                                        <svg fill="#000000"
+                                                                                            [ngStyle]="style"
+                                                                                            width="16px" height="16px"
+                                                                                            viewBox="0 0 32 32"
+                                                                                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+                                                                                            version="1.1"
+                                                                                            xml:space="preserve"
+                                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                                            xmlns:serif="http://www.serif.com/"
+                                                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                                                                                            <g id="Layer1">
+
+                                                                                                <path
+                                                                                                    d="M16,6l-13,0c-0.552,0 -1,0.448 -1,1l0,22c0,0.552 0.448,1 1,1l22,0c0.552,0 1,-0.448 1,-1l0,-13c0,-0.552 -0.448,-1 -1,-1c-0.552,-0 -1,0.448 -1,1l0,12c0,0 -20,0 -20,0c0,0 0,-20 0,-20c-0,0 12,0 12,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1Zm-9,19l14,-0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1l-14,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1Zm-0,-4l4,0c0.552,-0 1,-0.448 1,-1c-0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,-0 -1,0.448 -1,1c-0,0.552 0.448,1 1,1Zm22.707,-13.293c0.391,-0.39 0.391,-1.024 0,-1.414l-4,-4c-0.39,-0.391 -1.024,-0.391 -1.414,-0l-10,10c-0.14,0.139 -0.235,0.317 -0.274,0.511l-1,5c-0.065,0.328 0.037,0.667 0.274,0.903c0.236,0.237 0.575,0.339 0.903,0.274l5,-1c0.194,-0.039 0.372,-0.134 0.511,-0.274l10,-10Zm-22.707,9.293l4,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1Zm0,-4l5,-0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1l-5,-0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1Z"
+                                                                                                    [ngStyle]="style" />
+
+                                                                                            </g>
+
+                                                                                        </svg>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="dlt">
+                                                                                    <a (click)="openparticipantRemovepopup(i, participant.id)"
+                                                                                        class="action cursor-pointer">
+                                                                                        <img src="assets/images/delete.svg"
+                                                                                            alt="/icon"></a>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="s-parent"
+                                                                                *ngIf="participant.send_to_participant == 1">
+                                                                                <a (click)="addParticipant()"
+                                                                                    class="theme-btn-2 cursor-pointer"
+                                                                                    [ngStyle]="background"> Send To
+                                                                                    Participant
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr formArrayName="participant_form"
+                                                                        *ngFor="let par of participantFaArray.controls; let i = index">
+                                                                        <ng-container formGroupName="{{i}}">
+                                                                            <td>
+                                                                                {{par.get('syndicate_name')?.value}}
+
+                                                                            </td>
+                                                                            <td>
+                                                                                <input
+                                                                                    formControlName="participant_amount"
+                                                                                    (change)="getTotal(i, $any($event.target).value)"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('participant_amount')?.errors && par.get('participant_amount')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('participant_amount')?.errors?.pattern">
+                                                                                        Invalid participant amount
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input formControlName="management_fee"
+                                                                                    (change)="getTotal(i, $any($event.target).value)"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('management_fee')?.errors && par.get('management_fee')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('management_fee')?.errors?.pattern">
+                                                                                        Invalid management fee
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input formControlName="syndication_fee"
+                                                                                    (change)="getTotal(i, $any($event.target).value)"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('syndication_fee')?.errors && par.get('syndication_fee')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('syndication_fee')?.errors?.pattern">
+                                                                                        Invalid syndication fee
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </td>
+                                                                            <td *ngIf="companyType == 'broker'">
+                                                                                <input
+                                                                                    formControlName="underwriting_fee"
+                                                                                    (change)="getTotal(i, $any($event.target).value)"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('underwriting_fee')?.errors && par.get('underwriting_fee')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('underwriting_fee')?.errors?.pattern">
+                                                                                        Invalid underwriting fee
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input
+                                                                                    formControlName="broker_commission"
+                                                                                    (change)="getTotal(i, $any($event.target).value)"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('broker_commission')?.errors && par.get('broker_commission')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('broker_commission')?.errors?.pattern">
+                                                                                        Invalid broker commission
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td *ngIf="companyType == 'broker'">
+                                                                                <!-- <input formControlName="upsell_commission"
+                                                                                type="text" class="input-fcs"
+                                                                                mask="separator.2" thousandSeparator=","
+                                                                                maxlength="15"> -->
+                                                                                <div class="form-group">
+
+                                                                                    <select
+                                                                                        formControlName="upsell_commission"
+                                                                                        class="form-control-upsell"
+                                                                                        (change)="getTotal(i, $any($event.target).value)"
+                                                                                        name="" id="">
+                                                                                        <option value="0" selected>0
+                                                                                        </option>
+                                                                                        <option
+                                                                                            *ngFor="let type of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+                                                                                            [value]="type">
+                                                                                            {{ type }}
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('upsell_commission')?.errors && par.get('upsell_commission')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('upsell_commission')?.errors?.pattern">
+                                                                                        Invalid upsell commission
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input formControlName="purchase_price"
+                                                                                    type="text" class="input-fcs"
+                                                                                    mask="separator.2"
+                                                                                    thousandSeparator=","
+                                                                                    maxlength="15">
+                                                                                <div class="invalid-input"
+                                                                                    *ngIf="par.get('purchase_price')?.errors && par.get('purchase_price')?.touched">
+                                                                                    <div
+                                                                                        *ngIf="par.get('purchase_price')?.errors?.pattern">
+                                                                                        Invalid purchase price
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a class="action cursor-pointer">
+                                                                                    <img (click)="removeParticipant(i, par.get('syndicator_id')?.value,par.get('updateSyndictor_id')?.value)"
+                                                                                        src="assets/images/delete.svg"
+                                                                                        alt="/icon">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="s-parent">
+                                                                                    <!--get id individual (click)="add(par.get('syndicator_id')?.value)" -->
+                                                                                    <a (click)="sendToParticipant(par.get('updateSyndictor_id')?.value,par.get('syndicator_id')?.value,par.get('participant_amount')?.value)"
+                                                                                        class="theme-btn-2 cursor-pointer"
+                                                                                        [ngStyle]="background"> Send To
+                                                                                        Participant
+                                                                                    </a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </ng-container>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row" style="margin-top:20px">
+
+                                    <!-- document list for participant section -->
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="table-responsive lead-table">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <!-- <th scope="col">Select
+                                                    </th> -->
+                                                        <th scope="col">
+                                                            <span class="cursor-pointer"
+                                                                (click)="sortBy('document_name')" [ngClass]="{
+                                                            'active-tab': searchOrder.sortby == 'document_name'}">Name
+                                                                <img src="assets/images/left-icn.svg" [ngClass]="{
+                                                              'upward-img': searchOrder.order == 'ASC' && searchOrder.sortby == 'document_name'
+                                                            }" class="downward-img" alt="img-fluid" /></span>
+                                                        </th>
+                                                        <!-- <th scope="col">Notes
+                                                        <span class="cursor-pointer" (click)="sortBy('document_name')" [ngClass]="{
+                                                            'active-tab': searchOrder.sortby == 'document_name'}">Name <img
+                                                                src="assets/images/left-icn.svg" [ngClass]="{
+                                                              'upward-img': searchOrder.order == 'ASC' && searchOrder.sortby == 'document_name'
+                                                            }" class="downward-img" alt="img-fluid" /></span>
+                                                    </th> -->
+                                                        <th scope="col"> <span class="cursor-pointer"
+                                                                (click)="sortBy('document_type')" [ngClass]="{
+                                                        'active-tab': searchOrder.sortby == 'document_type'}">Type Of
+                                                                Documents
+                                                                <img src="assets/images/left-icn.svg" [ngClass]="{
+                                                          'upward-img': searchOrder.order == 'ASC' && searchOrder.sortby == 'document_type'
+                                                        }" class="downward-img" alt="img-fluid" /></span></th>
+                                                        <th scope="col">Uploaded by</th>
+                                                        <th scope="col">Created</th>
+                                                        <th scope="col">Download</th>
+                                                        <th scope="col">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let doc of documentListing | paginate: { itemsPerPage: limit, currentPage: page, totalItems: listTotal,  id: 'documentList' };let i = index;">
+                                                        <!-- <td>
+                                                        <div class="form-check">
+                                                            <input *ngIf="canShareDoc" #input
+                                                                (change)="onChange(doc, $event.target,i)" type="checkbox"
+                                                                class="form-check-input"
+                                                                [ngStyle]="{'background-color':doc.toggle?color:'','border-color':doc.toggle?color:''}">
+                                                        </div>
+                                                    </td> -->
+
+                                                        <td class="img">
+                                                            <a [ngSwitch]="doc.mime" [href]="doc.url" target="_blank">
+                                                                <img *ngSwitchCase="'text/plain'"
+                                                                    src="assets/images/txt-file.svg" alt="image">
+                                                                <img *ngSwitchCase="'application/pdf'"
+                                                                    src="assets/images/pdf.svg" alt="image">
+                                                                <img *ngSwitchCase="'application/vnd.ms-excel'"
+                                                                    src="assets/images/microsoft-excel.svg" alt="image">
+                                                                <img *ngSwitchCase="'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"
+                                                                    src="assets/images/microsoft-excel.svg" alt="image">
+                                                                <img *ngSwitchCase="'application/vnd.openxmlformats-officedocument.wordprocessingml.document'"
+                                                                    src="assets/images/doc-icon.svg" alt="image">
+                                                                <img *ngSwitchCase="'image/png'"
+                                                                    src="assets/images/image.svg" alt="image">
+                                                                <img *ngSwitchCase="'image/jpeg'"
+                                                                    src="assets/images/image.svg" alt="image">
+                                                                <img *ngSwitchCase="'image/gif'"
+                                                                    src="assets/images/image.svg" alt="image">
+                                                                <img *ngSwitchDefault src="assets/images/other.svg"
+                                                                    alt="image">
+
+                                                            </a>
+                                                            <span
+                                                                *ngIf="doc.document_type != '3month_bank_statement' && doc.document_type != '3month_cc_statement'">{{doc.document_name + (doc?.syndicate_company_name ? " ("+ doc?.syndicate_company_name + ")" :'' )}}<br></span>
+                                                            <span
+                                                                *ngIf="doc.document_type == '3month_bank_statement' || doc.document_type == '3month_cc_statement'">{{doc.document_name
+                                                                }} {{doc.document_year }}<br></span>
+                                                            <span
+                                                                *ngIf="doc.document_type == '3month_bank_statement' && doc.note != '' || doc.document_type == '3month_cc_statement' && doc.note != ''"><b>Description:</b>
+                                                                {{ doc.note }}</span>
+                                                        </td>
+                                                        <!-- <td>{{ doc.note }}</td> -->
+                                                        <td class="img">
+                                                            <!-- {{ getDocType(doc.document_type) }} -->
+                                                            {{ doc.document_type}}
+                                                        </td>
+                                                        <td>
+                                                            {{ doc.uploaded_by }}
+                                                        </td>
+                                                        <td>
+                                                            <img src="assets/images/calendar.svg" alt="/icon">
+                                                            <span>
+                                                                {{getDate(doc.uploaded_on)}}
+                                                            </span>
+                                                        </td>
+                                                        <td><a class="cursor-pointer download"
+                                                                (click)="downloadFile(doc)"><svg width="22" height="25"
+                                                                    viewBox="0 0 15 11" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M9.37968 9.68519C9.37968 9.56648 9.33631 9.46375 9.24956 9.377C9.16281 9.29025 9.06008 9.24687 8.94136 9.24687C8.82265 9.24687 8.71992 9.29025 8.63317 9.377C8.54642 9.46375 8.50304 9.56648 8.50304 9.68519C8.50304 9.8039 8.54642 9.90664 8.63317 9.99339C8.71992 10.0801 8.82265 10.1235 8.94136 10.1235C9.06008 10.1235 9.16281 10.0801 9.24956 9.99339C9.33631 9.90664 9.37968 9.8039 9.37968 9.68519ZM11.133 9.68519C11.133 9.56648 11.0896 9.46375 11.0028 9.377C10.9161 9.29025 10.8134 9.24687 10.6946 9.24687C10.5759 9.24687 10.4732 9.29025 10.3865 9.377C10.2997 9.46375 10.2563 9.56648 10.2563 9.68519C10.2563 9.8039 10.2997 9.90664 10.3865 9.99339C10.4732 10.0801 10.5759 10.1235 10.6946 10.1235C10.8134 10.1235 10.9161 10.0801 11.0028 9.99339C11.0896 9.90664 11.133 9.8039 11.133 9.68519ZM12.0096 8.15107V10.3427C12.0096 10.5253 11.9457 10.6805 11.8178 10.8084C11.69 10.9362 11.5348 11.0002 11.3521 11.0002H1.27076C1.08813 11.0002 0.93289 10.9362 0.805046 10.8084C0.677203 10.6805 0.613281 10.5253 0.613281 10.3427V8.15107C0.613281 7.96844 0.677203 7.8132 0.805046 7.68536C0.93289 7.55751 1.08813 7.49359 1.27076 7.49359H4.45543L5.38001 8.42502C5.64483 8.68071 5.95531 8.80855 6.31144 8.80855C6.66758 8.80855 6.97806 8.68071 7.24287 8.42502L8.1743 7.49359H11.3521C11.5348 7.49359 11.69 7.55751 11.8178 7.68536C11.9457 7.8132 12.0096 7.96844 12.0096 8.15107ZM9.78376 4.25413C9.86138 4.44133 9.82942 4.60114 9.68788 4.73354L6.61964 7.80179C6.53745 7.88854 6.43472 7.93191 6.31144 7.93191C6.18817 7.93191 6.08543 7.88854 6.00325 7.80179L2.93501 4.73354C2.79347 4.60114 2.76151 4.44133 2.83913 4.25413C2.91674 4.07606 3.05144 3.98703 3.2432 3.98703H4.99648V0.918789C4.99648 0.800077 5.03986 0.697346 5.12661 0.610595C5.21336 0.523844 5.31609 0.480469 5.4348 0.480469H7.18808C7.3068 0.480469 7.40953 0.523844 7.49628 0.610595C7.58303 0.697346 7.6264 0.800077 7.6264 0.918789V3.98703H9.37968C9.57145 3.98703 9.70614 4.07606 9.78376 4.25413Z"
+                                                                        fill="#565D80" />
+                                                                </svg></a></td>
+                                                        <td>
+                                                            <div class="dropdown" ngbDropdown container="body">
+                                                                <a class="custom-dropdowm dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" ngbDropdownToggle>
+                                                                    <svg width="14" height="4" viewBox="0 0 14 4"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M13.4874 0.512567C12.804 -0.170848 11.696 -0.170848 11.0126 0.512567C10.3291 1.19598 10.3291 2.30402 11.0126 2.98744C11.696 3.67085 12.804 3.67085 13.4874 2.98744C14.1709 2.30405 14.1709 1.19601 13.4874 0.512567Z"
+                                                                            [ngStyle]="style" fill="#FA5440"></path>
+                                                                        <path
+                                                                            d="M8.23744 0.512567C7.55402 -0.170848 6.44598 -0.170848 5.76257 0.512567C5.07915 1.19598 5.07915 2.30402 5.76257 2.98744C6.44598 3.67085 7.55402 3.67085 8.23744 2.98744C8.92085 2.30405 8.92085 1.19601 8.23744 0.512567Z"
+                                                                            [ngStyle]="style" fill="#FA5440"></path>
+                                                                        <path
+                                                                            d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z"
+                                                                            [ngStyle]="style" fill="#FA5440"></path>
+                                                                    </svg>
+                                                                </a>
+                                                                <ul class="dropdown-menu custom-dropdown-menu"
+                                                                    ngbDropdownMenu>
+                                                                    <li *ngIf="canViewDoc">
+                                                                        <a [href]="doc.url" target="_blank"
+                                                                            ngbDropdownItem
+                                                                            class="dropdown-item table-dropdown-item view cursor-pointer"><img
+                                                                                src="assets/images/view.svg"
+                                                                                alt="/icon">View</a>
+                                                                    </li>
+                                                                    <!-- (click)="openModal(renameFile, doc)" -->
+                                                                    <li *ngIf="canRenameDoc"
+                                                                        (click)="openModal(renameFile, doc)"><a
+                                                                            ngbDropdownItem
+                                                                            class="dropdown-item cursor-pointer"><svg
+                                                                                width="10" height="12"
+                                                                                viewBox="0 0 10 12" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path
+                                                                                    d="M8.98303 10.0082H1.46868C1.32633 10.0082 1.18981 10.0648 1.08915 10.1654C0.988493 10.2661 0.931943 10.4026 0.931943 10.545C0.931943 10.6873 0.988493 10.8238 1.08915 10.9245C1.18981 11.0252 1.32633 11.0817 1.46868 11.0817H8.98303C9.12538 11.0817 9.26191 11.0252 9.36257 10.9245C9.46322 10.8238 9.51977 10.6873 9.51977 10.545C9.51977 10.4026 9.46322 10.2661 9.36257 10.1654C9.26191 10.0648 9.12538 10.0082 8.98303 10.0082ZM1.46868 8.93475H1.51699L3.75519 8.73079C4.00037 8.70637 4.22969 8.59834 4.40465 8.42485L9.2353 3.5942C9.42279 3.39612 9.52412 3.1318 9.51708 2.85915C9.51003 2.58651 9.3952 2.32777 9.19773 2.13964L7.72706 0.668972C7.53512 0.488679 7.2836 0.385229 7.02035 0.378302C6.75711 0.371374 6.5005 0.461452 6.29934 0.6314L1.46868 5.46205C1.29519 5.63701 1.18717 5.86632 1.16274 6.11151L0.931943 8.34971C0.924713 8.42832 0.934914 8.50757 0.961819 8.58179C0.988724 8.65601 1.03167 8.72338 1.0876 8.7791C1.13775 8.82884 1.19723 8.8682 1.26263 8.89491C1.32802 8.92162 1.39804 8.93516 1.46868 8.93475ZM6.981 1.42041L8.44629 2.8857L7.37281 3.93235L5.93435 2.49388L6.981 1.42041Z"
+                                                                                    fill="#565D80" />
+                                                                            </svg>
+                                                                            Rename</a></li>
+                                                                    <li *ngIf="canDeleteDoc">
+                                                                        <a (confirm)="deleteDoc(doc.document_id)"
+                                                                            [swal]="{ title: 'Are you sure to delete?',text: 'You will not be able to revert this!',icon: 'warning', showCancelButton: true, confirmButtonColor: color, confirmButtonText: 'Yes, delete it!' }"
+                                                                            ngbDropdownItem
+                                                                            class="dropdown-item table-dropdown-item delete cursor-pointer"><img
+                                                                                src="assets/images/delete.svg"
+                                                                                alt="/icon">Delete</a>
+                                                                    </li>
+                                                                    <li *ngIf="canDownloadDoc">
+                                                                        <a (click)="downloadFile(doc)" ngbDropdownItem
+                                                                            class="dropdown-item table-dropdown-item view cursor-pointer"><svg
+                                                                                width="13" height="11"
+                                                                                viewBox="0 0 13 11" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path
+                                                                                    d="M9.37968 9.68519C9.37968 9.56648 9.33631 9.46375 9.24956 9.377C9.16281 9.29025 9.06008 9.24687 8.94136 9.24687C8.82265 9.24687 8.71992 9.29025 8.63317 9.377C8.54642 9.46375 8.50304 9.56648 8.50304 9.68519C8.50304 9.8039 8.54642 9.90664 8.63317 9.99339C8.71992 10.0801 8.82265 10.1235 8.94136 10.1235C9.06008 10.1235 9.16281 10.0801 9.24956 9.99339C9.33631 9.90664 9.37968 9.8039 9.37968 9.68519ZM11.133 9.68519C11.133 9.56648 11.0896 9.46375 11.0028 9.377C10.9161 9.29025 10.8134 9.24687 10.6946 9.24687C10.5759 9.24687 10.4732 9.29025 10.3865 9.377C10.2997 9.46375 10.2563 9.56648 10.2563 9.68519C10.2563 9.8039 10.2997 9.90664 10.3865 9.99339C10.4732 10.0801 10.5759 10.1235 10.6946 10.1235C10.8134 10.1235 10.9161 10.0801 11.0028 9.99339C11.0896 9.90664 11.133 9.8039 11.133 9.68519ZM12.0096 8.15107V10.3427C12.0096 10.5253 11.9457 10.6805 11.8178 10.8084C11.69 10.9362 11.5348 11.0002 11.3521 11.0002H1.27076C1.08813 11.0002 0.93289 10.9362 0.805046 10.8084C0.677203 10.6805 0.613281 10.5253 0.613281 10.3427V8.15107C0.613281 7.96844 0.677203 7.8132 0.805046 7.68536C0.93289 7.55751 1.08813 7.49359 1.27076 7.49359H4.45543L5.38001 8.42502C5.64483 8.68071 5.95531 8.80855 6.31144 8.80855C6.66758 8.80855 6.97806 8.68071 7.24287 8.42502L8.1743 7.49359H11.3521C11.5348 7.49359 11.69 7.55751 11.8178 7.68536C11.9457 7.8132 12.0096 7.96844 12.0096 8.15107ZM9.78376 4.25413C9.86138 4.44133 9.82942 4.60114 9.68788 4.73354L6.61964 7.80179C6.53745 7.88854 6.43472 7.93191 6.31144 7.93191C6.18817 7.93191 6.08543 7.88854 6.00325 7.80179L2.93501 4.73354C2.79347 4.60114 2.76151 4.44133 2.83913 4.25413C2.91674 4.07606 3.05144 3.98703 3.2432 3.98703H4.99648V0.918789C4.99648 0.800077 5.03986 0.697346 5.12661 0.610595C5.21336 0.523844 5.31609 0.480469 5.4348 0.480469H7.18808C7.3068 0.480469 7.40953 0.523844 7.49628 0.610595C7.58303 0.697346 7.6264 0.800077 7.6264 0.918789V3.98703H9.37968C9.57145 3.98703 9.70614 4.07606 9.78376 4.25413Z"
+                                                                                    fill="#565D80" />
+                                                                            </svg> Download</a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="!documentListing.length">
+                                                        <td colspan="6" class="text-center">No records found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="footer-pagination">
+                                                <pagination-controls id="documentList"
+                                                    (pageChange)="onPageDocumentChange($event)"></pagination-controls>
+                                                    <!-- <div *ngIf="hasMoreDocs" class="btn theme-btn" (click)="loadMoreDocument()" style="width: auto;" [ngStyle]="background">Load More</div> -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--  -->
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="list-search-content">
+                                            <div class="update-table">
+                                                <table class="table table-responsive">
+                                                    <thead>
+                                                        <tr [ngStyle]="background ">
+                                                            <th class="table-logs">Participant</th>
+                                                            <th class="table-logs">Created By</th>
+                                                            <!-- <th>Updated By</th> -->
+                                                            <th class="table-logs">Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            *ngFor="let update of leadNotesList | paginate: { itemsPerPage: limit, currentPage: participantLogPage2, totalItems: total,  id: 'participantLogPage2' } ; let i = index">
+                                                            <td>
+                                                                {{update.note}}
+                                                            </td>
+                                                            <td>{{update.name}}</td>
+                                                            <td>{{getDate(update.created_at)}}</td>
+                                                            <!-- <td>{{ update.created_at | date: dateFormat}} </td> -->
+                                                        </tr>
+                                                        <tr *ngIf="!leadNotesList?.length">
+                                                            <td colspan="3" class="text-center">
+                                                                No records found
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="footer-pagination">
+                                                    <pagination-controls id="participantLogPage2"
+                                                        (pageChange)="onPageChange($event)"></pagination-controls>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" [ngStyle]="{ display: tabView ? 'block' : 'none' }" *ngIf="tabView">
+                    <div class="col-md-12">
+                        <div class="right-detail-btns">
+                            <ul class="d-flex">
+                                <li>
+                                    <!-- (click)="sendParticipantEmail()checkEmailTemplateExists"  -->
+                                    <a (click)="checkEmailTemplateExists('Send Spec To Participants')"
+                                        class="theme-btn cursor-pointer" [ngStyle]="background">Submit</a>
+                                </li>
+                                <!-- <li>
+                                    <a class="theme-btn">Push to IP</a>
+                                </li> -->
+                                <li>
+                                    <a class="theme-btn white-btn cursor-pointer"
+                                        routerLink="../../lead-detail/{{ leadID }}">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" [ngStyle]="{ display: tabView ? 'none' : 'block' }">
+                    <div class="col-md-12">
+                        <div class="right-detail-btns">
+                            <ul class="d-flex">
+                                <li>
+                                    <!-- (click)="addParticipant()" -->
+                                    <a (click)="addParticipant()" class="theme-btn cursor-pointer"
+                                        [ngStyle]="background">Submit
+                                    </a>
+                                </li>
+                                <!-- <li>
+                                    <a class="theme-btn">Push to IP</a>
+                                </li> -->
+                                <li>
+                                    <a class="theme-btn white-btn cursor-pointer"
+                                        routerLink="../../lead-detail/{{ leadID }}">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<ng-template #renameFile>
+    <app-rename-doc [leadID]="leadID" [filename]="documentDetails.name" [docID]="documentDetails.id"
+        (closeModal)="onModelClose($event)"></app-rename-doc>
+</ng-template>

@@ -1,0 +1,159 @@
+<main class="dashboard-wrapper">
+    <div class="container">
+        <div class="craete-lead-wrapper">
+            <div class="page-header">
+                <h3 class="page-title cursor-pointer" routerLink="//{{userBaseRoute}}">
+                    <span>
+                        <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                fill="#565D80" />
+                        </svg>
+
+                    </span>Disclosure States Settings
+                </h3>
+
+            </div>
+            <div class="create-laed-content">
+                <div class="full-view">
+                    <div class="accordion-item">
+                        <a class="accordion-head" data-bs-toggle="collapse" >
+                            <span class="accordion-head-title">Disclosure States Settings </span>
+                        </a>
+                        <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                            <div class="accordion-body" [formGroup]="disclosureStatesForm" >
+                                <!-- [formGroup]="addAgentForm" -->
+                                <div class="row">
+                                    
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                          <label>State</label>
+                                          <select class="form-control" formControlName="state_id" name="" id="">
+                                            <option value="">--Select State--</option>
+                                            <option [value]="state.id" *ngFor="let state of statesList">
+                                              {{ state.name }}
+                                            </option>
+                                          </select>
+                                          <div class="invalid-input"
+                                          *ngIf="f.state_id.errors && f.state_id.touched">
+                                          <div *ngIf="f.state_id.errors.required">
+                                             State is required
+                                          </div>
+                                      </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 cstm-pdding" *ngIf="canAddDisclosure">
+                                        <label></label>
+                                        <a (click)="addDiscloserSubmit()" [ngStyle]="background"
+                                        class="theme-btn cursor-pointer">
+                                        <span class="">Add State To Disclosure List</span>
+                                        <span class="btn-icon btn-right-icon">
+                                            <!-- <svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+                                                    fill="white" />
+                                            </svg> -->
+
+                                        </span>
+                                    </a>
+                                      </div>
+                                   
+                                </div>
+                                <!-- <div class="col-md-12 col-lg-12"> -->
+                                    <div class="table-responsive update-table">
+                                      <table class="table">
+                                          <thead>
+                                              <tr [ngStyle]="background">
+                                                  <!-- <th scope="col">Select
+                                                  </th> -->
+                                                  <th scope="col">
+                                                     Disclosure States 
+                                                  </th>
+                                               
+                                                  <th scope="col">Date</th>
+                                                  <th scope="col">Actions</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let doc of diclosureList | paginate: { itemsPerPage: usersListLimit, currentPage:userListPage , totalItems: totalUsersCount,  id: 'userlist' } ;let i = index;">
+                                               
+          
+                                               
+                                                  <td>
+                                                      {{ doc.name }}
+                                                  </td>
+                                                  <td>
+                                                      <img src="assets/images/calendar.svg" alt="/icon">
+                                                      <span>
+                                                          {{getDate(doc.created_date)}}
+                                                      </span>
+                                                  </td>
+                                                  <td>
+                                                      <div class="dropdown" ngbDropdown container="body">
+                                                          <a class="custom-dropdowm dropdown-toggle cursor-pointer" data-bs-toggle="dropdown"
+                                                              ngbDropdownToggle>
+                                                              <svg width="14" height="4" viewBox="0 0 14 4" fill="none"
+                                                                  xmlns="http://www.w3.org/2000/svg">
+                                                                  <path
+                                                                      d="M13.4874 0.512567C12.804 -0.170848 11.696 -0.170848 11.0126 0.512567C10.3291 1.19598 10.3291 2.30402 11.0126 2.98744C11.696 3.67085 12.804 3.67085 13.4874 2.98744C14.1709 2.30405 14.1709 1.19601 13.4874 0.512567Z"
+                                                                      [ngStyle]="style"  fill="#FA5440"></path>
+                                                                  <path
+                                                                      d="M8.23744 0.512567C7.55402 -0.170848 6.44598 -0.170848 5.76257 0.512567C5.07915 1.19598 5.07915 2.30402 5.76257 2.98744C6.44598 3.67085 7.55402 3.67085 8.23744 2.98744C8.92085 2.30405 8.92085 1.19601 8.23744 0.512567Z"
+                                                                      [ngStyle]="style"  fill="#FA5440"></path>
+                                                                  <path
+                                                                      d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z"
+                                                                      [ngStyle]="style"  fill="#FA5440"></path>
+                                                              </svg>
+                                                          </a>
+                                                          <ul class="dropdown-menu custom-dropdown-menu" ngbDropdownMenu>
+                                                              <li *ngIf="canDeleteDisclosure">
+                                                                  <a (confirm)="deleteDoc(doc.id)"
+                                                                      [swal]="{ title: 'Are you sure to delete?',text: 'You will not be able to revert this!',icon: 'warning', showCancelButton: true, confirmButtonColor: color, confirmButtonText: 'Yes, delete it!' }"
+                                                                      ngbDropdownItem
+                                                                      class="dropdown-item table-dropdown-item  delete cursor-pointer"><img
+                                                                          src="assets/images/delete.svg" alt="/icon"> Delete</a>
+                                                              </li>
+          
+                                                          </ul>
+                                                      </div>
+          
+                                                  </td>
+                                              </tr>
+                                              <tr *ngIf="!diclosureList?.length">
+                                                  <td colspan="3" class="text-center">No records found</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+          
+                                  <!-- </div> -->
+                                  <div class="footer-pagination">
+                                    <pagination-controls id="userlist" (pageChange)="onPageChange($event)"></pagination-controls>
+                                    <!-- <span>Total Users:-{{ totalUsersCount }}</span> -->
+                                  </div>
+                                
+                              </div>
+                              <div class="col-12 text-end">
+                                <a (click)="redirect()" [ngStyle]="background"
+                                    class="theme-btn cursor-pointer">
+                                    <span class="">Submit</span>
+                                    <span class="btn-icon btn-right-icon">
+                                        <svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+                                                fill="white" />
+                                        </svg>
+
+                                    </span>
+                                </a>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

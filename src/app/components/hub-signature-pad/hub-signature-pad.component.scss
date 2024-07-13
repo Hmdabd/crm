@@ -1,0 +1,15 @@
+.signature {
+    border: 1px dashed;
+    overflow: hidden;
+}
+.button-bottom {
+    border: 0;
+    border-bottom: 1px solid rgb(218, 11, 11);
+    background-color: #fff;
+    padding: 5px 12px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.button-bottom:hover, .button-bottom.active{
+    border-bottom: 2px solid rgb(218, 11, 11);
+}

@@ -1,0 +1,1888 @@
+<main class="dashboard-wrapper email-template-builder">
+	<div class="container">
+		<div class="craete-lead-wrapper">
+			<div class="page-header">
+				<ul class="breadcrumb">
+					<li class="left-icon cursor-pointer" routerLink="../../lead-detail/{{ leadID }}">
+						<span>
+							<svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+									fill="#565D80"></path>
+							</svg>
+						</span>
+					</li>
+					<li class="cursor-pointer" routerLink="/{{userBaseRoute}}/leads">
+						<span>All Leads</span>/
+					</li>
+					<li class="cursor-pointer" routerLink="/{{userBaseRoute}}/lead-detail/{{ leadID }}">
+						<span class="active-page"> Lead Details <span class="active-page" *ngIf="lead.lead_id">( {{
+								lead.lead_id }}, {{lead?.company_name}}, DBA - {{lead?.lead_doing_business_as}}
+								)</span></span>/
+					</li>
+					<li>
+						<span class="active-page">{{ companyType == 'funded' ? 'Pricing': 'View & Edit Lender Offer' }} </span>
+					</li>
+				</ul>
+			</div>
+			<app-all-detail-lead [leadId]="leadID" (leadDetails)="getLeadBasicDetails($event)"></app-all-detail-lead>
+			<!-- Funding Company 2nd May 2024 -->
+			<ng-container *ngIf="companyType === typeCompany.funding">
+				<div class="create-lead-content" >
+					<div class="full-view">
+						<div class="accordion-item">
+							<a class="accordion-head" data-bs-toggle="collapse">
+								<span class="accordion-head-title">{{ companyType == 'funded' ? 'Pricing': 'View & Edit Lender Offer' }}</span>
+							</a>
+							<div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+								<div class="accordion-body">
+									<div class="verification-tabs">
+										<div class="tab-pane">
+											<div class="detail_tab-inner">
+												<form [formGroup]="createForm">
+													<div class="coustom-radio-btn">
+														<div  class="col-6">
+															<div  class="radio-btns"><span
+																	class="accordion-head-title">Term In:</span>
+																<div  class="radio-btns-inner">
+																	<ul  class="d-flex">
+																		<li  *ngFor="let type of preFundAdvancetype ; let i = index;">
+																		<input (change)="getpaymentData()" formControlName="payment_type" name="payment_type"  [value]="type.id"  [id]="type.id" type="radio">
+																		<label  [for]="type.id">
+																				<div
+																					class="radio-before"></div>{{ type.name }}<div
+																				
+																					class="radio-after"
+																					>
+																				</div>
+																			</label>
+																		</li>
+																<!-- <input formcontrolname="payment_type" type="radio" value="ondeck" id="test2"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="ondeck"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label for="test2">
+																				<div 
+																					class="radio-before"></div>Weeks
+																				<div _ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label> -->
+																		<!-- </li> -->
+																		<!-- <li _ngcontent-wge-c185="">
+																		<input _ngcontent-wge-c185="" formcontrolname="payment_type" value="kapitus" type="radio" id="test3"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="kapitus"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label _ngcontent-wge-c185="" for="test3">
+																				<div _ngcontent-wge-c185=""
+																					class="radio-before"></div>Bi-Weekly<div
+																					_ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label>
+																		</li> -->
+																		<!-- <li _ngcontent-wge-c185="">
+																		<input _ngcontent-wge-c185="" formcontrolname="payment_type" value="kapitus" type="radio" id="test4"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="kapitus"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label _ngcontent-wge-c185="" for="test4">
+																				<div _ngcontent-wge-c185=""
+																					class="radio-before"></div>Monthly<div
+																					_ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label>
+																		</li> -->
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row section-space custom-slide-main-section">
+														<div class="col-6">
+															<div class="create-lander-slide">
+																<p>Funding Amount</p>
+																<ngx-slider (userChangeEnd)="onChangeFundingAmountSlider()"
+																	[(value)]="fundingvalue" [options]="fundingoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Withhold Percentage</p>
+																<ngx-slider (userChangeEnd)="onChangeWithholdSlider()"
+																	[(value)]="withholdvalue" [options]="withholdoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Factor Rate</p>
+																<ngx-slider (userChangeEnd)="onChangeFactorRateSlider()"
+																	[(value)]="factorratevalue"
+																	[options]="factorrateoptions"></ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Term In {{termLables}}</p>
+																<ngx-slider (userChangeEnd)="onChangeTermSlider()"
+																	[(value)]="termvalue" [options]="termoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>{{paymentLabels}} Payment</p>
+																<ngx-slider (userChangeEnd)="onChangeDailyPaymentSlider()"
+																	[(value)]="dailyPaymentvalue"
+																	[options]="dailyPaymentoptions"></ngx-slider>
+															</div>
+														</div>
+														<div class="col-3 costom-funding-amount">
+															<div class="funding-list-details">
+																<div>
+																	<div class="form-group">
+																		<label>Funding Amount($)*</label>
+																		<input mask="separator.2" thousandSeparator=","
+																			maxlength="15"
+																			(change)="fundingAmount($any($event.target).value)"
+																			formControlName="funding_amount" type="text"
+																			class="form-control"
+																			placeholder="Enter funding amount">
+																		<div class="invalid-input"
+																			*ngIf="f.funding_amount.errors && f.funding_amount.touched">
+																			<div *ngIf="f.funding_amount.errors.required">
+																				Funding amount is required
+																			</div>
+																			<div *ngIf="f.funding_amount.errors.pattern">
+																				Invalid funding amount
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Withhold %</label>
+																		<input formControlName="withhold"
+																			(change)="changeWithhold()" type="text"
+																			class="form-control"
+																			placeholder="Enter withhold" mask="separator.2"
+																			thousandSeparator=",">
+																		<div class="invalid-input"
+																			*ngIf="f.withhold.errors && f.withhold.touched">
+																			<div *ngIf="f.withhold.errors.pattern">
+																				Invalid withhold
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Sell Rate*</label>
+																		<input
+																			(change)="sellrate($any($event.target).value)"
+																			formControlName="sell_rate" type="text"
+																			class="form-control"
+																			placeholder="Enter sell rate">
+																		<div class="invalid-input"
+																			*ngIf="f.sell_rate.errors && f.sell_rate.touched">
+																			<div *ngIf="f.sell_rate.errors.required">
+																				Sell rate is required
+																			</div>
+																			<div *ngIf="f.sell_rate.errors.pattern">
+																				Invalid sell rate
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Term In {{termLables}}*</label>
+																		<input
+																			(change)="getPayment($any($event.target).value)"
+																			formControlName="term_in_days" type="text"
+																			class="form-control"
+																			placeholder="Enter term in {{termLables | lowercase}}">
+																		<div class="invalid-input"
+																			*ngIf="f.term_in_days.errors && f.term_in_days.touched">
+																			<div *ngIf="f.term_in_days.errors.required">
+																				Term in {{termLables | lowercase}} is
+																				required
+																			</div>
+																			<div *ngIf="f.term_in_days.errors.pattern">
+																				Invalid term in {{termLables | lowercase}}
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Payment($)*</label>
+																		<input formControlName="payment" type="text"
+																			class="form-control" placeholder="Enter payment"
+																			mask="separator.2" thousandSeparator=","
+																			(change)="getTermDays()">
+																		<div class="invalid-input"
+																			*ngIf="f.payment.errors && f.payment.touched">
+																			<div *ngIf="f.payment.errors.required">
+																				Payment is required
+																			</div>
+																			<div *ngIf="f.payment.errors.pattern">
+																				Invalid payment
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="card col-3 main-section custom-funding-section">
+															<div class="pricing-data">
+																<div class="fund-detail-lists">
+																	<!-- *ngFor="let agent of prefundingData.agents; let i = index" -->
+																	<ul class="funding-list">
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">FUNDING
+																					AMOUNT</span>
+																				<span
+																					class="des-text">{{this.createForm.value.funding_amount
+																					| currency}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">RTR</span>
+																				<span
+																					class="des-text">{{this.createForm.value.rtr
+																					| currency}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">TERMS IN {{termLables | uppercase}}</span>
+																				<span
+																					class="des-text">{{this.createForm.value.term_in_days}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">FACTOR RATE</span>
+																				<span
+																					class="des-text">{{this.createForm.value.sell_rate}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">{{paymentLabels |  uppercase}} PAYMENTS
+																				</span>
+																				<span
+																					class="des-text">{{this.createForm.value.payment
+																					| currency}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">APPROVE WITHHOLD
+																				</span>
+																				<span
+																					class="des-text">{{getDecimal(this.createForm.value.withhold)}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">EXISTING
+																					WITHHOLD</span>
+																				<span
+																					class="des-text">{{getDecimal(finalExistingWithhold)}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">TOTAL
+																					WITHHOLD</span>
+																				<span
+																					class="des-text">{{getDecimal(this.createForm.value.total_withhold)}}</span>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+	
+													</div>
+	
+	
+													<div class="row">
+														<div class="col-12 col-sm-6 col-md-6 col-lg-9 col-xl-9">
+															<div class="row section-space">
+																<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>{{companyType == 'broker'?'Lender Name' : 'ISO Name'}}*</label>
+																		<select formControlName="lender_id" class="form-control"
+																			name="" id="">
+																			<option value="">Select {{companyType == 'broker'?'Lender' : 'ISO'}} </option>
+																			<option *ngFor="let lender of lenderList"
+																				[value]="lender.id">
+																				{{lender.name}}
+																			</option>
+																		</select>
+																		<div class="invalid-input"
+																			*ngIf="f.lender_id.errors && f.lender_id.touched">
+																			<div *ngIf="f.lender_id.errors.required">
+																				{{companyType == 'broker'?'Lender' : 'ISO'}}  name is required
+																			</div>
+																			<div *ngIf="f.lender_id.errors.pattern">
+																				Invalid {{companyType == 'broker'?'lender' : 'iso'}}  name
+																			</div>
+																		</div>
+																	</div>
+																</div>
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>Buy Rate</label>
+																		<input (change)="buyrate($any($event.target).value)"
+																			formControlName="buy_rate" type="text"
+																			class="form-control" placeholder="Enter buy rate">
+																		<div class="invalid-input"
+																			*ngIf="f.buy_rate.errors && f.buy_rate.touched">
+																			<div *ngIf="f.buy_rate.errors.required">
+																				Buy rate is required
+																			</div>
+																			<div *ngIf="f.buy_rate.errors.pattern">
+																				Invalid buy rate
+																			</div>
+																		</div>
+																	</div>
+																</div>
+	
+																<!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>RTR($)*</label>
+																		<input readonly formControlName="rtr" type="text"
+																			class="form-control" placeholder="Enter RTR"
+																			mask="separator.2" thousandSeparator=",">
+																		<div class="invalid-input"
+																			*ngIf="f.rtr.errors && f.rtr.touched">
+																			<div *ngIf="f.rtr.errors.required">
+																				Rtr is required
+																			</div>
+																			<div *ngIf="f.rtr.errors.pattern">
+																				Invalid rtr
+																			</div>
+																		</div>
+																	</div>
+																</div> -->
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>Position</label>
+																		<select formControlName="position" class="form-control"
+																			name="" id="">
+																			<option value="">Select position</option>
+																			<option *ngFor="let type of preFundUnittype"
+																				[value]="type.id">
+																				{{ type.name }}
+																			</option>
+																		</select>
+																	</div>
+																</div>
+	
+																<!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>Payment Type</label>
+																		<select formControlName="payment_type" class="form-control"
+																			name="" id="" (change)="getpaymentData()">
+																			<option value="">Select payment type</option>
+																			<option *ngFor="let type of preFundAdvancetype"
+																				[value]="type.id">
+																				{{ type.name }}
+																			</option>
+																		</select>
+																	</div>
+																</div> -->
+	
+															</div>
+															<div class="col-12 col-sm-6 col-md-6 col-lg-12">
+																<div class="active-lenders">
+																	<div class="heading-title">
+																		<p class="lead-title">Active Lenders(Select from the below lenders to exclude from current withhold):-</p>
+																	</div>
+																	<div class="detail-listing tab-table-list">
+																		<table class="table">
+																			<thead>
+																				<tr>
+																					<th scope="col" class="check-box">
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Lender Name</p>
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Funded Date</p>
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Funded Amounts($)</p>
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Daily Payment($)</p>
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Balance($)</p>
+																					</th>
+																					<th scope="col">
+																						<p class="lead-title">Withholding %</p>
+																					</th>
+																				</tr>
+		
+																			</thead>
+																			<tbody>
+																				<tr *ngFor="let lender of activelenderList; let i = index;">
+																					<td class="check-box">
+																						<div class="form-check">
+																							<input #inputBox
+																								(change)="onLenderChange(lender.id, $event.target,i)"
+																								(click)="$event.stopPropagation()"
+																								type="checkbox"
+																								class="form-check-input cursor-pointer"
+																								[(checked)]="lender.status"
+																								[ngStyle]="{'background-color':lender.status == 1?color:'','border-color':lender.status == 1?color:''}" />
+																						</div>
+																					</td>
+																					<td>
+																						{{lender.name }}
+																					</td>
+																					<td>
+																						{{ getDate(lender.funded_date) }}
+																					</td>
+																					<td>
+																						{{lender?.funded_payments | currency}}
+																					</td>
+																					<td>
+																						{{lender.daily_payments | currency}}
+																					</td>
+																					<td>
+																						{{lender.balance | currency }}
+																					</td>
+																					<td>{{ lender.with_hold}} %</td>
+																				</tr>
+																				<tr *ngIf="!fcsDetailList?.lender.length">
+																					<td colspan="6" class="text-center">No Records Found
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>												
+	
+														<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+															<div class="row">													
+																<div class="col-12 col-sm-6 col-md-12 col-lg-12">
+																	<div class="row section-space">													
+																		<div class="col-12">
+																			<div class="form-group">
+																				<label>{{companyType == 'funded'?'Total Points':'Points'}}</label>
+																				<select (change)="changePoints()" formControlName="points" class="form-control"
+																					name="" id="">
+																					<option value="">Select {{companyType == 'funded'?'Total Points':'Points'}}</option>
+																					<option *ngFor="let type of pointsList"
+																						[value]="type.name">
+																						{{ type.name }}
+																					</option>
+																				</select>
+																			</div>
+																		</div>
+																		<div class="col-12" *ngIf="companyType == 'funded'">
+																			<div class="form-group">
+																				<label>Retail Points</label>
+																				<input formControlName="retail_points" type="text"
+																					class="form-control"
+																					placeholder="Enter retail points">
+																				<div class="invalid-input"
+																					*ngIf="f.retail_points.errors && f.retail_points.touched">
+																					<div *ngIf="f.retail_points.errors.required">
+																						Retail points is required
+																					</div>
+																					<div *ngIf="f.retail_points.errors.pattern">
+																						Invalid retail points
+																					</div>
+																				</div>
+																			</div>
+																			</div>
+	
+																		<div class="col-12">
+																			<div class="form-group">
+																				<label>Funded/Rejected</label>
+																				<select formControlName="funded_rejected"
+																					class="form-control" name="" id=""
+																					(change)="getFundValue()">
+																					<option value="">Select</option>
+																					<option value="accepted" *ngIf="companyType != 'broker'">Accepted</option>  
+																					<option value="funded">Funded</option>
+																					<option value="rejected">Rejected
+																					</option>
+																				</select>
+	
+																			</div>
+																		</div>
+	
+																		<!-- <div class="col-12">
+																			<div class="form-group">
+																				<label>Total Withhold %</label>
+																				<input readonly formControlName="total_withhold" type="text"
+																					class="form-control" placeholder="Enter total withhold"
+																					mask="separator.2" thousandSeparator=",">
+																				<div class="invalid-input"
+																					*ngIf="f.total_withhold.errors && f.total_withhold.touched">
+																					<div *ngIf="f.total_withhold.errors.pattern">
+																						Invalid total_withhold
+																					</div>
+																				</div>
+																			</div>
+																		</div>																																					 -->
+																	</div>
+																	<div class="row section-space">
+																		<div class="col-12">
+																			<div class="mark-completed">
+																				<div class="form-check">
+																					<input formControlName="apply_to_function"
+																						class="form-check-input" type="checkbox" value=""
+																						id="flexCheckChecked" (change)="getCheckedFund()"
+																						[ngStyle]="{'background-color': (this.createForm.value.funded_rejected == 'funded' || this.createForm.value.apply_to_function) ?color:''}">
+																						<!-- conditionCheck -->
+					
+																					<label class="form-check-label"
+																						for="flexCheckChecked">Apply to funding records
+																					</label>
+																				</div>
+																			</div>
+																		</div>
+																	</div>														
+																</div>
+															</div>
+														</div>
+													</div>
+												<!-- document section -->
+												<div class="doc-section-lender">
+													<div class="req">
+														<h4>Request Stips:</h4>
+													</div>
+													<div class="row">
+														<div class="col-md-9">
+															<div class="form-group">
+																<!-- (change)="docsType($any($event.target).value, i)" -->
+																<label>Documents</label>
+																<ng-select [items]="docTypes" [isOpen]="true" dropdownPosition="bottom" [closeOnSelect]="false" [multiple]="true"
+																[disabled]="false" bindLabel="text" [virtualScroll]="true"
+																	bindValue="value" formControlName="documents"
+																	placeholder="Select documents">
+																	<ng-template ng-option-tmp let-item="item" let-item$="item$"
+																		let-index="index">
+																		<div class="chkbox">
+																			<input class="cm-checkbox" id="item-{{ index }}"
+																				type="checkbox" [checked]="item$.selected"
+																				[value]="item.value" />
+				
+																			<div class="doc-outer docs-outer">
+																				<li class="doc-list">
+																					<div class="doc-list-inner">
+																						<div class="file-content">
+																							<p class="file-text">
+																							{{item.text}}
+																							</p>
+																						</div>
+																					</div>
+																				</li>
+																			</div>
+																		</div>
+				
+																	</ng-template>
+				
+				
+																</ng-select>
+																
+															</div>
+														</div>
+														<div class="col-md-3">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="notes-text">
+																		<div class="form-group">
+																			<span class="accordion-head-title">Note For Stips</span>
+																			<!-- [(ngModel)]="note"  -->
+																			<textarea name="" class="form-control" formControlName="notes_for_stips"></textarea>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="notes-text">
+																		<div class="form-group">
+																			<!-- (change)="docsType($any($event.target).value, i)" -->
+																			<label>Placeholders</label>
+																			<ng-select [items]="placeholderArray" [closeOnSelect]="false" [multiple]="true"
+																			[disabled]="false" bindLabel="text" [virtualScroll]="true"
+																				bindValue="value" formControlName="placeholder"
+																				placeholder="Select placeholder">
+																				<ng-template ng-option-tmp let-item="item" let-item$="item$"
+																					let-index="index">
+																					<div class="chkbox">
+																						<input class="cm-checkbox" id="item-{{ index }}"
+																							type="checkbox" [checked]="item$.selected"
+																							[value]="item.value" />
+							
+																						<div class="doc-outer docs-outer">
+																							<li class="doc-list">
+																								<div class="doc-list-inner">
+																									<div class="file-content">
+																										<p class="file-text">
+																										{{item.text}}
+																										</p>
+																									</div>
+																								</div>
+																							</li>
+																						</div>
+																					</div>
+							
+																				</ng-template>
+							
+							
+																			</ng-select>
+																			
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row" formArrayName="add_stips" *ngFor="
+																	let agn of additionalStipsArray.controls;
+																	let i = index
+																  ">
+																	  <ng-container formGroupName="{{ i }}">
+																		<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+																		  <div class="form-group">
+																			<label>Send Additional Stips</label>
+																			<input formControlName="document_title"
+																			type="text" class="form-control"
+																			placeholder="Document Title">
+																			<div class="invalid-input" *ngIf="
+																			agn.get('document_title')?.errors &&
+																			agn.get('document_title')?.touched
+																		  ">
+																			  <div *ngIf="
+																			  agn.get('document_title')?.errors?.pattern
+																			">
+																				Invalid document title
+																			  </div>
+																			</div>
+																		  </div>
+																		</div>
+																	
+																	  </ng-container>
+																	  <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+																		<div class="add-agent-btn">
+																		  <a *ngIf="i === 0" (click)="addAdditionalStips(true)" class="theme-btn cursor-pointer add-padding"
+																			[ngStyle]="background">
+																			<span class="btn-icon btn-right-icon">
+																			  <svg width="11" height="11" viewBox="0 0 11 11" fill="none"
+																				xmlns="http://www.w3.org/2000/svg">
+																				<path
+																				  d="M10.003 5.50037C10.003 5.87 9.68425 6.17017 9.29041 6.17017H0.712565C0.318718 6.17017 0 5.87018 0 5.50037C0 5.13073 0.318722 4.83057 0.712565 4.83057H9.29041C9.68426 4.83074 10.003 5.13073 10.003 5.50037Z"
+																				  fill="white" />
+																				<path
+																				  d="M5.01079 0.498535C5.38307 0.498535 5.68059 0.818668 5.68059 1.2125L5.66309 9.78899C5.66167 10.1841 5.36046 10.5016 4.99207 10.5016C4.62243 10.5001 4.32227 10.1814 4.32227 9.78759L4.341 1.20974C4.34118 0.816072 4.63975 0.497176 5.0108 0.498579L5.01079 0.498535Z"
+																				  fill="white" />
+																			  </svg>
+																			</span>
+																			<span class="">Add</span>
+																		  </a>
+																		  <a *ngIf="i > 0" (click)="removeStips(i)"
+																			class="theme-btn white-btn cursor-pointer" [ngStyle]="background">
+																			<svg _ngcontent-pxj-c178="" width="15" height="4" viewBox="0 0 17 4" fill="none"
+																			  xmlns="http://www.w3.org/2000/svg">
+																			  <path _ngcontent-pxj-c178="" d="M0.96 3.632V0.624H16.992V3.632H0.96Z"
+																				fill="#fcf2ff"></path>
+																			</svg>
+																			Remove</a>
+																		</div>
+																	  </div>
+																	</div>
+												</div>
+												<!--  -->
+												</form>
+											</div>
+	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="lead-submit-btn">
+							<!-- [ngClass]="{'cursor-pointer': lenderSubmitDisabled}" -->
+							<a (click)="addCreateLenderOffer()" [ngStyle]="background"
+								class="theme-btn cursor-pointer" >
+								<span class="">Submit</span>
+								<span class="btn-icon btn-right-icon">
+									<svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+											fill="white"></path>
+									</svg>
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+			<!--  -->
+
+			<!-- Broker company -->
+			<ng-container *ngIf="companyType === typeCompany.broker">
+				<div class="create-lead-content">
+					<div class="full-view">
+						<div class="accordion-item">
+							<a class="accordion-head" data-bs-toggle="collapse">
+								<span class="accordion-head-title">{{ companyType == 'funded' ? 'Pricing': 'Create Lender Offer' }} - {{lead?.legal_business_name? lead?.legal_business_name : '-'}}</span>
+							</a>
+							<div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+								<div class="accordion-body">
+									<div class="verification-tabs">
+										<div class="tab-pane">
+											<div class="detail_tab-inner">
+												<form [formGroup]="createForm">
+	
+													<div class="row custom-slide-main-section">
+														<div class="col-6" style="display: none;">
+															<div class="create-lander-slide">
+																<p>Funding Amount  </p>
+																<ngx-slider (userChangeEnd)="onChangeFundingAmountSlider()"
+																	[(value)]="fundingvalue" [options]="fundingoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Withhold Percentage</p>
+																<ngx-slider (userChangeEnd)="onChangeWithholdSlider()"
+																	[(value)]="withholdvalue" [options]="withholdoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Factor Rate</p>
+																<ngx-slider (userChangeEnd)="onChangeFactorRateSlider()"
+																	[(value)]="factorratevalue"
+																	[options]="factorrateoptions"></ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>Term In {{termLables}}</p>
+																<ngx-slider (userChangeEnd)="onChangeTermSlider()"
+																	[(value)]="termvalue" [options]="termoptions">
+																</ngx-slider>
+															</div>
+															<div class="create-lander-slide">
+																<p>{{paymentLabels}} Payment</p>
+																<ngx-slider (userChangeEnd)="onChangeDailyPaymentSlider()"
+																	[(value)]="dailyPaymentvalue"
+																	[options]="dailyPaymentoptions"></ngx-slider>
+															</div>
+														</div>
+	
+	
+														<div class="col-4 costom-funding-amount costom-funding-amount-mod">
+															<div class="funding-list-details">
+																<div>
+																	<div class="form-group">
+																		<label>{{companyType == 'broker'?'Lender Name*' :
+																			'ISO Name*'}}</label>
+																		<select formControlName="lender_id"
+																			class="form-control" name="" id="">
+																			<option value="">Select {{companyType ==
+																				'broker'?'Lender' : 'ISO'}} </option>
+																			<option *ngFor="let lender of lenderList"
+																				[value]="lender.id">
+																				{{lender.name}}
+																			</option>
+																		</select>
+																		<div class="invalid-input"
+																			*ngIf="f.lender_id.errors && f.lender_id.touched">
+																			<div *ngIf="f.lender_id.errors.required">
+																				{{companyType == 'broker'?'Lender name' :
+																				'ISO name'}} is required
+																			</div>
+																			<div *ngIf="f.lender_id.errors.pattern">
+																				Invalid {{companyType == 'broker'?'lender
+																				name' : 'iso name'}}
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Funding Amount($)*</label>
+																		<input mask="separator.2" thousandSeparator=","
+																			maxlength="15"
+																			(change)="fundingAmount($any($event.target).value)"
+																			formControlName="funding_amount" type="text"
+																			class="form-control"
+																			placeholder="Enter funding amount">
+																		<div class="invalid-input"
+																			*ngIf="f.funding_amount.errors && f.funding_amount.touched">
+																			<div *ngIf="f.funding_amount.errors.required">
+																				Funding amount is required
+																			</div>
+																			<div *ngIf="f.funding_amount.errors.pattern">
+																				Invalid funding amount
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Sell Rate*</label>
+																		<input
+																			(change)="sellrate($any($event.target).value)"
+																			formControlName="sell_rate" type="text"
+																			class="form-control"
+																			placeholder="Enter sell rate">
+																		<div class="invalid-input"
+																			*ngIf="f.sell_rate.errors && f.sell_rate.touched">
+																			<div *ngIf="f.sell_rate.errors.required">
+																				Sell rate is required
+																			</div>
+																			<div *ngIf="f.sell_rate.errors.pattern">
+																				Invalid sell rate
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																	<div class="form-group">
+																		<label>Buy Rate</label>
+																		<input (change)="buyrate($any($event.target).value)"
+																			formControlName="buy_rate" type="text"
+																			class="form-control"
+																			placeholder="Enter buy rate">
+																		<div class="invalid-input"
+																			*ngIf="f.buy_rate.errors && f.buy_rate.touched">
+																			<div *ngIf="f.buy_rate.errors.required">
+																				Buy rate is required
+																			</div>
+																			<div *ngIf="f.buy_rate.errors.pattern">
+																				Invalid buy rate
+																			</div>
+																		</div>
+																	</div>
+																</div>
+	
+																
+	
+	
+	
+	
+																<div>
+																	<div class="form-group">
+																		<!-- <label>Term In {{termLables}}*</label> -->
+																		<div class="coustom-radio-btn">
+																			<div class="col-12 d-flex">
+																				<span class="accordion-head-title termin-mod">Term In:</span>
+																				<div class="radio-btns">
+																					<div class="radio-btns-inner">
+																						<ul class="d-flex bi-weekly-mod">
+																							
+																							<li
+																								*ngFor="let type of preFundAdvancetype; let i = index;">
+																								<input
+																									(change)="getpaymentData()"
+																									formControlName="payment_type"
+																									name="payment_type"
+																									[value]="type.id"
+																									[id]="type.id"
+																									type="radio">
+																								<label [for]="type.id">
+																									<div
+																										class="radio-before">
+																									</div>{{ type.name
+																									}}<div
+																										class="radio-after">
+																									</div>
+																								</label>
+																								
+																								
+																							</li>
+																							<!--<li>
+																		<input formcontrolname="payment_type" type="radio" value="ondeck" id="test2"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="ondeck"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label for="test2">
+																				<div 
+																					class="radio-before"></div>Weeks
+																				<div _ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label> 
+																		 </li> 
+																		 <li _ngcontent-wge-c185="">
+																		<input _ngcontent-wge-c185="" formcontrolname="payment_type" value="kapitus" type="radio" id="test3"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="kapitus"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label _ngcontent-wge-c185="" for="test3">
+																				<div _ngcontent-wge-c185=""
+																					class="radio-before"></div>Bi-Weekly<div
+																					_ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label>
+																		</li> 
+																		 <li _ngcontent-wge-c185="">
+																		<input _ngcontent-wge-c185="" formcontrolname="payment_type" value="kapitus" type="radio" id="test4"
+																				name="payment_type"
+																				ng-reflect-form-control-name="payment_type"
+																				ng-reflect-value="kapitus"
+																				ng-reflect-name="payment_type"
+																				class="ng-untouched ng-pristine ng-valid">
+																			<label _ngcontent-wge-c185="" for="test4">
+																				<div _ngcontent-wge-c185=""
+																					class="radio-before"></div>Monthly<div
+																					_ngcontent-wge-c185=""
+																					class="radio-after"
+																					ng-reflect-ng-style="[object Object]">
+																				</div>
+																			</label>
+																		</li> -->
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<input
+																			(change)="getPayment($any($event.target).value)"
+																			formControlName="term_in_days" type="text"
+																			class="form-control"
+																			placeholder="Enter term in {{termLables | lowercase}}">
+																		<div class="invalid-input"
+																			*ngIf="f.term_in_days.errors && f.term_in_days.touched">
+																			<div *ngIf="f.term_in_days.errors.required">
+																				Term in {{termLables | lowercase}} is
+																				required
+																			</div>
+																			<div *ngIf="f.term_in_days.errors.pattern">
+																				Invalid term in {{termLables | lowercase}}
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div>
+																
+																	<div class="form-group">
+																		<label>Payment($)*</label>
+																		<input formControlName="payment" type="text"
+																			class="form-control" placeholder="Enter payment"
+																			mask="separator.2" thousandSeparator=","
+																			(change)="getTermDays()">
+																		<div class="invalid-input"
+																			*ngIf="f.payment.errors && f.payment.touched">
+																			<div *ngIf="f.payment.errors.required">
+																				Payment is required
+																			</div>
+																			<div *ngIf="f.payment.errors.pattern">
+																				Invalid payment
+																			</div>
+																		</div>
+																	</div>
+																</div>
+	
+															</div>
+														</div>
+														<div class="card col-8 main-section custom-funding-section custom-funding-section-mod">
+															<div class="pricing-data">
+																<div class="fund-detail-lists">
+																	<!-- *ngFor="let agent of prefundingData.agents; let i = index" -->
+																	<ul class="funding-list">
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">FUNDING
+																					AMOUNT</span>
+																				<span
+																					class="des-text">{{this.createForm.value.funding_amount
+																					| currency}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">RTR</span>
+																				<span
+																					class="des-text">{{this.createForm.value.rtr
+																					| currency}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">TERMS IN
+																					{{termLables | uppercase}}</span>
+																				<span
+																					class="des-text">{{this.createForm.value.term_in_days}}
+																				</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">FACTOR RATE</span>
+																				<span
+																					class="des-text">{{this.createForm.value.sell_rate}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">{{paymentLabels |
+																					uppercase}} PAYMENTS
+																				</span>
+																				<span
+																					class="des-text">{{this.createForm.value.payment
+																					| currency}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">APPROVE WITHHOLD
+																				</span>
+																				<span
+																					class="des-text">{{getDecimal(this.createForm.value.withhold)}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">EXISTING
+																					WITHHOLD</span>
+																				<span
+																					class="des-text">{{getDecimal(finalExistingWithhold)}}</span>
+																			</div>
+																		</li>
+																		<li class="">
+																			<div class="d-flex list_inner">
+																				<span class="name-text">TOTAL
+																					WITHHOLD</span>
+																				<span
+																					class="des-text">{{getDecimal(this.createForm.value.total_withhold)}}</span>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+	
+													</div>
+	
+													<div class="row">
+														<div class="col-12 col-sm-6 col-md-12 col-lg-12 col-xl-12">
+															<div class="row section-space">
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+	
+																	<div>
+																		<div class="form-group">
+																			<label>Withhold %</label>
+																			<input formControlName="withhold"
+																				(change)="changeWithhold()" type="text"
+																				class="form-control"
+																				placeholder="Enter withhold"
+																				mask="separator.2" thousandSeparator=",">
+																			<div class="invalid-input"
+																				*ngIf="f.withhold.errors && f.withhold.touched">
+																				<div *ngIf="f.withhold.errors.pattern">
+																					Invalid withhold
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+																	<div class="form-group">
+																		<label>Position</label>
+																		<select formControlName="position"
+																			class="form-control" name="" id="">
+																			<option value="">Select position</option>
+																			<option *ngFor="let type of preFundUnittype"
+																				[value]="type.id">
+																				{{ type.name }}
+																			</option>
+																		</select>
+																	</div>
+																</div>
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+																	<div class="col-12">
+																		<div class="form-group">
+																			<label>{{companyType == 'funded'?'Total
+																				Points':'Points'}}</label>
+																			<select (change)="changePoints()"
+																				formControlName="points"
+																				class="form-control" name="" id="">
+																				<option value="">Select {{companyType ==
+																					'funded'?'Total Points':'Points'}}
+																				</option>
+																				<option *ngFor="let type of pointsList"
+																					[value]="type.name">
+																					{{ type.name }}
+																				</option>
+																			</select>
+																		</div>
+																	</div>
+																	<div class="col-12" *ngIf="companyType == 'funded'">
+																		<div class="form-group">
+																			<label>Retail Points</label>
+																			<input formControlName="retail_points"
+																				type="text" class="form-control"
+																				placeholder="Enter retail points">
+																			<div class="invalid-input"
+																				*ngIf="f.retail_points.errors && f.retail_points.touched">
+																				<!-- <div *ngIf="f.retail_points.errors.required">
+																					Retail points is required
+																				</div> -->
+																				<div *ngIf="f.retail_points.errors.pattern">
+																					Invalid retail points
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+	
+	
+																</div>
+	
+																<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+																	<div class="col-12">
+																		<div class="form-group">
+																			<label>Funded/Rejected</label>
+																			<select formControlName="funded_rejected"
+																				class="form-control" name="" id=""
+																				(change)="getFundValue()">
+																				<option value="">Select</option>
+																				<option value="accepted"
+																					*ngIf="companyType != 'broker'">Accepted
+																				</option>
+																				<option value="funded">Funded</option>
+																				<option value="rejected">Rejected
+																				</option>
+																			</select>
+	
+																		</div>
+																	</div>
+	
+																</div>
+																<div class="row section-space">
+	
+	
+	
+	
+																	<!-- <div class="col-12">
+																			<div class="form-group">
+																				<label>Total Withhold %</label>
+																				<input readonly formControlName="total_withhold" type="text"
+																					class="form-control" placeholder="Enter total withhold"
+																					mask="separator.2" thousandSeparator=",">
+																				<div class="invalid-input"
+																					*ngIf="f.total_withhold.errors && f.total_withhold.touched">
+																					<div *ngIf="f.total_withhold.errors.pattern">
+																						Invalid total_withhold
+																					</div>
+																				</div>
+																			</div>
+																		</div>																																					 -->
+																</div>
+	
+	
+	
+	
+	
+	
+	
+																<!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>RTR($)*</label>
+																		<input readonly formControlName="rtr" type="text"
+																			class="form-control" placeholder="Enter RTR"
+																			mask="separator.2" thousandSeparator=",">
+																		<div class="invalid-input"
+																			*ngIf="f.rtr.errors && f.rtr.touched">
+																			<div *ngIf="f.rtr.errors.required">
+																				Rtr is required
+																			</div>
+																			<div *ngIf="f.rtr.errors.pattern">
+																				Invalid rtr
+																			</div>
+																		</div>
+																	</div>
+																</div> -->
+	
+	
+	
+																<!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+																	<div class="form-group">
+																		<label>Payment Type</label>
+																			<select formControlName="payment_type" class="form-control"
+																			name="" id="" (change)="getpaymentData()">
+																			<option value="">Select payment type</option>
+																			<option *ngFor="let type of preFundAdvancetype"
+																				[value]="type.id">
+																				{{ type.name }}
+																			</option>
+																		</select>
+																	</div>
+																</div> -->
+	
+															</div>
+	
+														</div>
+	
+													</div>
+													<div class="row">
+														<div class="col-12 col-sm-6 col-md-9 col-lg-9">
+															<div class="active-lenders">
+																<div class="heading-title">
+																	<p class="lead-title">Active Lenders
+																	</p>
+																	<!--(Select from the
+																		below lenders to exclude from current withhold)-->
+																</div>
+																<div class="detail-listing tab-table-list">
+																	<table class="table">
+																		<thead>
+																			<tr>
+																				<th scope="col" class="check-box">
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Lender Name
+																					</p>
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Funded Date
+																					</p>
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Funded Amounts($)
+																					</p>
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Daily
+																						Payment($)</p>
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Balance($)</p>
+																				</th>
+																				<th scope="col">
+																					<p class="lead-title">Withholding %
+																					</p>
+																				</th>
+																			</tr>
+	
+																		</thead>
+																		<tbody>
+																			<tr
+																				*ngFor="let lender of activelenderList; let i = index;">
+																				<td class="check-box">
+																					<div class="form-check">
+																						<input #inputBox
+																							(change)="onLenderChange(lender.id, $event.target,i)"
+																							(click)="$event.stopPropagation()"
+																							type="checkbox"
+																							class="form-check-input cursor-pointer"
+																							[(checked)]="lender.status"
+																							[ngStyle]="{'background-color':lender.status == 1?color:'','border-color':lender.status == 1?color:''}" />
+																					</div>
+																				</td>
+																				<td>
+																					{{lender.name }}
+																				</td>
+																				<td>
+																					{{ getDate(lender.funded_date) }}
+																				</td>
+																				<td>
+																					{{lender?.funded_payments | currency}}
+																				</td>
+																				<td>
+																					{{lender.daily_payments | currency}}
+																				</td>
+																				<td>
+																					{{lender.balance | currency }}
+																				</td>
+																				<td>{{ lender.with_hold}} %</td>
+																			</tr>
+																			<tr *ngIf="!fcsDetailList?.lender.length">
+																				<td colspan="7" class="text-center">No
+																					Records Found
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+														<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+															<div class="row">
+																<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+	
+																	<div class="row section-space">
+																		<div class="col-12">
+																			<div class="mark-completed mark-completed-mod">
+																				<div class="form-check">
+																					<input
+																						formControlName="apply_to_function"
+																						class="form-check-input"
+																						type="checkbox" value=""
+																						id="flexCheckChecked"
+																						(change)="getCheckedFund()"
+																						[ngStyle]="{'background-color':(this.createForm.value.funded_rejected == 'funded' || this.createForm.value.apply_to_function) ?color:''}">
+	
+																					<label class="form-check-label"
+																						for="flexCheckChecked">Apply to
+																						funding records
+																					</label>
+																				</div>
+																			</div>
+	
+																		</div>
+																	</div>
+	
+																</div>
+															</div>
+														</div>
+													</div>
+	
+													<!-- <div class="lender-type-data">
+														<div class="row">
+															<div class="col-md-4">
+																<div class="status-list-inner">
+																	<div class="d-flex status-item-headin">
+																		<span class="accordion-head-title">Status</span>
+																		<span class="accordion-head-title">Item</span>
+																	</div>
+													funding-list-details				<ul class="status-item">
+																		<li *ngFor="let doc of allDocsList; let i = index">
+																			<div class="form-check">
+																				<input (change)="onCheckBoxChange($event, i)" class="form-check-input" [disabled]="doc.submitted" [checked]="doc.submitted" type="checkbox" value=""
+																				[ngStyle]="{'background-color':doc.uploaded || doc.submitted?color:'','border-color':doc.uploaded || doc.submitted?color:''}"
+																					[id]="doc.text">
+																				<label class="form-check-label" [for]="doc.text">{{ doc.text }}
+																				</label>
+																			</div>
+																		</li>
+																	   
+																	</ul>
+																</div>
+															</div>
+															<div class="col-md-4">
+																<div class="notes-text">
+																	<div class="form-group">
+																		<span class="accordion-head-title">Note</span>
+																		 [(ngModel)]="note" 
+																		<textarea name="" class="form-control"></textarea>
+																	</div>
+																</div>
+																
+															</div>
+														</div>
+													</div> -->
+													<!--  -->
+													<div class="doc-section-lender" style="display: none;">
+														<div class="req">
+															<h4>Request Stips:</h4>
+														</div>
+														<div class="row">
+															<div class="col-md-9">
+																<div class="form-group">
+																	<!-- (change)="docsType($any($event.target).value, i)" -->
+																	<!-- <label>Documents</label> -->
+																	<span class="accordion-head-title">Documents</span>
+																	<ng-select [isOpen]="true" dropdownPosition="bottom"
+																		[items]="docTypes" [closeOnSelect]="false"
+																		[multiple]="true" [disabled]="false"
+																		bindLabel="text" [virtualScroll]="true"
+																		bindValue="value" formControlName="documents"
+																		placeholder="Select documents">
+																		<ng-template ng-option-tmp let-item="item"
+																			let-item$="item$" let-index="index">
+																			<div class="chkbox">
+																				<input class="cm-checkbox"
+																					id="item-{{ index }}" type="checkbox"
+																					[checked]="item$.selected"
+																					[value]="item.value" />
+	
+																				<div class="doc-outer docs-outer">
+																					<li class="doc-list">
+																						<div class="doc-list-inner">
+																							<div class="file-content">
+																								<p class="file-text">
+																									{{item.text}}
+																								</p>
+																							</div>
+																						</div>
+																					</li>
+																				</div>
+																			</div>
+	
+																		</ng-template>
+	
+	
+																	</ng-select>
+	
+																</div>
+															</div>
+	
+	
+															
+														</div>
+														
+													</div>
+												</form>
+											</div>
+	
+										</div>
+									</div>
+								</div>
+	
+							</div>
+						</div>
+						<div class="lead-submit-btn">
+							<a (click)="addCreateLenderOffer()" [ngStyle]="background" class="theme-btn cursor-pointer">
+								<span class="">Submit</span>
+								<span class="btn-icon btn-right-icon">
+									<svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+											fill="white"></path>
+									</svg>
+								</span>
+							</a>
+						</div>
+	
+					</div>
+				</div>
+			</ng-container>
+			<!--  -->
+		</div>
+	</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <main class="dashboard-wrapper email-template-builder">
+	<div class="container">
+		<div class="craete-lead-wrapper">
+			<div class="page-header">
+				<ul class="breadcrumb">
+					<li class="left-icon cursor-pointer" routerLink="/{{userBaseRoute}}/lead-detail/{{ leadID }}">
+						<span>
+							<svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+									fill="#565D80"></path>
+							</svg>
+						</span>
+					</li>
+					<li class="cursor-pointer" routerLink="/{{userBaseRoute}}/leads">
+						<span>All Leads</span>/
+					</li>
+					<li class="cursor-pointer" routerLink="/{{userBaseRoute}}/lead-detail/{{ leadID }}">
+						<span class="active-page"> Lead Details <span class="active-page" *ngIf="lead.lead_id">( {{
+								lead.lead_id }}, {{lead?.company_name}}, DBA - {{lead?.lead_doing_business_as}}
+								)</span></span>/
+					</li>
+					<li>
+						<span class="active-page">{{ editMode ? 'View & Edit': 'View' }} Lender Offer</span>
+					</li>
+				</ul>
+
+			</div>
+			<app-all-detail-lead [leadId]="leadID" (leadDetails)="getLeadBasicDetails($event)"></app-all-detail-lead>
+			<ul class="lead-view-btn justify-content-end">
+				<li>
+					<a (click)="editMode = !editMode" *ngIf="!editMode && canEditLenderOffer" class="cursor-pointer">
+						<span>
+							<svg width="12" height="15" viewBox="0 0 12 15" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M10.6387 12.7219H0.712028C0.523977 12.7219 0.343628 12.7966 0.210656 12.9296C0.0776833 13.0626 0.00298009 13.2429 0.00298009 13.431C0.00298009 13.619 0.0776833 13.7994 0.210656 13.9323C0.343628 14.0653 0.523977 14.14 0.712028 14.14H10.6387C10.8267 14.14 11.0071 14.0653 11.1401 13.9323C11.273 13.7994 11.3477 13.619 11.3477 13.431C11.3477 13.2429 11.273 13.0626 11.1401 12.9296C11.0071 12.7966 10.8267 12.7219 10.6387 12.7219ZM0.712028 11.3038H0.775842L3.73257 11.0344C4.05646 11.0021 4.35939 10.8594 4.59052 10.6302L10.9719 4.24878C11.2196 3.98712 11.3535 3.63795 11.3442 3.27777C11.3349 2.91759 11.1832 2.57579 10.9223 2.32727L8.97952 0.384475C8.72596 0.146303 8.3937 0.00964272 8.04594 0.000491198C7.69818 -0.00866033 7.35919 0.110335 7.09346 0.334841L0.712028 6.71627C0.482839 6.94739 0.340135 7.25033 0.307871 7.57422L0.00298009 10.5309C-0.00657152 10.6348 0.0069042 10.7395 0.0424465 10.8375C0.0779889 10.9356 0.134723 11.0246 0.208604 11.0982C0.274857 11.1639 0.353431 11.2159 0.43982 11.2512C0.526208 11.2865 0.618712 11.3043 0.712028 11.3038ZM7.99395 1.37714L9.92965 3.31284L8.51155 4.69548L6.6113 2.79524L7.99395 1.37714Z"
+									[ngStyle]="style" fill="#FA5440" />
+							</svg>
+
+						</span> Edit
+					</a>
+				</li>
+			</ul>
+			<div class="create-lead-content">
+				<div class="full-view">
+					<div class="accordion-item">
+						<a class="accordion-head" data-bs-toggle="collapse">
+							<span class="accordion-head-title">{{ editMode ? 'View & Edit': 'View' }} Lender
+								Offer</span>
+						</a>
+						<div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+							<div class="accordion-body">
+								<div class="tab-content verification-tabs">
+
+									<div class="tabs">
+										<div class="detail_tab-inner">
+											<form [formGroup]="createForm">
+												<div class="row">
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Lender Name*</label>
+															<select [attr.disabled]="editMode ? null: 'disabled'"
+																formControlName="lender_id" class="form-control" name=""
+																id="">
+																<option value="">Select lender</option>
+																<option *ngFor="let lender of lenderList"
+																	[value]="lender.id">
+																	{{lender.name}}
+																</option>
+															</select>
+															<div class="invalid-input"
+																*ngIf="f.lender_id.errors && f.lender_id.touched">
+																<div *ngIf="f.lender_id.errors.required">
+																	Lender name is required
+																</div>
+																<div *ngIf="f.lender_id.errors.pattern">
+																	Invalid lender name
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Funding Amount($)*</label>
+															<input thousandSeparator="," mask="separator.2"
+																[readonly]="!editMode"
+																(change)="fundingAmount($any($event.target).value)"
+																formControlName="funding_amount" type="text"
+																class="form-control" placeholder="Enter funding amount">
+															<div class="invalid-input"
+																*ngIf="f.funding_amount.errors && f.funding_amount.touched">
+																<div *ngIf="f.funding_amount.errors.required">
+																	Funding amount is required
+																</div>
+																<div *ngIf="f.funding_amount.errors.pattern">
+																	Invalid funding amount
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Buy Rate*</label>
+															<input [readonly]="!editMode"
+																(change)="buyrate($any($event.target).value)"
+																formControlName="buy_rate" type="text"
+																class="form-control" placeholder="Enter buy rate">
+															<div class="invalid-input"
+																*ngIf="f.buy_rate.errors && f.buy_rate.touched">
+																<div *ngIf="f.buy_rate.errors.required">
+																	Buy rate is required
+																</div>
+																<div *ngIf="f.buy_rate.errors.pattern">
+																	Invalid buy rate
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Sell Rate*</label>
+															<input [readonly]="!editMode"
+																(change)="sellrate($any($event.target).value)"
+																formControlName="sell_rate" type="text"
+																class="form-control" placeholder="Enter sell rate">
+															<div class="invalid-input"
+																*ngIf="f.sell_rate.errors && f.sell_rate.touched">
+																<div *ngIf="f.sell_rate.errors.required">
+																	Sell rate is required
+																</div>
+																<div *ngIf="f.sell_rate.errors.pattern">
+																	Invalid sell rate
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>RTR($)*</label>
+															<input readonly formControlName="rtr" mask="separator.2"
+																thousandSeparator="," type="text" class="form-control"
+																placeholder="Enter RTR">
+															<div class="invalid-input"
+																*ngIf="f.rtr.errors && f.rtr.touched">
+																<div *ngIf="f.rtr.errors.required">
+																	Rtr is required
+																</div>
+																<div *ngIf="f.rtr.errors.pattern">
+																	Invalid rtr
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Payment Type</label>
+															<select [attr.disabled]="editMode ? null: 'disabled'"
+																formControlName="payment_type" class="form-control"
+																name="" id="" (change)="getpaymentData()">
+																<option value="">Select payment type</option>
+																<option *ngFor="let type of preFundAdvancetype"
+																	[value]="type.id">
+																	{{ type.name }}
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Term In {{termLables}}*</label>
+															<input [readonly]="!editMode"
+																(change)="getPayment($any($event.target).value)"
+																formControlName="term_in_days" type="text"
+																class="form-control"
+																placeholder="Enter term in {{termLables | lowercase}">
+															<div class="invalid-input"
+																*ngIf="f.term_in_days.errors && f.term_in_days.touched">
+																<div *ngIf="f.term_in_days.errors.required">
+																	Term in {{termLables | lowercase}} is required
+																</div>
+																<div *ngIf="f.term_in_days.errors.pattern">
+																	Invalid term in {{termLables | lowercase}}
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Payment($)*</label>
+															<input [readonly]="!editMode" formControlName="payment"
+																mask="separator.2" thousandSeparator="," type="text"
+																class="form-control" placeholder="Enter payment"
+																(change)="getTermDays()">
+															<div class="invalid-input"
+																*ngIf="f.payment.errors && f.payment.touched">
+																<div *ngIf="f.payment.errors.required">
+																	Payment is required
+																</div>
+																<div *ngIf="f.payment.errors.pattern">
+																	Invalid payment
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Position</label>
+															<select [attr.disabled]="editMode ? null: 'disabled'"
+																formControlName="position" class="form-control" name=""
+																id="">
+																<option value="">Select position</option>
+																<option *ngFor="let type of preFundUnittype"
+																	[value]="type.id">
+																	{{ type.name }}
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Points</label>
+															<select formControlName="points" class="form-control"
+																name="" id="">
+																<option value="">Select points</option>
+																<option *ngFor="let type of pointsList"
+																	[value]="type.id">
+																	{{ type.name }}
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Withhold %</label>
+															<input formControlName="withhold" (change)="changeWithhold()" type="text"
+																class="form-control" placeholder="Enter withhold"
+																mask="separator.2" thousandSeparator=",">
+															<div class="invalid-input"
+																*ngIf="f.withhold.errors && f.withhold.touched">
+																<div *ngIf="f.withhold.errors.pattern">
+																	Invalid withhold
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Funded/Rejected</label>
+															<select [attr.disabled]="editMode ? null: 'disabled'"
+																formControlName="funded_rejected" class="form-control"
+																name="" id="" (change)="getFundValue()">
+																<option value="">Select</option>
+																<option value="funded">Funded</option>
+																<option value="rejected">Rejected
+																</option>
+															</select>
+
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="form-group">
+															<label>Total Withhold %</label>
+															<input readonly formControlName="total_withhold" type="text"
+																class="form-control" placeholder="Enter total withhold"
+																mask="separator.2" thousandSeparator=",">
+															<div class="invalid-input"
+																*ngIf="f.total_withhold.errors && f.total_withhold.touched">
+																<div *ngIf="f.total_withhold.errors.pattern">
+																	Invalid total_withhold
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+														<div class="mark-completed">
+															<div class="form-check">
+																<input *ngIf="!editMode"
+																	[ngStyle]="{'background-color':conditionCheck?color:''}"
+																	onclick="return false;"
+																	formControlName="apply_to_function"
+																	class="form-check-input" type="checkbox" value=""
+																	id="flexCheckChecked">
+																<input *ngIf="editMode"
+																	[ngStyle]="{'background-color':conditionCheck?color:''}"
+																	formControlName="apply_to_function"
+																	class="form-check-input" type="checkbox" value=""
+																	id="flexCheckChecked" (change)="getCheckedFund()">
+																<label class="form-check-label"
+																	for="flexCheckChecked">Apply to funding records
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+											<div class="active-lenders">
+												<div class="heading-title">
+													<p class="lead-title">Active Lenders</p>
+												</div>
+											<div class="detail-listing tab-table-list">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" class="check-box">
+															</th>
+															<th scope="col">
+																<p class="lead-title">Lender Name</p>
+															</th>
+															<th scope="col">
+																<p class="lead-title">Funded Date</p>
+															</th>
+															<th scope="col">
+																<p class="lead-title">Daily Payment($)</p>
+															</th>
+															<th scope="col">
+																<p class="lead-title">Balance($)</p>
+															</th>
+															<th scope="col">
+																<p class="lead-title">Withholding %</p>
+															</th>
+														</tr>
+														
+													</thead>
+													<tbody>
+														<tr *ngFor="let lender of activelenderList; let i = index;">
+															<td class="check-box">   <div class="form-check">
+																<input #inputBox (change)="onLenderChange(lender.id, $event.target,i)"
+																	(click)="$event.stopPropagation()" type="checkbox"
+																	class="form-check-input cursor-pointer" [(checked)]="lender.status"
+																	[ngStyle]="{'background-color':lender.status == 1?color:'','border-color':lender.status == 1?color:''}" />
+																</div></td>
+															<td>
+																{{lender.name }}
+															</td>
+															<td>
+																{{ getDate(lender.funded_date) }}
+															</td>
+															<td>
+																{{lender.daily_payments | currency}}
+															</td>
+															<td>
+																{{lender.balance  | currency }}
+															</td>
+															<td>{{ lender.with_hold}} %</td>
+														</tr>
+														<tr *ngIf="!fcsDetailList?.lender.length">
+															<td colspan="6" class="text-center">No Records Found</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											</div>
+											<div *ngIf="editMode" class="lead-submit-btn">
+												<a (click)="addCreateLenderOffer()" [ngStyle]="background"
+													class="theme-btn cursor-pointer">
+													<span class="">Submit</span>
+													<span class="btn-icon btn-right-icon">
+														<svg width="5" height="10" viewBox="0 0 5 10" fill="none"
+															xmlns="http://www.w3.org/2000/svg">
+															<path
+																d="M5 5.26331C5 5.42963 4.93752 5.58955 4.81881 5.71748L1.06998 9.55557C0.826304 9.80504 0.426429 9.80504 0.182755 9.55557C-0.0609185 9.30609 -0.0609185 8.8967 0.182755 8.64722L3.49422 5.26331L0.182755 1.8794C-0.0609188 1.62992 -0.0609188 1.22692 0.182755 0.977449C0.426429 0.727974 0.820056 0.727974 1.06373 0.977449L4.81881 4.80914C4.94377 4.93707 5 5.09699 5 5.26331Z"
+																fill="white"></path>
+														</svg>
+													</span>
+												</a>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</main> -->
