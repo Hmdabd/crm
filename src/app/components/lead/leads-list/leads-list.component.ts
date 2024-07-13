@@ -9,14 +9,12 @@ import { ApiService } from '@services/api.service';
 import { AuthService } from '@services/auth.service';
 import { CommonService } from '@services/common.service';
 import { ExcelService } from '@services/excel.service';
-import { DataService } from '@services/data.service';
 import { settings } from 'cluster';
 import moment from 'moment';
-import { catchError, debounceTime, distinctUntilChanged, filter, fromEvent, lastValueFrom, Subscription, switchMap, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, fromEvent, lastValueFrom, Subscription, switchMap, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
 import * as XLSX from 'xlsx'
-import { log } from 'console';
 
 @Component({
     selector: 'app-leads-list',
@@ -83,7 +81,6 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
         "Team": { value: null },
         "ISO": { value: null },
         "Lead Source": { value: null },
-        "States": { value: null },
         "Compaign": { value: null },
         "Company": { value: null },
         "Lead status": { value: null },
@@ -124,12 +121,11 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
     loading = false;
     @Input() showProgress: boolean = false;
     showWaitTime: boolean = false
-    getAllUserList: any = []
-    getTeamList: any = []
-    getStateList: any = []
-    canViewTeamList: boolean = false;
-    getLeadIDLS: string | null = '';
-    lsLeadId: string = '';
+    getAllUserList:any = []
+    getTeamList:any = []
+    canViewTeamList:boolean = false;
+    getLeadIDLS:string | null = '';
+    lsLeadId:string = '';
 
     constructor(
         private authService: AuthService,
@@ -141,8 +137,7 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
         private route: ActivatedRoute,
         private excelService: ExcelService,
         private modalService: NgbModal,
-        private fb: FormBuilder,
-        private dataService: DataService,
+        private fb: FormBuilder
 
     ) { }
 
@@ -194,34 +189,33 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.maxDate = this.calendar.getToday();
         this.getLeadOptions();
-
-
+        
+      
 
         //4th oct 2023
         this.getLeadIDLS = localStorage.getItem(Constants.SETTINGS.LEAD_ID);
-        if (this.getLeadIDLS) {
-            let lD = this.authService.decrypt(this.getLeadIDLS);
-            this.lsLeadId = JSON.parse(lD);
-            if (this.lsLeadId) {
-                this.onLeadAccessCheck();
-            }
+        if(this.getLeadIDLS){
+          let lD =  this.authService.decrypt(this.getLeadIDLS);
+          this.lsLeadId = JSON.parse(lD); 
+          if( this.lsLeadId){
+            this.onLeadAccessCheck();
+        }
 
         }
         // != null && this.getLeadIDLS != undefined
+       
 
-
-        // end
+// end
         this.getListings();
         this.initImportForm();
-
+       
 
         // this.getPaginationLIst();
 
         // this.get50PerColor();
         this.getAllUser();
         this.getTeamlist();
-        this.getAllStateList();
-
+        
 
     }
 
@@ -470,7 +464,7 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.color = ud?.color;
                 // this.stroke={stroke:ud?.color};
                 this.background = { background: ud?.color };
-
+                
 
             }
         } catch (error: any) {
@@ -568,37 +562,6 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = 1;
         this.appliedFilter = JSON.parse(JSON.stringify(this.tempFilter));
         this.getLeadsList();
-
-        //Selected User Id 
-        const selectedUser = this.tempFilter['All Users'].value;
-        if (selectedUser) {
-            const selectedUserId = selectedUser.id;
-            console.log('User id in leam Com:', selectedUserId);
-            this.dataService.triggerSearch(selectedUserId);
-        }
-        // Selecting Team id
-        const selectedTeam = this.tempFilter['Team'].value;
-        if (selectedTeam) {
-            const selectedTeamId = selectedTeam.id;
-            console.log('team Id in lead Com', selectedTeamId);
-            this.dataService.selectedTeamTriggerSearch(selectedTeamId);
-        }
-
-        // Selecting lead source id
-
-        const leadSource = this.tempFilter['Lead Source'].value;
-        if (leadSource) {
-            const leadSourceId = leadSource.id;
-            console.log('lead source in lead Com', leadSourceId);
-            this.dataService.leadSourceTriggerSearch(leadSourceId)
-        }
-         // Selecting  state id
-        const states = this.tempFilter['States'].value;
-        if (states) {
-            const statesId = states.id;
-            console.log('states Com', statesId);
-            this.dataService.statesTriggerSearch(statesId)
-        }
     }
 
     /**
@@ -932,9 +895,9 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
             url = `${url}&campaign=${this.appliedFilter['Compaign'].value.id}`;
         }
         if (this.appliedFilter['Company name']?.value) {
-
+           
             // url = `${url}&company_name=${this.appliedFilter['Company name']?.value}`;
-            url = `${url}&company_name=${encodeURIComponent(this.appliedFilter['Company name']?.value).trim()}`;
+            url = `${url}&company_name=${ encodeURIComponent(this.appliedFilter['Company name']?.value).trim()}`;
         }
         if (this.appliedFilter['Disposition']?.value && this.appliedFilter['Disposition'].value.name) {
             url = `${url}&disposition=${this.appliedFilter['Disposition'].value.id}`;
@@ -975,7 +938,7 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.appliedFilter['Submitter']?.value && this.appliedFilter['Submitter'].value.id) {
             url = `${url}&submitter_id=${this.appliedFilter['Submitter'].value.id}`;
         }
-        if (this.userDetails.company_type === 'funded' && this.showWaitTime) {
+        if(this.userDetails.company_type === 'funded' && this.showWaitTime){
             url = `${url}&isUnderwriting=${true}`
         }
         try {
@@ -1614,54 +1577,54 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
     adjustBackgroundColor(color: any, amount: any) {
         return '#' + color.replace(/^#/, '').replace(/../g, (color: string) => ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
     }
-
+    
     ngOnDestroy() {
         if (this.routeSubscription) {
             this.routeSubscription.unsubscribe();
         }
     }
-    // sort coloumn
-    sortBy(col: string) {
-        if (!this.leadsList.length) {
-            return
-        }
-        if (this.search.sortby === col) {
-            if (this.search.order === 'ASC') {
-                this.search.order = 'DESC'
-            } else {
-                this.search.order = 'ASC'
+        // sort coloumn
+        sortBy(col: string) {
+            if (!this.leadsList.length) {
+                return
             }
-        } else {
-            this.search.sortby = col;
-            this.search.order = 'DESC';
-        }
-        this.getLeadsList();
-    }
-    //get all users List:-
-    async getAllUser() {
-        try {
-            // + `?role=${Roles.UNDERWRITER}`
-            let url = `?sort_by=${'created_at'}&dir=${'DESC'}&assigned_to=assignedTo`;
-            this.commonService.showSpinner();
-            const res$ = this.apiService.getReq(API_PATH.LIST_FOR_USERS + url, 'user', 'list');
-            let response = await lastValueFrom(res$);
-            if (response && response.data) {
-                this.getAllUserList = response?.data?.sort((a: any, b: any) => a.name.localeCompare(b.name));
+            if (this.search.sortby === col) {
+                if (this.search.order === 'ASC') {
+                    this.search.order = 'DESC'
+                } else {
+                    this.search.order = 'ASC'
+                }
             } else {
-                this.getAllUserList = [];
-                // this.hasMoreUsers = false;
-                // this.userListPage = 1;
+                this.search.sortby = col;
+                this.search.order = 'DESC';
             }
-            this.commonService.hideSpinner();
-        } catch (error: any) {
-            this.commonService.hideSpinner();
-            if (error.error && error.error.message) {
-                this.commonService.showError(error.error.message);
-            } else {
-                this.commonService.showError(error.message);
+            this.getLeadsList();
+        }
+          //get all users List:-
+          async getAllUser() {
+            try {
+                // + `?role=${Roles.UNDERWRITER}`
+                let url = `?sort_by=${'created_at'}&dir=${'DESC'}&assigned_to=assignedTo`;
+                this.commonService.showSpinner();
+                const res$ = this.apiService.getReq(API_PATH.LIST_FOR_USERS + url, 'user', 'list');
+                let response = await lastValueFrom(res$);
+                if (response && response.data) {
+                    this.getAllUserList = response?.data?.sort((a:any, b:any) => a.name.localeCompare(b.name));
+                    } else {
+                        this.getAllUserList = [];
+                        // this.hasMoreUsers = false;
+                        // this.userListPage = 1;
+                    }
+                this.commonService.hideSpinner();
+            } catch (error: any) {
+                this.commonService.hideSpinner();
+                if (error.error && error.error.message) {
+                    this.commonService.showError(error.error.message);
+                } else {
+                    this.commonService.showError(error.message);
+                }
             }
         }
-    }
     // get Team list
     async getTeamlist(): Promise<any> {
         try {
@@ -1673,7 +1636,7 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
             if (response.data && response.data.data) {
                 // this.hasMoreUsers = response.data.hasMorePages;
                 // this.totalUsersCount = response.data.total;
-                this.getTeamList = response?.data?.data?.sort((a: any, b: any) => a.name.localeCompare(b.name));
+                this.getTeamList = response?.data?.data?.sort((a:any, b:any) => a.name.localeCompare(b.name));
 
             } else {
                 this.getTeamList = [];
@@ -1690,74 +1653,29 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
     }
-    async getAllStateList(): Promise<any> {
-        try {
-            const url = `?sort_by=${'created_at'}&dir=${'DESC'}`;
-            this.commonService.showSpinner();
-            console.log('Fetching states from URL:', API_PATH.GET_ALL_STATES + url);
-            const res$ = this.apiService.getReq(API_PATH.GET_ALL_STATES + url, '', '');
-            console.log('Observable:', res$);
-
-            const response = await lastValueFrom(res$.pipe(
-                catchError(error => {
-                    console.error('Error during request:', error);
-                    throw error;
-                })
-            ));
-            console.log('Response received:', response);
-
-            if (response && response.data) {
-                console.log('Response data:', response.data);
-
-                this.getStateList = response.data.sort((a: any, b: any) => a.name.localeCompare(b.name));
-            } else {
-                console.warn('No data found in response.');
-                this.getStateList = [];
-            }
-            this.commonService.hideSpinner();
-        } catch (error: any) {
-            this.commonService.hideSpinner();
-            console.error('Error caught:', error);
-
-            if (error.error && error.error.message) {
-                this.commonService.showError(error.error.message);
-            } else {
-                this.commonService.showError(error.message);
-            }
-        }
-    }
-
-
-    valueRestUserTeam(status: string) {
-        if (status == 'teams') {
+    valueRestUserTeam(status:string){
+        if(status == 'teams'){
             this.tempFilter['All Users'].value = null
-            this.tempFilter['Lead Source'].value = null
-        } else if (status == 'users') {
+        }else if(status == 'users'){
             this.tempFilter['Team'].value = null
-            this.tempFilter['Lead Source'].value = null
-        }
-        else if (status == 'lead_source') {
-            this.tempFilter['Team'].value = null
-            this.tempFilter['All Users'].value = null
-
         }
         // console.log(da = null);
-
+        
     }
     //leadAccess check 4th oct
     async onLeadAccessCheck() {
         try {
             this.commonService.showSpinner();
-            let data = {
-                lead_id: this.lsLeadId
-            }
-            const res$ = this.apiService.postReq(API_PATH.LEAD_ACCESS_CHECK, data, 'lead', 'list');
-            let response = await lastValueFrom(res$);
-            if (response) {
-                this.commonService.showSpinner();
-                if (response?.data?.lead_id) {
-                    this.router.navigate([`/${this.userBaseRoute}/lead-detail/${response?.data?.lead_id}`])
-                } else {
+                let data = {
+                  lead_id:this.lsLeadId
+                }
+                const res$ = this.apiService.postReq(API_PATH.LEAD_ACCESS_CHECK, data, 'lead', 'list');
+                let response = await lastValueFrom(res$);
+                if (response) {
+            this.commonService.showSpinner();
+                    if(response?.data?.lead_id){
+                        this.router.navigate([`/${this.userBaseRoute}/lead-detail/${response?.data?.lead_id}`])
+                    }else{
                     Swal.fire({
                         title: response?.message,
                         icon: 'warning',
@@ -1771,15 +1689,15 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
                             Swal.close()
                         }
                     })
-                }
-                //  this.router.navigate([`/${response.data.role.toLowerCase()}/lead-detail/${response.data.lead_id}`])
-                localStorage.removeItem(Constants.SETTINGS.LEAD_ID)
+                    }
+            //  this.router.navigate([`/${response.data.role.toLowerCase()}/lead-detail/${response.data.lead_id}`])
+                    localStorage.removeItem(Constants.SETTINGS.LEAD_ID)
                 this.commonService.hideSpinner();
 
+                }
+                  
+                this.commonService.hideSpinner();
             }
-
-            this.commonService.hideSpinner();
-        }
 
         catch (error: any) {
             this.leadCreateFromJson = false;
@@ -1791,6 +1709,6 @@ export class LeadsListComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
     }
-
+  
 }
 

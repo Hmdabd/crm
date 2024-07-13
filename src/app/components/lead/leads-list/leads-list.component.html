@@ -369,27 +369,13 @@
                                     <label>Lead Source</label>
                                     <ng-select [(ngModel)]="tempFilter['Lead Source'].value" name="leadsource"
                                         placeholder="Select Lead Source" appearance="outline" [searchable]="false"
-                                        [clearable]="false" labelForId="elead"  (change)="valueRestUserTeam('lead_source')">
+                                        [clearable]="false" labelForId="elead">
                                         <ng-option [value]="source" *ngFor="let source of leadSourceList">{{ source.name
                                             }}
                                         </ng-option>
                                     </ng-select>
                                 </div>
                             </div>
-
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <ng-select [(ngModel)]="tempFilter['States'].value" name="states"
-                                        placeholder="Select State" appearance="outline" [searchable]="false"
-                                        [clearable]="false" labelForId="elead"  (change)="valueRestUserTeam('stateList')">
-                                        <ng-option [value]="stateList" *ngFor="let stateList of getStateList">{{ stateList.name
-                                            }}
-                                        </ng-option>
-                                    </ng-select>
-                                </div>
-                            </div>
-                            
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"
                                 *ngIf="this.userDetails?.company_type == 'funded'">
                                 <div class="form-group">
@@ -674,6 +660,9 @@
                                     </a>
                                 </span>
                                 <span *ngIf="lead?.ssn_flag">
+                                    <a  placement="top" ngbTooltip="SSN present in lead no.({{
+                                        lead.ssn_flag_by
+                                      }})">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -683,6 +672,7 @@
                                                 d="M6.99976 3L19.7545 3.00004C20.3068 3.00004 20.7545 3.44776 20.7545 4.00004C20.7545 4.24708 20.6631 4.48538 20.4978 4.669L17.4999 8.00005L20.4978 11.3311C20.8673 11.7416 20.834 12.3739 20.4235 12.7433C20.2399 12.9086 20.0016 13 19.7545 13H6.99976V3Z"
                                                 fill="#FFBF59" />
                                         </svg>
+                                        </a>
                                 </span>
                             </td>
                             <td style="text-align: center;" *ngIf="showWaitTime">

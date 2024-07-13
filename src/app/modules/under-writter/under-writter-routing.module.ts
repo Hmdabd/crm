@@ -104,6 +104,7 @@ import { PayrollSettingComponent } from '@components/payroll-setting/payroll-set
 import { DisclosureStatesComponent } from '@components/disclosure-states/disclosure-states.component';
 import { ContractSettingsComponent } from '@components/contract-settings/contract-settings.component';
 import { CreateLeadAffilateLinkComponent } from '@components/create-lead-affilate-link/create-lead-affilate-link.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
 
 const routes: Routes = [
   {
@@ -143,6 +144,12 @@ const routes: Routes = [
       { path: 'reports/analytics-reports', component: AnalyticsReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'analytics-reports' } },
       { path: 'reports/lender-owe-reports', component: LenderOweReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'lender-owe-report' } },
       { path: 'reports/email-logs-reports', component: EmailLogsReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'email-logs' } },
+      {
+        path: 'reports/power-bi',
+        component: ReportPowerBiComponent,
+        canActivate: [RolePermission, AuthPermission],
+        data: { role: Roles.UNDERWRITER,permission:'power-bi-report' },
+      },
       { path: 'reports/offer-reports', component: OfferReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'offers-report' } },
       { path: 'lead-createlenderoffer/:id', component: LeadCreateLenderOfferComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'lender-offer-create' } },
       { path: 'email-template-list', component: EmailTemplateListComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.UNDERWRITER, permission: 'email-template-list' }, },

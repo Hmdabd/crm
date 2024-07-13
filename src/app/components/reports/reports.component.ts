@@ -311,6 +311,7 @@ export class ReportsComponent implements OnInit {
             this.color = ud?.color;
             // this.stroke={stroke:ud?.color};
             this.background = { background: ud?.color };  
+            
             this.getColorOnUpdate();
         }
     }

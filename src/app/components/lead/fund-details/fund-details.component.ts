@@ -308,7 +308,7 @@ export class FundDetailsComponent implements OnInit {
                 // this.participantTotalAmount =0;
                 // this.actualParticipantAmount =0;
                 this.deleteparticipant(i, id);
-                this.getParticipantList();
+                // this.getParticipantList();
                 // this.participantFaArray.removeAt(i);
                 this.participant_amount_check = true;
             } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -419,6 +419,7 @@ export class FundDetailsComponent implements OnInit {
                     // }
                 })
                 Swal.close();
+                this.getParticipantList();
 
             }
             this.commonService.hideSpinner();

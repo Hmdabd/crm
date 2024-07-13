@@ -5,8 +5,7 @@
 export const environment = {
     production: false,
     // baseURL: 'http://192.168.0.159:8080/v1/'
-    // baseURL: 'http://192.168.0.189:8080/v1/'
-    baseURL: 'http://localhost:8000/v1/'
+    baseURL: 'http://192.168.0.189:8080/v1/'
     // baseURL: 'https://apiql.cv2sys.com/v1/',
     // baseURL: 'https://apisl.webinopoly.co/v1/'
 };

@@ -101,6 +101,8 @@ import { PayrollSettingComponent } from '@components/payroll-setting/payroll-set
 import { DisclosureStatesComponent } from '@components/disclosure-states/disclosure-states.component';
 import { ContractSettingsComponent } from '@components/contract-settings/contract-settings.component';
 import { FeeManagementComponent } from '@components/fee-management/fee-management.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
+import { PowerBiLinksComponent } from '@components/power-bi-links/power-bi-links.component';
 
 
 const routes: Routes = [
@@ -380,6 +382,13 @@ const routes: Routes = [
         data: { role: Roles.COMPANY },
       },
       {
+        path: 'reports/power-bi',
+        component: ReportPowerBiComponent,
+        canActivate: [HasPermission],
+        data: { role: Roles.COMPANY },
+      },
+     
+      {
         path: 'reports/offer-reports',
         component: OfferReportComponent,
         canActivate: [HasPermission],
@@ -390,6 +399,12 @@ const routes: Routes = [
         component: WelcomeCallComponent,
         canActivate: [HasPermission, AuthPermission],
         data: { role: Roles.COMPANY, permission: 'lead-welcome-call' },
+      },
+      {
+        path: 'power-bi-links',
+        component:PowerBiLinksComponent,
+        canActivate: [HasPermission],
+        data: { role: Roles.COMPANY },
       },
       {
         path: 'send-email-app/:id',

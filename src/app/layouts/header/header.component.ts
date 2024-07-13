@@ -78,6 +78,7 @@ export class HeaderComponent implements OnInit {
     canAffiliateLink: boolean = false;
     canViewRoles: boolean = false;
     canViewpartner: boolean = false;
+    canViewPowerBiLinks:boolean = false
 
     constructor(
         private authService: AuthService,
@@ -124,6 +125,7 @@ export class HeaderComponent implements OnInit {
         this.canAffiliateLink = this.authService.hasPermission('affiliate-link');
         this.canViewRoles = this.authService.hasPermission('role-list');
         this.canViewpartner = this.authService.hasPermission('partner-list');
+        this.canViewPowerBiLinks = this.authService.hasPermission('power-bi-link');
 
     }
     clickOntab(tab: any) {

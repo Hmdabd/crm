@@ -1,0 +1,169 @@
+<main class="dashboard-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <ul class="breadcrumb">
+                <li class="left-icon">
+                    <span>
+                        <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                fill="#565D80"></path>
+                        </svg>
+                    </span>
+                </li>
+                <li>
+                    <span class="cursor-pointer" routerLink="../reports/power-bi">Power Bi Reports</span>/
+                </li>
+                <li>
+                    <span class="active-page">Power Bi Links</span>
+                </li>
+            </ul>
+        </div>
+        <div class="searchbar-box-container">
+            <div class="searchbar-box">
+                <div class="form-body">
+                    <div class="row">
+                        <!-- <div class="col-12">
+                            <div class="form-group cstm-form-funded">
+                                <button [ngStyle]="background" class="theme-btn"
+                                    (click)="exportReportasExcel()">Export</button>
+                            </div>
+                        </div> -->
+                        <div class="col-12 col-sm-12 col-md-8 col-lg-10">
+                            <div class="row">
+
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Company</label>
+                                        <input type="text" [(ngModel)]="companyLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(companyLink) && allLinkValidate.company'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(companyLink,'company')">Submit</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Sales</label>
+                                        <input type="text" [(ngModel)]="salesLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(salesLink) && allLinkValidate.sales'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(salesLink,'sales')">Submit</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Branch Mangaer</label>
+                                        <input type="text" [(ngModel)]="branchManagerLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(branchManagerLink) && allLinkValidate.branchMgnr'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(branchManagerLink,'branchMgnr')">Submit</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Underwriter</label>
+                                        <input type="text" [(ngModel)]="underwriterLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(underwriterLink) && allLinkValidate.underwriter'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(underwriterLink,'underwriter')">Submit</button>
+
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Submitter</label>
+                                        <input type="text" [(ngModel)]="submitterLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(submitterLink) && allLinkValidate.submitter'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(submitterLink,'submitter')">Submit</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Power Bi Link For Custom User</label>
+                                        <input type="text" [(ngModel)]="customLink" class="form-control">
+                                        <div class="invalid-input"
+                                            *ngIf='checkLink(customLink) && allLinkValidate.custom'>
+
+                                            <div>
+                                                Invalid Url
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group" style="margin-top:27px;">
+                                        <button class="theme-btn btn-sm"
+                                            (click)="getUpdateLink(customLink,'custom')">Submit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>

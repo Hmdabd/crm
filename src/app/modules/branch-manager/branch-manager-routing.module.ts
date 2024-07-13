@@ -48,6 +48,7 @@ import { AuthPermission } from '@guards/auth-permission.guard';
 import { HasPermission } from '@guards/permission.guard';
 import { UserLayoutComponent } from 'app/layouts/user-layout/user-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
 
 const routes: Routes = [
     {
@@ -84,6 +85,12 @@ const routes: Routes = [
             { path: 'reports/analytics-reports', component: AnalyticsReportComponent, canActivate: [HasPermission, AuthPermission], data: { role: Roles.BRANCHMANAGER, permission: 'analytics-reports' } },
             { path: 'reports/lender-owe-reports', component: LenderOweReportComponent, canActivate: [HasPermission, AuthPermission], data: { role: Roles.BRANCHMANAGER, permission: 'lender-owe-report' } },
             { path: 'reports/email-logs-reports', component: EmailLogsReportComponent, canActivate: [HasPermission, AuthPermission], data: { role: Roles.BRANCHMANAGER, permission: 'email-logs' } },
+            {
+                path: 'reports/power-bi',
+                component: ReportPowerBiComponent,
+                canActivate: [HasPermission],
+                data: { role: Roles.BRANCHMANAGER },
+              },
             { path: 'reports/offer-reports', component: OfferReportComponent, canActivate: [HasPermission, AuthPermission], data: { role: Roles.BRANCHMANAGER, permission: 'offers-report' } },
             { path: 'creating-contract/:id', component: CreatingContractComponent, canActivate: [HasPermission, AuthPermission], data: { role: Roles.BRANCHMANAGER, permission: 'lead-contract' } },
             { path: 'final-underwriting/:id', component: FinalUnderwritingComponent, canActivate: [HasPermission], data: { role: Roles.BRANCHMANAGER } },

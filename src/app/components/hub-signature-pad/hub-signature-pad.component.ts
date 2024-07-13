@@ -7,6 +7,7 @@ import { API_PATH } from '@constants/api-end-points';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularEditorComponent, AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-hub-signature-pad',
@@ -14,11 +15,13 @@ import { AngularEditorComponent, AngularEditorConfig } from '@kolkov/angular-edi
   styleUrls: ['./hub-signature-pad.component.scss']
 })
 export class HubSignaturePadComponent implements OnInit {
+    modal!: NgbModalRef;
     @ViewChild('pad', { static: false }) signaturePad!: SignaturePadComponent;
     @ViewChild('myckeditor',{ static: false }) myckeditor:AngularEditorComponent | undefined;
     @ViewChild('canvas',{ static: false }) canvas:ElementRef | undefined;
     @Input() customerSign:any;
     @Output() close: EventEmitter<any> = new EventEmitter();
+    @Output() closeCross: EventEmitter<any> = new EventEmitter();
     @Output() customerSignChange = new EventEmitter<string>();
     isDraw:boolean = false;
     signaturePadOptions: any = {
@@ -181,6 +184,12 @@ export class HubSignaturePadComponent implements OnInit {
         //     // this.addSignatureEmail();
         // }
 
+    }
+    /**
+     * @description close modal when user click the close without submitting the signature data.
+     */
+    closeModalOnclick(){
+      this.closeCross.emit();
     }
 
     // <script>

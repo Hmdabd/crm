@@ -166,6 +166,8 @@ import { CreateLeadAffilateLinkComponent } from '@components/create-lead-affilat
 import { AffiliateSignatureComponent } from '@components/affiliate-signature/affiliate-signature.component';
 import { AffiliateOwner2SignatureComponent } from '@components/affiliate-owner2-signature/affiliate-owner2-signature.component';
 import { FeeManagementComponent } from '@components/fee-management/fee-management.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
+import { PowerBiLinksComponent } from '@components/power-bi-links/power-bi-links.component';
 
 
 @NgModule({
@@ -339,7 +341,9 @@ import { FeeManagementComponent } from '@components/fee-management/fee-managemen
     AffiliateOwner2SignatureComponent,
     CreateContractHubSignUpdateComponent,
     CreateLeadAffilateLinkComponent,
-    FeeManagementComponent
+    FeeManagementComponent,
+    ReportPowerBiComponent,
+    PowerBiLinksComponent
     // TeamListComponent,
     // CreateTeamComponent,
     // ViewEditTeamComponent
@@ -499,7 +503,9 @@ import { FeeManagementComponent } from '@components/fee-management/fee-managemen
     AffiliateOwner2SignatureComponent,
     CreateContractHubSignUpdateComponent,
     CreateLeadAffilateLinkComponent,
-    FeeManagementComponent
+    FeeManagementComponent,
+    ReportPowerBiComponent,
+    PowerBiLinksComponent
   ],
   providers: [ExcelService],
 })

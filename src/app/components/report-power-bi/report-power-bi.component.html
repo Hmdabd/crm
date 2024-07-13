@@ -1,0 +1,37 @@
+<main class="dashboard-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <ul class="breadcrumb">
+                <li class="left-icon">
+                    <span>
+                        <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M-9.79475e-05 4.47979C-9.79402e-05 4.31342 0.0624016 4.15345 0.181152 4.02547L3.93115 0.186189C4.1749 -0.063365 4.5749 -0.063365 4.81865 0.186189C5.0624 0.435742 5.0624 0.845266 4.81865 1.09482L1.50615 4.47979L4.81865 7.86476C5.0624 8.11431 5.0624 8.51744 4.81865 8.76699C4.5749 9.01654 4.18115 9.01654 3.9374 8.76699L0.181152 4.9341C0.0561517 4.80613 -9.79548e-05 4.64616 -9.79475e-05 4.47979Z"
+                                fill="#565D80"></path>
+                        </svg>
+                    </span>
+                </li>
+                <li>
+                    <span class="cursor-pointer" routerLink="../../reports">Reports</span>/
+                </li>
+                <li>
+                    <span class="active-page">Power Bi Report</span>
+                </li>
+            </ul>
+        </div>
+      
+        <div class="order-list-inner">
+          
+            <div class="table-responsive lead-table">
+                <ng-container *ngIf="isView">
+                        <iframe width="1480" height="900" [src]="powerBiFinalLink"
+                       title="Power Bi Report" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  
+                </ng-container>
+              
+                <!-- <iframe title="Revenue Opportunities" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=35f43c06-c463-49b7-9578-258dc3f2b913&autoAuth=true&ctid=3a34bf7d-340f-4469-b5c5-309f1e7940d6" frameborder="0" allowFullScreen="true"></iframe> -->
+            </div>
+          
+        </div>
+    </div>
+</main>

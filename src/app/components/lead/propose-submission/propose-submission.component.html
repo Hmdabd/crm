@@ -61,7 +61,14 @@
                                                     <ng-select [items]="lendersList" [closeOnSelect]="false"
                                                         [multiple]="true" bindLabel="name" [virtualScroll]="true"
                                                         bindValue="id" formControlName="lenders"
-                                                        placeholder="Select lenders">
+                                                        placeholder="Select lenders" groupBy="tier">
+                                                        
+                                                        <ng-template ng-optgroup-tmp let-item="item" *ngIf="companyType == 'broker'">
+                                                            <span class="fs-6">
+    
+                                                                {{ item.tier || 'Un-tierd group' }}
+                                                            </span>
+                                                        </ng-template>
                                                         <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                             let-index="index">
 

@@ -388,5 +388,7 @@ export const API_PATH = {
     LENDER_OFFER_ADD_DECLINE_REASON:'lead/lender-offer/add/decline-reason',
     ASSIGNED_TO_UPDATE:'lead/assignedTo/update',
     HUB_SIGN_DOWNLOAD_DOC:'hub-sign/view/download',
-    EXCLUSIVE_REMOVE:'lead/exclusive-period-remove'
+    EXCLUSIVE_REMOVE:'lead/exclusive-period-remove',
+    POWER_BI_LINK:'reports/power-bi-link',
+    POWER_BI_REPORT:'reports/power-bi-report',
 }

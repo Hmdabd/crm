@@ -50,6 +50,7 @@ import { LenderOweReportComponent } from '@components/lender-owe-report/lender-o
 import { ViewEditLenderCreateOfferComponent } from '@components/lead/view-edit-lender-create-offer/view-edit-lender-create-offer.component';
 import { LeadPrefundComponent } from '@components/lead/lead-prefund/lead-prefund.component';
 import { ReportDescriptionEditComponent } from '@components/report-description-edit/report-description-edit.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
 
 const routes: Routes = [
     {
@@ -90,6 +91,12 @@ const routes: Routes = [
             { path: 'reports/analytics-reports', component: AnalyticsReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'analytics-reports' } },
             { path: 'reports/lender-owe-reports', component: LenderOweReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'lender-owe-report' } },
             { path: 'reports/email-logs-reports', component: EmailLogsReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'email-logs' } },
+            {
+                path: 'reports/power-bi',
+                component: ReportPowerBiComponent,
+                canActivate: [RolePermission, AuthPermission],
+                data: { role: Roles.SUBMITTER },
+              },
             { path: 'reports/offer-reports', component: OfferReportComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'offers-report' } },
             { path: 'lead-createlenderoffer/:id', component: LeadCreateLenderOfferComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'lender-offer-create' } },
             { path: 'update-email-templates', component: SendEmailComponent, canActivate: [RolePermission, AuthPermission], data: { role: Roles.SUBMITTER, permission: 'email-template-view' } },

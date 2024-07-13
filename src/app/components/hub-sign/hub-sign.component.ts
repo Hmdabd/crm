@@ -36,8 +36,8 @@ export class HubSignComponent implements OnInit {
     signatureAdoptedDate: string = '';
     documentActualName: string = '';
     documentDownloadPath: string = '';
-    isSigned:boolean = false;
-    isExhibit:boolean = false;
+    isSigned: boolean = false;
+    isExhibit: boolean = false;
 
     // tabsection
     tabActive = {
@@ -45,9 +45,9 @@ export class HubSignComponent implements OnInit {
         number: 1
     }
     tabView: boolean = true;
-    isParticipant:boolean = false;
-    submitterTabIndex:number =0 ;
-    signDocDetail:any={}
+    isParticipant: boolean = false;
+    submitterTabIndex: number = 0;
+    signDocDetail: any = {}
     constructor(
         private commonService: CommonService,
         private apiService: ApiService,
@@ -66,13 +66,13 @@ export class HubSignComponent implements OnInit {
         let queryParams = this.route.snapshot.queryParams;
         if (queryParams) {
             // console.log('queryParams',queryParams);
-            
+
             if (queryParams['token']) {
                 this.token = queryParams['token'];
             }
             if (queryParams['isSigned']) {
                 let _isSigned = queryParams['isSigned'];
-                this.isSigned = _isSigned == '1'?true:false;
+                this.isSigned = _isSigned == '1' ? true : false;
 
             }
             if (queryParams['document_name']) {
@@ -83,7 +83,7 @@ export class HubSignComponent implements OnInit {
             }
             if (queryParams['document_type']) {
                 this.documentType = queryParams['document_type'];
-                 this.isPrticipantCheck()
+                this.isPrticipantCheck()
             }
             if (queryParams['actual_name']) {
                 this.documentActualName = queryParams['actual_name'];
@@ -91,7 +91,7 @@ export class HubSignComponent implements OnInit {
             if (queryParams['download_path']) {
                 this.documentDownloadPath = queryParams['download_path'];
                 // console.log(' this.documentDownloadPath', this.documentDownloadPath);
-                
+
             }
 
 
@@ -99,14 +99,14 @@ export class HubSignComponent implements OnInit {
         this.commonService.hideSpinner();
 
     }
-    isPrticipantCheck(){
-        if(this.documentType === 'lead_participant_fundings'){
-        // this.isParticipant = false;
-        this.isExhibit = true;
-        // console.log('this.isParticipant',this.isParticipant);
-        
-        }else{
-        this.isExhibit = false;
+    isPrticipantCheck() {
+        if (this.documentType === 'lead_participant_fundings') {
+            // this.isParticipant = false;
+            this.isExhibit = true;
+            // console.log('this.isParticipant',this.isParticipant);
+
+        } else {
+            this.isExhibit = false;
 
             // this.isParticipant = false;
         }
@@ -130,7 +130,7 @@ export class HubSignComponent implements OnInit {
         }
     }
 
-    
+
 
     openModel(content: any) {
         try {
@@ -140,7 +140,7 @@ export class HubSignComponent implements OnInit {
             this.commonService.showError(error.message);
         }
     }
-   
+
 
     focusInvalidField() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -180,17 +180,17 @@ export class HubSignComponent implements OnInit {
                 // if(this.isParticipant){ // 27th may 24 update single page
                 //     this.onGetSignedDocs();  
                 //     this.toFinalStep();   
-                
+
                 // }else{
 
                 //     this.redirect();
-                    
+
                 // }
                 this.changeDetectorRef.detectChanges();
             }
-            if(!this.isParticipant){
-            this.commonService.hideSpinner()
-        }
+            if (!this.isParticipant) {
+                this.commonService.hideSpinner()
+            }
         } catch (error: any) {
             this.commonService.hideSpinner();
             if (error.error && error.error.message) {
@@ -261,21 +261,28 @@ export class HubSignComponent implements OnInit {
         this.onOfficerInfoSubmit();
         this.modal.close();
     }
+    /**
+     * @description close modal without sign
+     */
+    closeModalWOsign() {
+        this.modal.close();
 
-    toFinalStep(){
-       this.tabActive = {
-        id:'final-Step',
-        number :2
-       }
+    }
+
+    toFinalStep() {
+        this.tabActive = {
+            id: 'final-Step',
+            number: 2
+        }
     }
 
 
     async onGetSignedDocs() {
         try {
             this.commonService.showSpinner();
-           let data = {
-            token:this.token
-           }
+            let data = {
+                token: this.token
+            }
 
             const res$ = this.apiService.postReq(API_PATH.HUB_SIGN_DOWNLOAD_DOC, data, '', '');
             let response = await lastValueFrom(res$);
@@ -287,7 +294,7 @@ export class HubSignComponent implements OnInit {
                     this.submitterTabIndex = 1;
                 }
                 // console.log('  this.signDocDetail',  this.signDocDetail);
-                
+
             }
             this.commonService.hideSpinner();
         } catch (error: any) {
@@ -303,9 +310,9 @@ export class HubSignComponent implements OnInit {
     }
     validateTabChange(number: number, id: string) {
         try {
-            
+
             if (number > this.submitterTabIndex + 1) return;
-            
+
             // console.log(number > 1,id);
             // console.log(number,id);
             this.tabActive = {
@@ -328,7 +335,7 @@ export class HubSignComponent implements OnInit {
             document.body.appendChild(a);
             a.setAttribute('style', 'display: none');
             a.href = url;
-            a.download = this.signDocDetail?.actual_name ;
+            a.download = this.signDocDetail?.actual_name;
             a.click();
             window.URL.revokeObjectURL(url);
             a.remove();
@@ -342,7 +349,7 @@ export class HubSignComponent implements OnInit {
             }
         }
     }
-    getDownloadDoc(){
+    getDownloadDoc() {
         // window.open(this.documentPath)
         this.onGetSignedDocs()
     }

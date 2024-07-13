@@ -85,6 +85,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngIf="companyType === 'broker'">
+                                        <div class="form-group">
+                                          <label>Select A Tier</label>
+                                          <select class="form-control" formControlName="tier" [attr.disabled]="editMode ? null: 'disabled'">
+                                            <option value="">-Select Tier-</option>
+                                            <option value="Tier A">Tier A</option>
+                                            <option value="Tier B">Tier B</option>
+                                            <option value="Tier C">Tier C</option>
+                                            <option value="Tier D">Tier D</option>
+                                          </select>
+                                        </div>
+                                      </div>
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                                         <div class="form-group">
                                             <label>Lender Type</label>

@@ -2100,6 +2100,9 @@ export class CustomerLeadUpdateComponent implements OnInit {
             this.signatureAdoptedDateSign2 = new Date().toJSON("yyyy/MM/dd HH:mm");
             this.onPartnerInfoSubmit(false);
         }
+        if(this.customerSign){
+            this.signedApplication();
+        }
 
     }
     opensecondOwnerModel(content: any) {
@@ -2116,6 +2119,12 @@ export class CustomerLeadUpdateComponent implements OnInit {
         // if (this.customer1SignCloseModal == false) {
             this.signatureAdoptedDateSign1 = new Date().toJSON("yyyy/MM/dd HH:mm");
             this.onOfficerInfoSubmit();
+            //
+            if(this.customer2Sign){
+                this.signedApplication();
+            }
+            
+            //
             this.commonService.hideSpinner()
         // }
 

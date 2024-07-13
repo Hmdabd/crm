@@ -30,6 +30,7 @@ export class ViewEditLenderComponent implements OnInit {
     style!: { fill: string; };
     background!: { background: string; };
     colorSubs: any;
+    companyType:string =''
 
     constructor(
         private fb: FormBuilder,
@@ -67,7 +68,7 @@ export class ViewEditLenderComponent implements OnInit {
         try {
             let ud = this.authService.getUserDetails();
             if (ud) {
-
+                this.companyType = ud?.company_type
                 this.getColorOnUpdate();
                 this.style = { fill: ud?.color };
                 //  this.color=ud?.color;
@@ -109,6 +110,7 @@ export class ViewEditLenderComponent implements OnInit {
             ]],
             // Validators.pattern(Custom_Regex.lettersOnly), 
             type: [''],
+            tier: [''],
             email: ['', [Validators.required, Validators.pattern(Custom_Regex.EMAIL_REGEX_COMMA_SEPRATED),]],
             optional_email: ['', [Validators.pattern(Custom_Regex.EMAIL_REGEX_COMMA_SEPRATED)]],
             phone: ['', [Validators.pattern(Custom_Regex.digitsOnly)]],
@@ -236,6 +238,7 @@ export class ViewEditLenderComponent implements OnInit {
             name: this.lenderDetails.name,
             type: this.lenderDetails.type === 'Velocity' ? 1 : 0,
             email: this.lenderDetails.email,
+            tier:this.lenderDetails.tier,
             optional_email: this.lenderDetails.optional_email,
             phone: this.lenderDetails.phone,
             contact_person: this.lenderDetails.contact_person,

@@ -24,6 +24,7 @@ export class CreateLenderComponent implements OnInit {
     loading = false;
     background!: { background: string; };
     colorSubs!: Subscription;
+    companyType:string=''
 
     constructor(
         private fb: FormBuilder,
@@ -46,7 +47,7 @@ export class CreateLenderComponent implements OnInit {
         try {
             let ud = this.authService.getUserDetails();
             if (ud) {
-
+                this.companyType = ud?.company_type
                 this.getColorOnUpdate();
                 //     this.style={fill:ud?.color};
                 //  this.color=ud?.color;
@@ -92,6 +93,7 @@ export class CreateLenderComponent implements OnInit {
             ]],
             // Validators.pattern(Custom_Regex.lettersOnly), 
             type: [''],
+            tier: [''],
             email: ['', [Validators.required, Validators.pattern(Custom_Regex.EMAIL_REGEX_COMMA_SEPRATED)]],
             optional_email: ['', [Validators.pattern(Custom_Regex.EMAIL_REGEX_COMMA_SEPRATED)]],
             phone: ['', [Validators.pattern(Custom_Regex.digitsOnly)]],

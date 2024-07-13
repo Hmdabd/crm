@@ -8,7 +8,6 @@ import * as Constants from '@constants/constants';
 import { Roles } from '@constants/constants';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { DataService } from '@services/data.service';
 
 
 @Component({
@@ -39,94 +38,47 @@ export class DashboardCardsComponent implements OnInit {
     // viewcontractInCount: boolean = false;
     backgroundCardsColor: string = '#FFE9EA'
     canViewDashboard: boolean = false;
-    selectedUserId: number | undefined;
-    selectedTeamId?: number | undefined;
-    leadSourceId?: number | undefined;
-    statesId?: number | undefined;
+
     constructor(
         private authService: AuthService,
         private commonService: CommonService,
         private apiService: ApiService,
         private ngxLoader: NgxUiLoaderService,
-        private router: Router,private dataService: DataService) { }
+        private router: Router) { }
 
-        ngOnInit(): void {
-            this.getUserDetails();
-            this.canListLead = this.authService.hasPermission('lead-list');
-            this.getDashboardData();
-            this.canViewDashboard = this.authService.hasPermission('manage-cards');
-        // filter user 
-            this.dataService.searchData$.subscribe(({ selectedUserId }) => {
-                console.log('Selected user ID in Dash-cards:', selectedUserId);
-                this.getDashboardData(selectedUserId);
-            });
-        
-            this.dataService.searchTeamData$.subscribe(({ selectedTeamId }) => {
-                console.log('Selected Team ID in Dash-cards:', selectedTeamId);
-                this.getDashboardData(undefined, selectedTeamId); 
-            });
-            
-            this.dataService.leadSourceData$.subscribe(({ leadSourceId }) => {
-                console.log('Selected lead source ID in Dash-cards:', leadSourceId);
-                this.getDashboardData(undefined, undefined,leadSourceId); 
-            });
+    ngOnInit(): void {
+        this.getUserDetails();
+        this.canListLead = this.authService.hasPermission('lead-list');
+        this.getDashboardData();
+        this.canViewDashboard = this.authService.hasPermission('manage-cards');
+    }
 
-            this.dataService.statesData$.subscribe(({ statesId }) => {
-                console.log('Selected state ID in Dash-cards:', statesId);
-                this.getDashboardData(undefined, undefined,statesId); 
-            });
-        }
-        
-        async getDashboardData(selectedUserId?: number, selectedTeamId?: number, leadSourceId?:number, statesId?:number): Promise<any> {
-            try {
-                this.ngxLoader.startLoader('dashboard-loader');
-                this.commonService.showSpinner();
-        
-                let apiUrl = API_PATH.DASHBOARD;
-                const queryParams = [];
-        
-                if (selectedUserId !== undefined && selectedUserId !== null) {
-                    queryParams.push(`user_id=${selectedUserId}`);
-                }
-                if (selectedTeamId !== undefined && selectedTeamId !== null) {
-                    queryParams.push(`team_id=${selectedTeamId}`);
-                }
-                if (leadSourceId !== undefined && leadSourceId !== null) {
-                    queryParams.push(`lead_source_id=${leadSourceId}`);
-                }
 
-                if (statesId !== undefined && statesId !== null) {
-                    queryParams.push(`state=${statesId}`);
-                }
-        
-                if (queryParams.length) {
-                    apiUrl += '?' + queryParams.join('&');
-                }
-        
-                const res$ = this.apiService.getReq(apiUrl, '', '');
-                let response = await lastValueFrom(res$);
-        
-                if (response && response.data) {
-                    this.getResponse = false;
-                    this.dashboardData = response.data;
-                    console.log("DashboardData", this.dashboardData);
-                }
-        
-                this.commonService.hideSpinner();
-                this.ngxLoader.stopLoader('dashboard-loader');
-        
-            } catch (error: any) {
-                this.commonService.hideSpinner();
-                this.ngxLoader.stopLoader('dashboard-loader');
-        
-                if (error.error && error.error.message) {
-                    this.commonService.showError(error.error.message);
-                } else {
-                    this.commonService.showError(error.message);
-                }
+    async getDashboardData(): Promise<any> {
+        try {
+            this.ngxLoader.startLoader('dashboard-loader');
+            this.commonService.showSpinner();
+            const res$ = this.apiService.getReq(API_PATH.DASHBOARD, '', '');
+            let response = await lastValueFrom(res$);
+            if (response && response.data) {
+                this.getResponse = false;
+                this.dashboardData = response.data;
+
+
+
+            }
+            this.commonService.hideSpinner();
+            this.ngxLoader.stopLoader('dashboard-loader');
+        } catch (error: any) {
+            this.commonService.hideSpinner();
+            this.ngxLoader.stopLoader('dashboard-loader');
+            if (error.error && error.error.message) {
+                this.commonService.showError(error.error.message);
+            } else {
+                this.commonService.showError(error.message);
             }
         }
-        
+    }
     getColorOnUpdate() {
         this.colorSubs = this.authService.getColor().subscribe((u) => {
             this.getUserDetails();

@@ -50,24 +50,37 @@
                                     <img src="assets/images/drop-down.svg" alt="" />
                                 </span> -->
                                 <div class="sheet-btn" *ngIf="companyType == 'broker'">
-                                     <a *ngIf="isAllowedFCSsheet && getFCSurl != ''" [ngStyle]="background" [href]="getFCSurl" target="_blank"   class="theme-btn" [ngClass]="{'cursor':isAllowedFCSsheet}">
-                                        <span class="btn-icon" >
-                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6.49881 9.74947C6.39188 9.75009 6.28588 9.7296 6.18688 9.68916C6.08789 9.64873 5.99785 9.58915 5.92193 9.51385L2.67193 6.26385C2.53882 6.10842 2.46927 5.90848 2.47717 5.70399C2.48507 5.49951 2.56984 5.30553 2.71454 5.16083C2.85924 5.01613 3.05322 4.93136 3.2577 4.92346C3.46219 4.91556 3.66213 4.98511 3.81756 5.11822L6.49881 7.79135L9.17193 5.11822C9.32737 4.98511 9.5273 4.91556 9.73179 4.92346C9.93628 4.93136 10.1303 5.01613 10.275 5.16083C10.4197 5.30553 10.5044 5.49951 10.5123 5.70399C10.5202 5.90848 10.4507 6.10842 10.3176 6.26385L7.06756 9.51385C6.91622 9.66395 6.71196 9.74858 6.49881 9.74947Z" fill="white"/>
-                                                <path d="M6.5 9.75C6.28451 9.75 6.07785 9.6644 5.92548 9.51202C5.7731 9.35965 5.6875 9.15299 5.6875 8.9375V0.8125C5.6875 0.597012 5.7731 0.390349 5.92548 0.237976C6.07785 0.0856026 6.28451 0 6.5 0C6.71549 0 6.92215 0.0856026 7.07452 0.237976C7.2269 0.390349 7.3125 0.597012 7.3125 0.8125V8.9375C7.3125 9.15299 7.2269 9.35965 7.07452 9.51202C6.92215 9.6644 6.71549 9.75 6.5 9.75ZM12.1875 13H0.8125C0.597012 13 0.390349 12.9144 0.237976 12.762C0.0856026 12.6097 0 12.403 0 12.1875C0 11.972 0.0856026 11.7653 0.237976 11.613C0.390349 11.4606 0.597012 11.375 0.8125 11.375H12.1875C12.403 11.375 12.6097 11.4606 12.762 11.613C12.9144 11.7653 13 11.972 13 12.1875C13 12.403 12.9144 12.6097 12.762 12.762C12.6097 12.9144 12.403 13 12.1875 13Z" fill="white"/>
-                                            </svg>                                                        
-                                           </span>
+                                    <a *ngIf="isAllowedFCSsheet && getFCSurl != ''" [ngStyle]="background"
+                                        [href]="getFCSurl" target="_blank" class="theme-btn"
+                                        [ngClass]="{'cursor':isAllowedFCSsheet}">
+                                        <span class="btn-icon">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6.49881 9.74947C6.39188 9.75009 6.28588 9.7296 6.18688 9.68916C6.08789 9.64873 5.99785 9.58915 5.92193 9.51385L2.67193 6.26385C2.53882 6.10842 2.46927 5.90848 2.47717 5.70399C2.48507 5.49951 2.56984 5.30553 2.71454 5.16083C2.85924 5.01613 3.05322 4.93136 3.2577 4.92346C3.46219 4.91556 3.66213 4.98511 3.81756 5.11822L6.49881 7.79135L9.17193 5.11822C9.32737 4.98511 9.5273 4.91556 9.73179 4.92346C9.93628 4.93136 10.1303 5.01613 10.275 5.16083C10.4197 5.30553 10.5044 5.49951 10.5123 5.70399C10.5202 5.90848 10.4507 6.10842 10.3176 6.26385L7.06756 9.51385C6.91622 9.66395 6.71196 9.74858 6.49881 9.74947Z"
+                                                    fill="white" />
+                                                <path
+                                                    d="M6.5 9.75C6.28451 9.75 6.07785 9.6644 5.92548 9.51202C5.7731 9.35965 5.6875 9.15299 5.6875 8.9375V0.8125C5.6875 0.597012 5.7731 0.390349 5.92548 0.237976C6.07785 0.0856026 6.28451 0 6.5 0C6.71549 0 6.92215 0.0856026 7.07452 0.237976C7.2269 0.390349 7.3125 0.597012 7.3125 0.8125V8.9375C7.3125 9.15299 7.2269 9.35965 7.07452 9.51202C6.92215 9.6644 6.71549 9.75 6.5 9.75ZM12.1875 13H0.8125C0.597012 13 0.390349 12.9144 0.237976 12.762C0.0856026 12.6097 0 12.403 0 12.1875C0 11.972 0.0856026 11.7653 0.237976 11.613C0.390349 11.4606 0.597012 11.375 0.8125 11.375H12.1875C12.403 11.375 12.6097 11.4606 12.762 11.613C12.9144 11.7653 13 11.972 13 12.1875C13 12.403 12.9144 12.6097 12.762 12.762C12.6097 12.9144 12.403 13 12.1875 13Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </span>
                                         <span class="">View FCS Sheet</span>
-                                     </a>
-                                     <a *ngIf="!isAllowedFCSsheet" [ngStyle]="background" (click)="fcsSheetNotprepare()"   class="theme-btn cursor-not-allowed" >
-                                        <span class="btn-icon" >
-                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6.49881 9.74947C6.39188 9.75009 6.28588 9.7296 6.18688 9.68916C6.08789 9.64873 5.99785 9.58915 5.92193 9.51385L2.67193 6.26385C2.53882 6.10842 2.46927 5.90848 2.47717 5.70399C2.48507 5.49951 2.56984 5.30553 2.71454 5.16083C2.85924 5.01613 3.05322 4.93136 3.2577 4.92346C3.46219 4.91556 3.66213 4.98511 3.81756 5.11822L6.49881 7.79135L9.17193 5.11822C9.32737 4.98511 9.5273 4.91556 9.73179 4.92346C9.93628 4.93136 10.1303 5.01613 10.275 5.16083C10.4197 5.30553 10.5044 5.49951 10.5123 5.70399C10.5202 5.90848 10.4507 6.10842 10.3176 6.26385L7.06756 9.51385C6.91622 9.66395 6.71196 9.74858 6.49881 9.74947Z" fill="white"/>
-                                                <path d="M6.5 9.75C6.28451 9.75 6.07785 9.6644 5.92548 9.51202C5.7731 9.35965 5.6875 9.15299 5.6875 8.9375V0.8125C5.6875 0.597012 5.7731 0.390349 5.92548 0.237976C6.07785 0.0856026 6.28451 0 6.5 0C6.71549 0 6.92215 0.0856026 7.07452 0.237976C7.2269 0.390349 7.3125 0.597012 7.3125 0.8125V8.9375C7.3125 9.15299 7.2269 9.35965 7.07452 9.51202C6.92215 9.6644 6.71549 9.75 6.5 9.75ZM12.1875 13H0.8125C0.597012 13 0.390349 12.9144 0.237976 12.762C0.0856026 12.6097 0 12.403 0 12.1875C0 11.972 0.0856026 11.7653 0.237976 11.613C0.390349 11.4606 0.597012 11.375 0.8125 11.375H12.1875C12.403 11.375 12.6097 11.4606 12.762 11.613C12.9144 11.7653 13 11.972 13 12.1875C13 12.403 12.9144 12.6097 12.762 12.762C12.6097 12.9144 12.403 13 12.1875 13Z" fill="white"/>
-                                            </svg>                                                        
-                                           </span>
+                                    </a>
+                                    <a *ngIf="!isAllowedFCSsheet" [ngStyle]="background" (click)="fcsSheetNotprepare()"
+                                        class="theme-btn cursor-not-allowed">
+                                        <span class="btn-icon">
+                                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6.49881 9.74947C6.39188 9.75009 6.28588 9.7296 6.18688 9.68916C6.08789 9.64873 5.99785 9.58915 5.92193 9.51385L2.67193 6.26385C2.53882 6.10842 2.46927 5.90848 2.47717 5.70399C2.48507 5.49951 2.56984 5.30553 2.71454 5.16083C2.85924 5.01613 3.05322 4.93136 3.2577 4.92346C3.46219 4.91556 3.66213 4.98511 3.81756 5.11822L6.49881 7.79135L9.17193 5.11822C9.32737 4.98511 9.5273 4.91556 9.73179 4.92346C9.93628 4.93136 10.1303 5.01613 10.275 5.16083C10.4197 5.30553 10.5044 5.49951 10.5123 5.70399C10.5202 5.90848 10.4507 6.10842 10.3176 6.26385L7.06756 9.51385C6.91622 9.66395 6.71196 9.74858 6.49881 9.74947Z"
+                                                    fill="white" />
+                                                <path
+                                                    d="M6.5 9.75C6.28451 9.75 6.07785 9.6644 5.92548 9.51202C5.7731 9.35965 5.6875 9.15299 5.6875 8.9375V0.8125C5.6875 0.597012 5.7731 0.390349 5.92548 0.237976C6.07785 0.0856026 6.28451 0 6.5 0C6.71549 0 6.92215 0.0856026 7.07452 0.237976C7.2269 0.390349 7.3125 0.597012 7.3125 0.8125V8.9375C7.3125 9.15299 7.2269 9.35965 7.07452 9.51202C6.92215 9.6644 6.71549 9.75 6.5 9.75ZM12.1875 13H0.8125C0.597012 13 0.390349 12.9144 0.237976 12.762C0.0856026 12.6097 0 12.403 0 12.1875C0 11.972 0.0856026 11.7653 0.237976 11.613C0.390349 11.4606 0.597012 11.375 0.8125 11.375H12.1875C12.403 11.375 12.6097 11.4606 12.762 11.613C12.9144 11.7653 13 11.972 13 12.1875C13 12.403 12.9144 12.6097 12.762 12.762C12.6097 12.9144 12.403 13 12.1875 13Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </span>
                                         <span class="">View FCS Sheet</span>
-                                     </a>
+                                    </a>
                                 </div>
                             </a>
                             <!-- <div [ngStyle]="{'display': isBasicForm ? 'block': 'none'}" id="collapseTwo"
@@ -334,23 +347,33 @@
                                                 </div>
                                                 <ng-select *ngIf="lead.is_freeze == 0" [items]="lendersList"
                                                     [closeOnSelect]="false" [disabled]="false" [multiple]="true"
-                                                    bindLabel="name" [virtualScroll]="true" bindValue="id"
+                                                    bindLabel="name" [virtualScroll]="true" bindValue="id" groupBy="tier"
                                                     formControlName="lenders" placeholder="Select lenders">
+                                                    <ng-template ng-optgroup-tmp let-item="item" *ngIf="companyType == 'broker'">
+                                                        <span class="fs-6">
+
+                                                            {{ item.tier || 'Un-tierd group' }}
+                                                        </span>
+                                                    </ng-template>
                                                     <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                         let-index="index">
                                                         <div class="chkbox">
-                                                        <input id="item-{{ index }}" type="checkbox"
-                                                            [checked]="item$.selected" [value]="item.id" />
+                                                            <input id="item-{{ index }}" type="checkbox"
+                                                                [checked]="item$.selected" [value]="item.id" />
                                                             <div class="doc-outer docs-outer">
                                                                 <li class="doc-list">
                                                                     <div class="doc-list-inner">
 
-                                                        <span [ngClass]="{'font-bold':item.is_submitted}"> {{ item.name
-                                                            }} </span>
-                                                        <!-- {{ item.name }} -->
-                                                        </div>
-                                                        </li>
-                                                        </div>
+                                                                        <span
+                                                                            [ngClass]="{'font-bold':item.is_submitted}">
+                                                                            {{ item.name
+                                                                            }} </span>
+                                                                        <!-- <span *ngIf="companyType == 'broker'">{{'('+ 'submission count: '+ item.submission_count
+                                                                            + ')'}}</span> -->
+                                                                        <!-- {{ item.name }} -->
+                                                                    </div>
+                                                                </li>
+                                                            </div>
                                                         </div>
 
                                                     </ng-template>
@@ -411,10 +434,10 @@
                                                     </div>
                                                 </div>
                                                 <ng-select *ngIf="lead.is_freeze == 0" [items]="docsList"
-                                                (change)="getDocumentValue()"   [closeOnSelect]="false" [multiple]="true" [disabled]="false"
-                                                    bindLabel="document_name" [virtualScroll]="true"
-                                                    bindValue="document_id" formControlName="documents"
-                                                    placeholder="Select documents">
+                                                    (change)="getDocumentValue()" [closeOnSelect]="false"
+                                                    [multiple]="true" [disabled]="false" bindLabel="document_name"
+                                                    [virtualScroll]="true" bindValue="document_id"
+                                                    formControlName="documents" placeholder="Select documents">
                                                     <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                         let-index="index">
                                                         <div class="chkbox">
@@ -442,11 +465,12 @@
                                                                     </div> -->
                                                                         <div class="file-content">
                                                                             <p class="file-text">
-                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note ? '('+ item.note + ')' : ''}}
+                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note
+                                                                                ? '('+ item.note + ')' : ''}}
                                                                             </p>
                                                                         </div>
                                                                         <div class="kb-text">{{ item.document_size |
-                                                                        filesize }}</div>
+                                                                            filesize }}</div>
                                                                     </div>
                                                                 </li>
                                                             </div>
@@ -488,7 +512,8 @@
                                                                 </div> -->
                                                                         <div class="file-content">
                                                                             <p class="file-text">
-                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note ? '('+ item.note + ')' : ''}}
+                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note
+                                                                                ? '('+ item.note + ')' : ''}}
                                                                             </p>
                                                                             <!-- <span class="kb-text">{{ item.document_size |
                                                                         filesize }}</span> -->
@@ -545,24 +570,24 @@
                                                     <div class="custom-form-select-box">
                                                         <!-- (change)="getshowAllDocuments($event)" -->
                                                         <div class="form-group">
-                                                            <input *ngIf="lead.is_freeze == 0"
-                                                            type="checkbox"
-                                                            [ngStyle]="{'background-color':selectBox?color:'','border-color':selectBox?color:''}"
-                                                            [checked]="selectBox"
-                                                            (change)="getAllDocSelected($event)"
-                                                            class="form-check-input cursor-pointer selectAll"
-                                                            id="check2" name="option1" value="something">
+                                                            <input *ngIf="lead.is_freeze == 0" type="checkbox"
+                                                                [ngStyle]="{'background-color':selectBox?color:'','border-color':selectBox?color:''}"
+                                                                [checked]="selectBox"
+                                                                (change)="getAllDocSelected($event)"
+                                                                class="form-check-input cursor-pointer selectAll"
+                                                                id="check2" name="option1" value="something">
                                                             <input *ngIf="lead.is_freeze != 0" onclick="return false;"
-                                                            type="checkbox"
-                                                            [ngStyle]="{'background-color':selectBox?color:'','border-color':selectBox?color:''}"
-                                                            class="form-check-input cursor-pointer selectAll"
-                                                            id="check2" name="option1" value="something">
+                                                                type="checkbox"
+                                                                [ngStyle]="{'background-color':selectBox?color:'','border-color':selectBox?color:''}"
+                                                                class="form-check-input cursor-pointer selectAll"
+                                                                id="check2" name="option1" value="something">
                                                             <label class="form-check-label cursor-pointer"
-                                                            for="check2">Select All</label>
+                                                                for="check2">Select All</label>
                                                         </div>
                                                         <div class="form-group mb-2">
                                                             <div class="">
-                                                                <input *ngIf="lead.is_freeze != 0" onclick="return false;"
+                                                                <input *ngIf="lead.is_freeze != 0"
+                                                                    onclick="return false;"
                                                                     [ngStyle]="{'background-color':documentcheckbox?color:'', 'border-color':documentcheckbox?color:''}"
                                                                     type="checkbox"
                                                                     class="form-check-input cursor-not-allowed showall"
@@ -570,25 +595,27 @@
 
                                                                 <input *ngIf="lead.is_freeze == 0"
                                                                     [ngStyle]="{'background-color':documentcheckbox?color:'', 'border-color':documentcheckbox?color:''}"
-                                                                    (change)="getshowAllDocuments($event)" type="checkbox"
+                                                                    (change)="getshowAllDocuments($event)"
+                                                                    type="checkbox"
                                                                     class="form-check-input cursor-pointer showall"
                                                                     id="check1" name="option1" value="something">
                                                                 <label class="form-check-label cursor-pointer"
                                                                     for="check1">Show All</label>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                     <span *ngIf="!documentcheckbox"
                                                         class="accordion-head-title">Documents:(Last 90 Days)</span>
                                                     <span *ngIf="documentcheckbox"
-                                                        class="accordion-head-title">Documents:</span>                                                   
+                                                        class="accordion-head-title">Documents:</span>
                                                 </div>
-                                                <ng-select *ngIf="lead.is_freeze == 0" [items]="docsList" 
-                                                (change)="getDocumentValue()"  [closeOnSelect]="false" [isOpen]="true"  [dropdownPosition]="'bottom'"  [multiple]="true" [disabled]="false"
-                                                    bindLabel="document_name" [virtualScroll]="true"
+                                                <ng-select *ngIf="lead.is_freeze == 0" [items]="docsList"
+                                                    (change)="getDocumentValue()" [closeOnSelect]="false"
+                                                    [isOpen]="true" [dropdownPosition]="'bottom'" [multiple]="true"
+                                                    [disabled]="false" bindLabel="document_name" [virtualScroll]="true"
                                                     bindValue="document_id" formControlName="documents"
-                                                    placeholder="Select documents" (click)="getAllDocsStatus($event)" >
+                                                    placeholder="Select documents" (click)="getAllDocsStatus($event)">
                                                     <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                         let-index="index">
                                                         <div class="chkbox">
@@ -616,11 +643,12 @@
                                                                     </div> -->
                                                                         <div class="file-content">
                                                                             <p class="file-text">
-                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note ? '('+ item.note + ')' : ''}}
+                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note
+                                                                                ? '('+ item.note + ')' : ''}}
                                                                             </p>
                                                                         </div>
                                                                         <div class="kb-text">{{ item.document_size |
-                                                                        filesize }}</div>
+                                                                            filesize }}</div>
                                                                     </div>
                                                                 </li>
                                                             </div>
@@ -631,7 +659,7 @@
 
                                                 </ng-select>
                                                 <ng-select [items]="docsList" *ngIf="lead.is_freeze != 0"
-                                                    [closeOnSelect]="false"   [multiple]="true" [disabled]="true"
+                                                    [closeOnSelect]="false" [multiple]="true" [disabled]="true"
                                                     bindLabel="document_name" [virtualScroll]="true"
                                                     bindValue="document_id" formControlName="documents"
                                                     placeholder="Select documents">
@@ -662,7 +690,8 @@
                                                                 </div> -->
                                                                         <div class="file-content">
                                                                             <p class="file-text">
-                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note ? '('+ item.note + ')' : ''}}
+                                                                                {{getChangeDocName(item.document_type)}}({{item.document_name}}){{item.note
+                                                                                ? '('+ item.note + ')' : ''}}
                                                                             </p>
                                                                             <!-- <span class="kb-text">{{ item.document_size |
                                                                         filesize }}</span> -->
@@ -763,7 +792,8 @@
                                         <div class="col-3">
                                             <div class="custom-notes">
                                                 <div class="list-title">
-                                                    <span class="accordion-head-title">{{companyType == 'broker' ? 'Submission Notes:' : 'Custom Notes (Optional):'}}</span>
+                                                    <span class="accordion-head-title">{{companyType == 'broker' ?
+                                                        'Submission Notes:' : 'Custom Notes (Optional):'}}</span>
                                                 </div>
                                                 <div class="doc-outer mb-2">
                                                     <div class="optional-textarea">
@@ -774,21 +804,23 @@
                                                     <div class="invalid-input"
                                                         *ngIf="l.custom_note.errors && l.custom_note.touched">
                                                         <div *ngIf="l.custom_note.errors.pattern">
-                                                            Invalid {{companyType == 'broker' ? 'submission notes' : 'custom notes'}}
+                                                            Invalid {{companyType == 'broker' ? 'submission notes' :
+                                                            'custom notes'}}
                                                         </div>
                                                         <div *ngIf="l.custom_note.errors.maxlength">
                                                             Maximum 1000 characters allowed
                                                         </div>
                                                         <div *ngIf="l.custom_note.errors.minlength">
-                                                            {{companyType == 'broker' ? 'Submission notes' : 'Custom notes'}} must be minimum 3 characters long
+                                                            {{companyType == 'broker' ? 'Submission notes' : 'Custom
+                                                            notes'}} must be minimum 3 characters long
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- FCS Detail table -->
-                                                
-                                                
-                                          
-                                                
+
+
+
+
                                                 <!--  *** -->
                                                 <!-- <div class="custom-dropdown">
                                                     <div class="list-title">
@@ -824,7 +856,7 @@
                                             </div>
 
                                             <div>
-                                                <div  [ngClass]="{'custom-accordion': companyType == 'broker'}">
+                                                <div [ngClass]="{'custom-accordion': companyType == 'broker'}">
                                                     <ngb-accordion #sendSubmiision="ngbAccordion"
                                                         [activeIds]="'SendSubmission'" *ngIf="lendersList.length">
                                                         <ngb-panel id="SendSubmission">
@@ -835,7 +867,8 @@
                                                                         Deals</span>
                                                                     <div>
                                                                         <span class="accordion-head-icon">
-                                                                            <img src="assets/images/drop-down.svg" alt="" />
+                                                                            <img src="assets/images/drop-down.svg"
+                                                                                alt="" />
                                                                         </span>
                                                                     </div>
                                                                 </a>
@@ -872,7 +905,8 @@
                                                                                         name="ajax_category" value=""
                                                                                         [ngStyle]="{'background-color':lender.toggle || checkBoxColor?color:'','border-color':lender.toggle || checkBoxColor?color:''}"> -->
                                                                                         <!--  -->
-                                                                                        <label class="custom-control-label"
+                                                                                        <label
+                                                                                            class="custom-control-label"
                                                                                             [ngClass]="{'font-green': lender.other_confirmation === 1  && lender.status == 1, 'font-red': lender.other_confirmation === 2  && lender.status == 3}">{{lender.name}}</label>
                                                                                     </div>
                                                                                     <!-- <div class="cstm-icon" *ngIf="lender.status">
@@ -908,7 +942,8 @@
                                                                             </div>
                                                                             <div *ngIf="!submittedlendersList.length"
                                                                                 class="summery-inner-box">
-                                                                                <p class="text-center">No records found</p>
+                                                                                <p class="text-center">No records found
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -925,12 +960,13 @@
 
                                     </div>
 
-                                    <div class="detail-listing tab-table-list small-scroll-table" *ngIf="companyType == 'broker'">
+                                    <div class="detail-listing tab-table-list small-scroll-table"
+                                        *ngIf="companyType == 'broker'">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">
-                                                        
+
                                                     </th>
                                                     <th scope="col">
                                                         <p class="lead-title">Bank</p>
@@ -960,14 +996,14 @@
                                                         <p class="lead-title">Ending Balance</p>
                                                     </th>
                                                 </tr>
-                                                
+
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let bank of fcsDetailList?.bank_data; let i = index;">
                                                     <td>
                                                         <!-- i === 0  -->
                                                         {{bank.type }}
-                                                       <!-- {{ i%2 == 0? 'Total': 'Average'}} -->
+                                                        <!-- {{ i%2 == 0? 'Total': 'Average'}} -->
                                                     </td>
                                                     <td>
                                                         {{bank.bank_title }}
@@ -976,13 +1012,14 @@
                                                         {{bank.monthly | currency }}
                                                     </td>
                                                     <td>
-                                                        {{getAdjustment(bank.monthly, bank.monthly_true_revenue) | currency}}
+                                                        {{getAdjustment(bank.monthly, bank.monthly_true_revenue) |
+                                                        currency}}
                                                     </td>
                                                     <td>
-                                                        {{bank.monthly_true_revenue  | currency }}
+                                                        {{bank.monthly_true_revenue | currency }}
                                                     </td>
                                                     <td>
-                                                        {{bank.average_daily  | currency  }}
+                                                        {{bank.average_daily | currency }}
                                                     </td>
                                                     <td>
                                                         {{bank.nsf ? bank.nsf.toFixed(2): bank.nsf }}
@@ -991,10 +1028,11 @@
                                                         {{bank.neg_days ? bank.neg_days.toFixed(2): bank.neg_days }}
                                                     </td>
                                                     <td>
-                                                        {{bank.hash_of_deposit ? bank.hash_of_deposit.toFixed(2): bank.hash_of_deposit }}
+                                                        {{bank.hash_of_deposit ? bank.hash_of_deposit.toFixed(2):
+                                                        bank.hash_of_deposit }}
                                                     </td>
                                                     <td>
-                                                         {{bank.ending_balance | currency }}
+                                                        {{bank.ending_balance | currency }}
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="!fcsDetailList?.bank_data.length">
@@ -1010,14 +1048,14 @@
                                         <div class="heading-title">
                                             <p class="lead-title">Active Lenders</p>
                                         </div>
-                                    <div class="detail-listing tab-table-list active-lander-table">
-                                        <!-- <div class="heading-title">
+                                        <div class="detail-listing tab-table-list active-lander-table">
+                                            <!-- <div class="heading-title">
                                             <p class="lead-title">Active lenders</p>
                                         </div> -->
-                                        <table class="table">
-                                            <thead>
-                                                <tr >
-                                                    <!-- <th scope="col" class="check-box">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <!-- <th scope="col" class="check-box">
                                                      <div class="form-check">
                                                             <input #selectAll (change)="onCheckingAll($event.target)" type="checkbox"
                                                                 class="form-check-input cursor-pointer" id="check1" name="option1"
@@ -1025,55 +1063,56 @@
                                                                 [ngStyle]="{'background-color':boo?color:'','border-color':boo?color:''}" />
                                                         </div> 
                                                     </th> -->
-                                                    <th scope="col">
-                                                        <p class="lead-title">Lender Name</p>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <p class="lead-title">Funded Date</p>
-                                                    </th>
-                                                    <!-- <th scope="col" >
+                                                        <th scope="col">
+                                                            <p class="lead-title">Lender Name</p>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <p class="lead-title">Funded Date</p>
+                                                        </th>
+                                                        <!-- <th scope="col" >
                                                         <p class="lead-title">Daily Payment($)</p>
                                                     </th> -->
-                                                    <th scope="col" >
-                                                        <p class="lead-title">Payment Type($)</p>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <p class="lead-title">Balance($)</p>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <p class="lead-title">Withholding %</p>
-                                                    </th>
-                                                </tr>
-                                                
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let lender of activelenderList; let i = index;">
-                                                    <!-- <td class="check-box">   <div class="form-check">
+                                                        <th scope="col">
+                                                            <p class="lead-title">Payment Type($)</p>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <p class="lead-title">Balance($)</p>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <p class="lead-title">Withholding %</p>
+                                                        </th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let lender of activelenderList; let i = index;">
+                                                        <!-- <td class="check-box">   <div class="form-check">
                                                        <input #inputBox (change)="onLenderChange(lender.id, $event.target,i)"
                                                            (click)="$event.stopPropagation()" type="checkbox"
                                                            class="form-check-input cursor-pointer" [(checked)]="lender.status"
                                                            [ngStyle]="{'background-color':lender.status == 1?color:'','border-color':lender.status == 1?color:''}" />
                                                        </div></td> -->
-                                                   <td> 
-                                                       {{lender.name }}
-                                                   </td>
-                                                   <td>
-                                                       {{ getDateLender(lender.funded_date) }}
-                                                   </td>
-                                                   <td *ngIf="companyType == 'broker'">
-                                                       {{lender.daily_payments | currency}} ({{lender.payment_status?'Weekly':'Daily'}})
-                                                   </td>
-                                                   <td>
-                                                       {{lender.balance  | currency }}
-                                                   </td>
-                                                   <td>{{ lender.with_hold}} %</td>
-                                                </tr>
-                                                <tr *ngIf="!fcsDetailList?.lender.length">
-                                                    <td colspan="5" class="text-center">No Records Found</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                        <td>
+                                                            {{lender.name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ getDateLender(lender.funded_date) }}
+                                                        </td>
+                                                        <td *ngIf="companyType == 'broker'">
+                                                            {{lender.daily_payments | currency}}
+                                                            ({{lender.payment_status?'Weekly':'Daily'}})
+                                                        </td>
+                                                        <td>
+                                                            {{lender.balance | currency }}
+                                                        </td>
+                                                        <td>{{ lender.with_hold}} %</td>
+                                                    </tr>
+                                                    <tr *ngIf="!fcsDetailList?.lender.length">
+                                                        <td colspan="5" class="text-center">No Records Found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </ng-container>

@@ -106,6 +106,8 @@ import { PayrollSettingsAdminComponent } from '@components/payroll-settings-admi
 import { PayrollListAdminComponent } from '@components/payroll-list-admin/payroll-list-admin.component';
 import { ContractSettingsComponent } from '@components/contract-settings/contract-settings.component';
 import { ManageCompanyPermissionsComponent } from '@components/manage-company-permissions/manage-company-permissions.component';
+import { ReportPowerBiComponent } from '@components/report-power-bi/report-power-bi.component';
+import { PowerBiLinksComponent } from '@components/power-bi-links/power-bi-links.component';
 
 const routes: Routes = [
   {
@@ -381,8 +383,20 @@ const routes: Routes = [
         data: { role: Roles.ADMINISTRATOR, permission: 'lender-owe-report' },
       },
       {
+        path: 'reports/power-bi',
+        component: ReportPowerBiComponent,
+        canActivate: [HasPermission],
+        data: { role: Roles.COMPANY },
+      },
+      {
         path: 'reports/email-logs-reports',
         component: EmailLogsReportComponent,
+        canActivate: [HasPermission],
+        data: { role: Roles.ADMINISTRATOR },
+      },
+      {
+        path: 'power-bi-links',
+        component:PowerBiLinksComponent,
         canActivate: [HasPermission],
         data: { role: Roles.ADMINISTRATOR },
       },

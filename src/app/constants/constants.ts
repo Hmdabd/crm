@@ -36,7 +36,14 @@ export const companyType = {
     funding:'funded',
     broker:'broker'
 }
-
+ export const powerBIUser = {
+    COMPANY:'company',
+    SALES:'sales',
+    SUBMITTER:'submitter',
+    UNDERWRITER:'underwriter',
+    BRANCHMANGER:'branchMgnr',
+    CUSTOM:'custom'
+ }
 export const Mask = {
     phone: '(000) 000-0000',
     ssn: '000-00-0000',
